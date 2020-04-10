@@ -1,7 +1,7 @@
 import React, {useRef} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import {Paper} from "@material-ui/core";
-import useFullHeight from "../../utils/use-full-height";
+import useFullHeight from "../../../utils/use-full-height";
 
 const useStyles = makeStyles((theme) => ({
     root: {

@@ -3,7 +3,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import {Box, Divider, Grid, TextField, Typography} from "@material-ui/core";
 import FormButton from "../commons/form-button";
 import {Link} from "react-router-dom";
-import LoginCommon from "./login-common";
+import LoginCommon from "./commons/login-common";
 
 const useStyles = makeStyles((theme) => ({
     textField: {

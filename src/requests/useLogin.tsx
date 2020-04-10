@@ -1,10 +1,13 @@
 import {useState} from "react";
 import urls from "./urls";
+import {useHistory, useLocation} from "react-router-dom";
 
 const useLogin = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    let history = useHistory();
+    let location = useLocation();
 
     const login = (
         email: string,
@@ -42,7 +45,10 @@ const useLogin = () => {
                     setError(true);
                     setErrorMessage(json.message)
                 } else {
-                    console.log(json)
+                    console.log(json);
+
+                    let { from }: any = location.state || { from: { pathname: "/" } };
+                    history.replace(from);
                 }
             })
             .catch(e => {
@@ -51,8 +57,6 @@ const useLogin = () => {
                 setError(true);
                 setErrorMessage('Server unavailable, please try again later.')
             });
-
-        console.log('log in')
     };
 
     return [loading, error, errorMessage, login] as [boolean, boolean, string, typeof login]

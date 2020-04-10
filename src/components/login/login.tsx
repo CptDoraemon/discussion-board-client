@@ -1,12 +1,13 @@
 import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
-import LoginCommon from "./login-common";
+import LoginCommon from "./commons/login-common";
 import {Box, CircularProgress, Divider, Grid, TextField, Typography} from "@material-ui/core";
 import FormButton from "../commons/form-button";
 import {Link} from "react-router-dom";
 import useInputField from "../../utils/use-input-field";
 import {emailValidator, passwordValidator} from "../../utils/validators";
 import useLogin from "../../requests/useLogin";
+import ErrorMessage from "./commons/error-message";
 
 const useStyles = makeStyles((theme) => ({
     textField: {
@@ -24,10 +25,6 @@ const useStyles = makeStyles((theme) => ({
         '& a:hover': {
             color: theme.palette.secondary.main
         }
-    },
-    errorMessage: {
-        fontWeight: 700,
-        color: theme.palette.error.main
     }
 }));
 
@@ -49,6 +46,7 @@ const Login: React.FC<LoginProps> = () => {
     return (
         <LoginCommon imageUrl={'/images/login_bg.jpg'}>
             <Grid container spacing={3}>
+
                 <Grid item xs={12}>
                     <Typography variant={'h1'} component={'h1'} color={"textPrimary"}>
                         <Box textAlign={'center'}>
@@ -56,6 +54,7 @@ const Login: React.FC<LoginProps> = () => {
                         </Box>
                     </Typography>
                 </Grid>
+
                 <Grid item xs={12}>
                     <Grid container justify={'center'}>
                         <TextField
@@ -70,6 +69,7 @@ const Login: React.FC<LoginProps> = () => {
                         />
                     </Grid>
                 </Grid>
+
                 <Grid item xs={12}>
                     <Grid container justify={'center'}>
                         <TextField
@@ -84,29 +84,23 @@ const Login: React.FC<LoginProps> = () => {
                         />
                     </Grid>
                 </Grid>
+
                 <Grid item xs={12}>
                     <Grid container justify={'center'}>
                         <FormButton text={'Log me in!'} onClick={submitHandler} disabled={loading}/>
                     </Grid>
                 </Grid>
+
                 <Grid item xs={12}>
                     <Grid container justify={'center'}>
-                        <Typography variant={'body1'} component={'div'}>
-                            <Box className={classes.errorMessage} height={40}>
-                                {   loading ?
-                                        <CircularProgress color="primary" /> :
-                                        error && errorMessage ?
-                                            errorMessage :
-                                            ' '
-                                }
-                            </Box>
-                        </Typography>
+                        <ErrorMessage loading={loading} error={error} errorMessage={errorMessage}/>
                     </Grid>
                 </Grid>
 
                 <Grid item xs={12}>
                     <Divider />
                 </Grid>
+
                 <Grid item xs={12} className={classes.link}>
                     <Grid container justify={'center'}>
                         <Link to={'/register'}>

@@ -43,7 +43,7 @@ const App: React.FC = () => {
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <div className={classes.root}>
-                <Router>
+                <Router basename={process.env.PUBLIC_URL}>
                 <Header />
                     <div className={classes.widthWrapper}>
                         <Switch>
