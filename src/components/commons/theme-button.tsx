@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
         letterSpacing: 'inherit',
         borderBottom: '2px solid rgba(0,0,0,0.1)',
         borderRadius: '5px',
-        margin: '0 4px',
+        // margin: '0 4px',
         padding: '4px 10px',
         '&:hover': {
             backgroundColor: theme.palette.secondary.main
@@ -22,17 +22,26 @@ const useStyles = makeStyles((theme) => ({
 
 interface ButtonProps {
     text: string,
-    url: string
+    url?: string,
+    onClick?: () => void
 }
 
-const ThemeButton: React.FC<ButtonProps> = ({text, url}) => {
+const ThemeButton: React.FC<ButtonProps> = ({text, url, onClick}) => {
     const classes = useStyles();
 
-    return (
-        <MuiButton variant="contained" classes={{root: classes.button}} disableElevation component={Link} to={url}>
-            { text }
-        </MuiButton>
-    )
+    if (url) {
+        return (
+            <MuiButton variant="contained" classes={{root: classes.button}} disableElevation component={Link} to={url}>
+                { text }
+            </MuiButton>
+        )
+    } else {
+        return (
+            <MuiButton variant="contained" classes={{root: classes.button}} disableElevation onClick={onClick}>
+                { text }
+            </MuiButton>
+        )
+    }
 };
 
 export default ThemeButton

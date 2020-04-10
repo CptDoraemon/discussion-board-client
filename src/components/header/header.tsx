@@ -1,8 +1,16 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 import {Box, Grid, Typography} from "@material-ui/core";
 import ThemeButton from "../commons/theme-button";
 import {Link} from "react-router-dom";
+import LoggedInUserPanel from "./logged-in-user-panel";
+import AnonymousUserPanel from "./anonymous-user-panel";
+
+interface HeaderProps {
+    isLogin: boolean,
+    username: string,
+    logout: () => void
+}
 
 const useStyles = makeStyles((theme) => ({
     headerDimension: {
@@ -31,13 +39,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const Header: React.FC = () => {
+const Header: React.FC<HeaderProps> = ({isLogin, username, logout}) => {
     const classes = useStyles();
 
     return (
         <div className={`${classes.placeholder} ${classes.headerDimension}`}>
             <Grid container alignItems={"center"} justify={"center"} className={`${classes.root} ${classes.headerDimension}`}>
-                <Grid item xs={4}>
+                <Grid item xs={6} md={4}>
                     <Link to={'/'}>
                         <Typography variant={'h1'} component={'h1'}>
                             <Box fontWeight={700} textAlign={"center"}>
@@ -46,12 +54,15 @@ const Header: React.FC = () => {
                         </Typography>
                     </Link>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={1} md={4}>
 
                 </Grid>
-                <Grid item xs={4}>
-                    <ThemeButton text={'Join'} url={'/register'}/>
-                    <ThemeButton text={'Login'} url={'/login'}/>
+                <Grid item xs={5} md={4}>
+                    {
+                        isLogin ?
+                            <LoggedInUserPanel logout={logout} username={username}/> :
+                            <AnonymousUserPanel />
+                    }
                 </Grid>
             </Grid>
         </div>

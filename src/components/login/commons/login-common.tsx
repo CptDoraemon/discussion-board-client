@@ -6,7 +6,7 @@ import useFullHeight from "../../../utils/use-full-height";
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
-        margin: theme.spacing(5, 0),
+        margin: theme.spacing(10, 0),
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',

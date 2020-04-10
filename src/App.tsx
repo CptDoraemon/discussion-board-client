@@ -2,11 +2,10 @@ import React from 'react';
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
-    Link,
-    useRouteMatch,
-    useParams
+    Route
 } from "react-router-dom";
+import { Provider } from 'react-redux';
+import configureStore from "./redux/configure-store";
 import { CssBaseline } from "@material-ui/core";
 import {makeStyles, ThemeProvider} from '@material-ui/core/styles';
 import theme from './theme';
@@ -14,6 +13,9 @@ import Header from "./components/header/header";
 import PostList from "./components/post-list/post-list";
 import Login from "./components/login/login";
 import Register from "./components/login/register";
+import HeaderContainer from "./containers/header-container";
+
+const store = configureStore();
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -36,15 +38,16 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-
 const App: React.FC = () => {
     const classes = useStyles();
+
     return (
+        <Provider store={store}>
         <ThemeProvider theme={theme}>
-            <CssBaseline />
+        <CssBaseline />
             <div className={classes.root}>
                 <Router basename={process.env.PUBLIC_URL}>
-                <Header />
+                <HeaderContainer />
                     <div className={classes.widthWrapper}>
                         <Switch>
                             <Route path="/" exact render={ () => <PostList /> } />
@@ -55,6 +58,7 @@ const App: React.FC = () => {
                 </Router>
             </div>
         </ThemeProvider>
+        </Provider>
     )
 };
 

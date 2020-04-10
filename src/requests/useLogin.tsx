@@ -1,11 +1,14 @@
 import {useState} from "react";
 import urls from "./urls";
 import {useHistory, useLocation} from "react-router-dom";
+import { useDispatch } from 'react-redux'
+import { updateLoginStatus } from "../redux/actions/login-status";
 
 const useLogin = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const dispatch = useDispatch();
     let history = useHistory();
     let location = useLocation();
 
@@ -47,6 +50,10 @@ const useLogin = () => {
                 } else {
                     console.log(json);
 
+                    dispatch(updateLoginStatus({
+                        isLogin: true,
+                        username: json.data.username
+                    }));
                     let { from }: any = location.state || { from: { pathname: "/" } };
                     history.replace(from);
                 }
