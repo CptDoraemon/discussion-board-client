@@ -1,7 +1,7 @@
 import React from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 import {Box, Grid, Typography} from "@material-ui/core";
-import Button from "./button";
+import ThemeButton from "../commons/theme-button";
 import {Link} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -50,8 +50,8 @@ const Header: React.FC = () => {
 
                 </Grid>
                 <Grid item xs={4}>
-                    <Button text={'Join'} url={'/register'}/>
-                    <Button text={'Login'} url={'/login'}/>
+                    <ThemeButton text={'Join'} url={'/register'}/>
+                    <ThemeButton text={'Login'} url={'/login'}/>
                 </Grid>
             </Grid>
         </div>

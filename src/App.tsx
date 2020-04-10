@@ -29,7 +29,10 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'flex-start'
+        justifyContent: 'flex-start',
+        [theme.breakpoints.down('sm')]: {
+            width: '100%',
+        }
     }
 }));
 
