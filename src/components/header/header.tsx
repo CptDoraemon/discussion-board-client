@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
         backgroundColor: theme.palette.primary.main,
         position: 'fixed',
+        zIndex: theme.zIndex.appBar,
         left: 0,
         top: 0,
         color: theme.palette.primary.contrastText
