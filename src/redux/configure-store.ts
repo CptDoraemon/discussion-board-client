@@ -4,8 +4,8 @@ import rootReducers from "./reducers/root-reducers";
 import {defaultState} from "./state";
 // import rootReducers from "./reducers/root-reducers";
 
-// import { createLogger } from 'redux-logger'
-// const loggerMiddleware = createLogger();
+import { createLogger } from 'redux-logger'
+const loggerMiddleware = createLogger();
 
 
 export default function configureStore() {
@@ -14,5 +14,6 @@ export default function configureStore() {
         defaultState,
         // applyMiddleware(thunkMiddleware)
         // applyMiddleware(thunkMiddleware, loggerMiddleware)
+        applyMiddleware(loggerMiddleware)
     )
 }

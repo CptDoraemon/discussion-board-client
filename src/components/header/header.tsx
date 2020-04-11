@@ -1,7 +1,6 @@
 import React, {useContext} from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 import {Box, Grid, Typography} from "@material-ui/core";
-import ThemeButton from "../commons/theme-button";
 import {Link} from "react-router-dom";
 import LoggedInUserPanel from "./logged-in-user-panel";
 import AnonymousUserPanel from "./anonymous-user-panel";
@@ -9,7 +8,6 @@ import AnonymousUserPanel from "./anonymous-user-panel";
 interface HeaderProps {
     isLogin: boolean,
     username: string,
-    logout: () => void
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -40,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const Header: React.FC<HeaderProps> = ({isLogin, username, logout}) => {
+const Header: React.FC<HeaderProps> = ({isLogin, username}) => {
     const classes = useStyles();
 
     return (
@@ -61,7 +59,7 @@ const Header: React.FC<HeaderProps> = ({isLogin, username, logout}) => {
                 <Grid item xs={5} md={4}>
                     {
                         isLogin ?
-                            <LoggedInUserPanel logout={logout} username={username}/> :
+                            <LoggedInUserPanel username={username}/> :
                             <AnonymousUserPanel />
                     }
                 </Grid>

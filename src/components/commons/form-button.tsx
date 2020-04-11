@@ -24,15 +24,15 @@ const useStyles = makeStyles((theme) => ({
 
 interface ButtonProps {
     text: string,
-    onClick: () => void,
-    disabled: boolean
+    disabled: boolean,
+    form: string
 }
 
-const FormButton: React.FC<ButtonProps> = ({text, onClick, disabled}) => {
+const FormButton: React.FC<ButtonProps> = ({text, disabled, form}) => {
     const classes = useStyles();
 
     return (
-        <MuiButton variant="contained" classes={{root: classes.button}} disableElevation onClick={onClick} disabled={disabled}>
+        <MuiButton variant="contained" classes={{root: classes.button}} disableElevation type={'submit'} form={form} disabled={disabled}>
             { text }
         </MuiButton>
     )

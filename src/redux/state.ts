@@ -1,13 +1,21 @@
 export interface State {
     loginStatus: {
         isLogin: boolean,
-        username: string
+        username: string,
+        token: {
+            access: string,
+            refresh: string
+        }
     }
 }
 
 export const defaultState: State = {
     loginStatus: {
         isLogin: false,
-        username: ''
+        username: '',
+        token: {
+            access: '',
+            refresh: ''
+        }
     }
 };

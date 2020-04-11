@@ -1,8 +1,6 @@
 import {connect} from "react-redux";
-import {Dispatch} from "redux";
 import Header from "../components/header/header";
 import {State} from "../redux/state";
-import {logout} from "../redux/actions/login-status";
 
 function mapStateToProps(state: State) {
     return {
@@ -11,15 +9,8 @@ function mapStateToProps(state: State) {
     }
 }
 
-function mapDispatchToProps(dispatch: Dispatch) {
-    return {
-        logout: () => dispatch(logout())
-    }
-}
-
 const HeaderContainer = connect(
-    mapStateToProps,
-    mapDispatchToProps
+    mapStateToProps
 )(Header);
 
 export default HeaderContainer;
