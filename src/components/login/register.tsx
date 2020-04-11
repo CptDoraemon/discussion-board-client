@@ -50,10 +50,9 @@ const Register: React.FC<RegisterProps> = () => {
 
     const submitHandler = (e: FormEvent) => {
         e.preventDefault();
-        if (
-            execValidators([validateUsername, validateEmail, validatePassword]) &&
-            validateConfirmPassword(password)
-        ) {
+        const validationCheck1 = execValidators([validateUsername, validateEmail, validatePassword]);
+        const validationCheck2 =  validateConfirmPassword(password);
+        if (validationCheck1 && validationCheck2) {
             register(username, email, password, confirmPassword)
         }
     };
@@ -63,7 +62,7 @@ const Register: React.FC<RegisterProps> = () => {
     return (
         <LoginCommon imageUrl={'/images/register_bg.jpg'}>
             <form onSubmit={submitHandler} id={formID}>
-                <Grid container spacing={5}>
+                <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <Typography variant={'h1'} component={'h1'} color={"textPrimary"}>
                             <Box textAlign={'center'}>

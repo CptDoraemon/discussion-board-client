@@ -50,7 +50,7 @@ const Login: React.FC<LoginProps> = () => {
     return (
         <LoginCommon imageUrl={'/images/login_bg.jpg'}>
             <form onSubmit={submitHandler} id={'login-form'}>
-                <Grid container spacing={3}>
+                <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <Typography variant={'h1'} component={'h1'} color={"textPrimary"}>
                             <Box textAlign={'center'}>

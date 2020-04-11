@@ -45,13 +45,13 @@ const Header: React.FC<HeaderProps> = ({isLogin, username}) => {
         <div className={`${classes.placeholder} ${classes.headerDimension}`}>
             <Grid container alignItems={"center"} justify={"center"} className={`${classes.root} ${classes.headerDimension}`}>
                 <Grid item xs={6} md={4}>
-                    <Link to={'/'}>
                         <Typography variant={'h1'} component={'h1'}>
                             <Box fontWeight={700} textAlign={"center"}>
+                                <Link to={'/'}>
                                 Blog | XiaoxiHome
+                                </Link>
                             </Box>
                         </Typography>
-                    </Link>
                 </Grid>
                 <Grid item xs={1} md={4}>
 

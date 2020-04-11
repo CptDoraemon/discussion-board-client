@@ -14,6 +14,8 @@ import PostList from "./components/post-list/post-list";
 import Login from "./components/login/login";
 import Register from "./components/login/register";
 import HeaderContainer from "./containers/header-container";
+import Welcome from "./components/login/welcome";
+import MainPage from "./components/main-page/main-page";
 
 const store = configureStore();
 
@@ -50,9 +52,10 @@ const App: React.FC = () => {
                 <HeaderContainer />
                     <div className={classes.widthWrapper}>
                         <Switch>
-                            <Route path="/" exact render={ () => <PostList /> } />
+                            <Route path="/" exact render={ () => <MainPage /> } />
                             <Route path="/login" render={ () => <Login /> } />
                             <Route path="/register" render={ () => <Register /> } />
+                            {/*<Route path="/welcome" component={Welcome} />*/}
                         </Switch>
                     </div>
                 </Router>
