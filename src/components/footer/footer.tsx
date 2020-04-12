@@ -26,7 +26,7 @@ const column1 = [
 const userStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
-        margin: '8px 0'
+        margin: '40px 0 8px 0'
     },
     paper: {
         width: '100%',

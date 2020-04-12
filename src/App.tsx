@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'flex-start'
     },
     widthWrapper: {
+        margin: theme.spacing(5, 0, 0, 0),
         width: '1000px',
         display: 'flex',
         flexDirection: 'column',
@@ -38,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'flex-start',
         [theme.breakpoints.down('sm')]: {
             width: 'calc(100% - 16px)',
-            margin: '0 8px'
+            margin: theme.spacing(0, 1),
         }
     }
 }));

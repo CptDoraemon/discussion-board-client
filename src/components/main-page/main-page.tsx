@@ -4,7 +4,7 @@ import PostListContainer from "../../containers/post-list-container";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        margin: theme.spacing(10, 0),
+        margin: theme.spacing(2, 0),
         width: '100%',
         display: 'flex',
         flexDirection: 'row',

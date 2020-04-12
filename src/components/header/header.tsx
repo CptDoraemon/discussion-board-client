@@ -22,7 +22,8 @@ const useStyles = makeStyles((theme) => ({
         zIndex: theme.zIndex.appBar,
         left: 0,
         top: 0,
-        color: theme.palette.primary.contrastText
+        color: theme.palette.primary.contrastText,
+        padding: theme.spacing(0, 1)
     },
     placeholder: {
         position: 'relative',

@@ -55,6 +55,11 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.grey["500"],
         fontSize: '0.875rem',
         fontWeight: 700,
+        [theme.breakpoints.down('md')]: {
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+            justifyContent: 'center',
+        }
     },
     likeButtons: {
         display: 'flex',
