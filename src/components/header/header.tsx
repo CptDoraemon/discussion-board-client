@@ -4,6 +4,7 @@ import {Box, Grid, Typography} from "@material-ui/core";
 import {Link} from "react-router-dom";
 import LoggedInUserPanel from "./logged-in-user-panel";
 import AnonymousUserPanel from "./anonymous-user-panel";
+import Logo from "../commons/logo";
 
 interface HeaderProps {
     isLogin: boolean,
@@ -42,16 +43,10 @@ const Header: React.FC<HeaderProps> = ({isLogin, username}) => {
     const classes = useStyles();
 
     return (
-        <div className={`${classes.placeholder} ${classes.headerDimension}`}>
+        <header className={`${classes.placeholder} ${classes.headerDimension}`}>
             <Grid container alignItems={"center"} justify={"center"} className={`${classes.root} ${classes.headerDimension}`}>
                 <Grid item xs={6} md={4}>
-                        <Typography variant={'h1'} component={'h1'}>
-                            <Box fontWeight={700} textAlign={"center"}>
-                                <Link to={'/'}>
-                                Blog | XiaoxiHome
-                                </Link>
-                            </Box>
-                        </Typography>
+                    <Logo/>
                 </Grid>
                 <Grid item xs={1} md={4}>
 
@@ -64,7 +59,7 @@ const Header: React.FC<HeaderProps> = ({isLogin, username}) => {
                     }
                 </Grid>
             </Grid>
-        </div>
+        </header>
     )
 };
 

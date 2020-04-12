@@ -17,6 +17,7 @@ import HeaderContainer from "./containers/header-container";
 import Welcome from "./components/login/welcome";
 import MainPage from "./components/main-page/main-page";
 import SnackbarContainer from "./containers/snackbar-container";
+import Footer from "./components/footer/footer";
 
 const store = configureStore();
 
@@ -36,7 +37,8 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         justifyContent: 'flex-start',
         [theme.breakpoints.down('sm')]: {
-            width: '100%',
+            width: 'calc(100% - 16px)',
+            margin: '0 8px'
         }
     }
 }));
@@ -58,6 +60,7 @@ const App: React.FC = () => {
                             <Route path="/register" render={ () => <Register /> } />
                             {/*<Route path="/welcome" component={Welcome} />*/}
                         </Switch>
+                        <Footer />
                     </div>
                 </Router>
 

@@ -15,7 +15,7 @@ const useStyles = makeStyles(() => createStyles({
 
     },
     content: {
-        backgroundColor: '#272c34',
+        backgroundColor: '#4a5568',
     },
 }));
 
