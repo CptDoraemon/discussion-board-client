@@ -3,6 +3,7 @@ import urls from "./urls";
 import {useHistory, useLocation} from "react-router-dom";
 import { useDispatch } from 'react-redux'
 import { updateLoginStatus } from "../redux/actions/login-status";
+import {openSnackbar} from "../redux/actions/snackbar";
 
 const useLogin = () => {
     const [loading, setLoading] = useState(false);
@@ -37,9 +38,10 @@ const useLogin = () => {
                 setLoading(false);
 
                 if (json.status === 'success') {
+                    const username = json.data.username;
                     dispatch(updateLoginStatus({
                         isLogin: true,
-                        username: json.data.username,
+                        username: username,
                         token: {
                             access: json.data.access,
                             refresh: json.data.refresh
@@ -47,6 +49,7 @@ const useLogin = () => {
                     }));
                     let { from }: any = location.state || { from: { pathname: "/" } };
                     history.replace(from);
+                    dispatch(openSnackbar(`Welcome back ${username}`))
                 } else {
                     setError(true);
                     if (json.status === 'error') {

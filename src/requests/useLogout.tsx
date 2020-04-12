@@ -3,6 +3,7 @@ import urls from "./urls";
 import {useHistory, useLocation} from "react-router-dom";
 import { useDispatch } from 'react-redux'
 import {logout as logoutAction} from "../redux/actions/login-status";
+import {openSnackbar} from "../redux/actions/snackbar";
 
 const useLogout = () => {
     const [loading, setLoading] = useState(false);
@@ -16,6 +17,8 @@ const useLogout = () => {
         dispatch(logoutAction());
         let { from }: any = location.state || { from: { pathname: "/" } };
         history.replace(from);
+
+        dispatch(openSnackbar('Logout succeeded'))
     };
 
     const logout = () => {

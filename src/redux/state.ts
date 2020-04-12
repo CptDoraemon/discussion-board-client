@@ -6,6 +6,10 @@ export interface State {
             access: string,
             refresh: string
         }
+    },
+    snackbar: {
+        open: boolean,
+        message: string
     }
 }
 
@@ -17,5 +21,9 @@ export const defaultState: State = {
             access: '',
             refresh: ''
         }
+    },
+    snackbar: {
+        open: false,
+        message: ''
     }
 };

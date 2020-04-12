@@ -16,6 +16,7 @@ import Register from "./components/login/register";
 import HeaderContainer from "./containers/header-container";
 import Welcome from "./components/login/welcome";
 import MainPage from "./components/main-page/main-page";
+import SnackbarContainer from "./containers/snackbar-container";
 
 const store = configureStore();
 
@@ -59,6 +60,8 @@ const App: React.FC = () => {
                         </Switch>
                     </div>
                 </Router>
+
+                <SnackbarContainer />
             </div>
         </ThemeProvider>
         </Provider>
