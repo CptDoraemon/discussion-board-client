@@ -7,6 +7,8 @@ import IconButton from "@material-ui/core/IconButton";
 import ThumbUpRoundedIcon from '@material-ui/icons/ThumbUpRounded';
 import ThumbDownRoundedIcon from '@material-ui/icons/ThumbDownRounded';
 import useLike from "../../requests/useLike";
+import red from '@material-ui/core/colors/red';
+import green from '@material-ui/core/colors/green';
 
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -142,13 +144,13 @@ const Post: React.FC<PostProps> = ({isLogin, data}) => {
                     <div className={classes.actionArea}>
                         <div className={`${classes.actionItem} ${classes.likeButtons}`}>
                             <IconButton aria-label="like post" disabled={likeLoading} onClick={likeToggler}>
-                                <ThumbUpRoundedIcon className={classes.button} style={likedByUser ? {color: 'green'} : {}}/>
+                                <ThumbUpRoundedIcon className={classes.button} style={likedByUser ? {color: green[300]} : {}}/>
                             </IconButton>
                             <div className={classes.buttonText}>
                                 { data.likes }
                             </div>
                             <IconButton aria-label="dislike post" disabled={likeLoading} onClick={dislikeToggler}>
-                                <ThumbDownRoundedIcon className={classes.button} style={dislikedByUser ? {color: 'red'} : {}}/>
+                                <ThumbDownRoundedIcon className={classes.button} style={dislikedByUser ? {color: red[300]} : {}}/>
                             </IconButton>
                             <div className={classes.buttonText}>
                                 { data.dislikes }
