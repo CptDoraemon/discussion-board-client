@@ -30,14 +30,15 @@ interface BaseButtonProps {
 }
 
 interface GenericClickButtonProps extends BaseButtonProps {
-    onClick: any
+    onClick: any,
+    disabled?: boolean
 }
 
-const GenericClickButton: React.FC<GenericClickButtonProps> = ({width, text, onClick}) => {
+const GenericClickButton: React.FC<GenericClickButtonProps> = ({width, text, onClick, disabled}) => {
     const classes = useStyles();
 
     return (
-            <Button variant="contained" classes={{root: classes.button}} disableElevation onClick={onClick} style={{width: width}}>
+            <Button variant="contained" classes={{root: classes.button}} disableElevation onClick={onClick} style={{width: width}} disabled={disabled}>
                 { text }
             </Button>
     )

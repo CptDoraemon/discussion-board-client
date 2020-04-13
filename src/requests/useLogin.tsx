@@ -17,6 +17,8 @@ const useLogin = () => {
         email: string,
         password: string
     ) => {
+        if (loading) return;
+
         // reset states
         setError(false);
         setErrorMessage('');

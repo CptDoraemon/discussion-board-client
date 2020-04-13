@@ -13,7 +13,7 @@ const useVerifyToken = () => {
     const dispatch = useDispatch();
 
     const validate = () => {
-        return new Promise(async (resolve, reject) => {
+        return new Promise<boolean>(async (resolve, reject) => {
             try {
                 // not login
                 if (!isLogin) {

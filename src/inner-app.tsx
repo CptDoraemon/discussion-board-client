@@ -63,7 +63,7 @@ const InnerApp: React.FC<InnerAppProps> = ({isLogin}) => {
                         <Route path="/" exact render={ () => <MainPage /> } />
                         <Route path="/login" render={ () => <Login /> } />
                         <Route path="/register" render={ () => <Register /> } />
-                        <PrivateRoute path="/edit-post/:postID?" isLogin={true}>
+                        <PrivateRoute path="/edit-post/:postID?" isLogin={isLogin}>
                             <PostEditor/>
                         </PrivateRoute>
                         {/*<Route path="/welcome" component={Welcome} />*/}

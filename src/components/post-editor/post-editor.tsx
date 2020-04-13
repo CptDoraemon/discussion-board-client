@@ -33,7 +33,7 @@ const PostEditor: React.FC = () => {
 
     const [quill, setQuill] = useState<any>(null);
     const [title, titleChangeHandler, titleError, titleErrorMessage, validateTitle] = useInputField('', postTitleValidator);
-    const [loading, error, errorMessage, submit] = usePostSubmission();
+    const [loading, error, errorMessage, submit, submitted] = usePostSubmission();
 
     const submitHandler = (e: FormEvent) => {
         e.preventDefault();
@@ -74,7 +74,7 @@ const PostEditor: React.FC = () => {
                 </FormControl>
 
                 <div id={ID} className={classes.editor}/>
-                <GenericClickButton onClick={submitHandler} width={'250px'} text={'Submit'}/>
+                <GenericClickButton onClick={submitHandler} width={'250px'} text={submitted ? 'Submitted' : 'Submit'} disabled={submitted}/>
                 <ErrorMessage loading={loading} error={error} errorMessage={errorMessage}/>
             </form>
         </Paper>

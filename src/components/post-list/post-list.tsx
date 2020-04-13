@@ -3,7 +3,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import useGetPostList from "../../requests/useGetPostList";
 import Skeleton from '@material-ui/lab/Skeleton';
 import {Box, CircularProgress, Typography} from "@material-ui/core";
-import Post from "./post";
+import Post, {PostData} from "./post";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -18,7 +18,7 @@ interface PostListProps {
 const PostList: React.FC<PostListProps> = ({isLogin}) => {
     const classes = useStyles();
 
-    const [loading, error] = useGetPostList();
+    const [loading, error, data] = useGetPostList();
 
     let content;
     if (loading) {
@@ -38,9 +38,9 @@ const PostList: React.FC<PostListProps> = ({isLogin}) => {
             </Typography>
         )
     } else {
-        content = (new Array(10)).fill(0).map((_, i) => {
+        content = data?.map((_, i) => {
             return (
-                <Post key={i} isLogin={isLogin}/>
+                <Post key={i} isLogin={isLogin} data={_}/>
             )
         })
     }

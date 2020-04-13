@@ -19,6 +19,8 @@ const useRegister = () => {
         password: string,
         confirmPassword: string
     ) => {
+        if (loading) return;
+
         // reset states
         setError(false);
         setErrorMessage('');
