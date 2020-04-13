@@ -73,6 +73,20 @@ const confirmPasswordValidator: Validator = (value, reference) => {
     }
 };
 
+const postTitleValidator: Validator = (value) => {
+    let isValid = false;
+    let message = 'Title cannot be empty';
+
+    if (value.length > 0) {
+        message = '';
+        isValid = true;
+    }
+    return {
+        isValid,
+        message
+    }
+};
+
 const execValidators = (validators: (()=>boolean)[]) => {
     const validationResults = validators.map(_ => _());
     for (let i=0; i<validationResults.length; i++) {
@@ -89,5 +103,6 @@ export {
     emailValidator,
     passwordValidator,
     confirmPasswordValidator,
-    execValidators
+    execValidators,
+    postTitleValidator
 }

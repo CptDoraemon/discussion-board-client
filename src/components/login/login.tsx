@@ -7,7 +7,7 @@ import {Link} from "react-router-dom";
 import useInputField from "../../utils/use-input-field";
 import {emailValidator, execValidators, passwordValidator} from "../../utils/validators";
 import useLogin from "../../requests/useLogin";
-import ErrorMessage from "./commons/error-message";
+import ErrorMessage from "../commons/error-message";
 
 const useStyles = makeStyles((theme) => ({
     textField: {

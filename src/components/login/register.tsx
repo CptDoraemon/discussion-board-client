@@ -12,7 +12,7 @@ import {
     passwordValidator,
     usernameValidator
 } from "../../utils/validators";
-import ErrorMessage from "./commons/error-message";
+import ErrorMessage from "../commons/error-message";
 import useRegister from "../../requests/useRegister";
 
 const useStyles = makeStyles((theme) => ({
