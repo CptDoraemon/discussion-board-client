@@ -8,6 +8,7 @@ import Avatar from "@material-ui/core/Avatar";
 import getTimeString from "../../utils/get-time-string";
 import LikeButtons from "../commons/like-buttons";
 import useLike from "../../requests/useLike";
+import CommentList from "./comment-list";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -65,6 +66,7 @@ export interface PostDetailData {
     title: string,
     content: string,
     created: string,
+    is_liked: 0 | 1 | -1 | undefined
 }
 
 interface PostDetailProps {
@@ -110,18 +112,12 @@ const PostDetail: React.FC<PostDetailProps> = () => {
                         { getTimeString(data.created) }
                     </div>
                     <div className={classes.postInfoItem}>
-                        <LikeButtons
-                            disabled={false}
-                            likes={data.likes}
-                            dislikes={data.dislikes}
-                            likeHandler={() => false}
-                            dislikeHandler={() => false}
-                            likedByUser={false}
-                            dislikedByUser={false}
-                        />
+                        <LikeButtons type={'post'} id={data.id} likes={data.likes} dislikes={data.dislikes} isLiked={data.is_liked}/>
                     </div>
                 </div>
                 <div dangerouslySetInnerHTML={{__html: data.content}} className={classes.postContent}/>
+
+                <CommentList />
             </div>
         )
     }

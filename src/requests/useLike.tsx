@@ -35,7 +35,12 @@ const useLike = (type: Type, id: string) => {
             const isTokenValid = await validateToken();
             if (!isTokenValid) {
                 setLoading(false);
-                history.push("/login");
+                history.push({
+                    pathname: "/login",
+                    state: {
+                        from: location.pathname
+                    }
+                });
                 return
             }
 
@@ -55,7 +60,6 @@ const useLike = (type: Type, id: string) => {
             const json = await res.json();
             setLoading(false);
             if (json.status === 'success') {
-                console.log(json);
                 setUpdatedData(json.data)
             } else {
                 dispatch(openSnackbar(json.message));

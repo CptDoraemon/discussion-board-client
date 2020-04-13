@@ -4,11 +4,8 @@ import {
     Switch,
     Route
 } from "react-router-dom";
-import {connect, Provider} from 'react-redux';
-import configureStore from "./redux/configure-store";
-import { CssBaseline } from "@material-ui/core";
-import {makeStyles, ThemeProvider} from '@material-ui/core/styles';
-import theme from './theme';
+import {connect} from 'react-redux';
+import {makeStyles} from '@material-ui/core/styles';
 import Login from "./components/login/login";
 import Register from "./components/login/register";
 import HeaderContainer from "./containers/header-container";
@@ -18,12 +15,8 @@ import Footer from "./components/footer/footer";
 import PrivateRoute from "./utils/protected-router";
 import PostEditor from "./components/post-editor/post-editor";
 import {State} from "./redux/state";
-import {Dispatch} from "redux";
-import {closeSnackbar} from "./redux/actions/snackbar";
-import Snackbar from "./components/snackbar/snackbar";
 import PostDetail from "./components/post-detail/post-detail";
-
-const store = configureStore();
+import RouterScrollRestoration from "./utils/router-scroll-restoration";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -58,6 +51,7 @@ const InnerApp: React.FC<InnerAppProps> = ({isLogin}) => {
     return (
         <div className={classes.root}>
             <Router basename={process.env.PUBLIC_URL}>
+                <RouterScrollRestoration />
                 <HeaderContainer />
                 <div className={classes.widthWrapper}>
                     <Switch>

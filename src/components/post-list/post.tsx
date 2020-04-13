@@ -91,20 +91,6 @@ const useStyles = makeStyles((theme) => ({
 const Post: React.FC<PostProps> = ({isLogin, data}) => {
     const classes = useStyles();
 
-    const [likeLoading, likeError, updatedData, like] = useLike('post', data.id);
-    if (updatedData !== null) data = updatedData;
-
-    const likedByUser = data['is_liked'] === 1;
-    const dislikedByUser = data['is_liked'] === -1;
-
-    const likeToggler = () => {
-        likedByUser ? like(0) : like(1);
-    };
-
-    const dislikeToggler = () => {
-        dislikedByUser ? like(0) : like(-1);
-    };
-
     return (
         <div className={classes.root}>
             <Paper className={classes.paper} elevation={0}>
@@ -128,15 +114,7 @@ const Post: React.FC<PostProps> = ({isLogin, data}) => {
                     </div>
                     <div className={classes.actionArea}>
                         <div className={classes.actionItem}>
-                            <LikeButtons
-                                disabled={likeLoading}
-                                likes={data.likes}
-                                dislikes={data.dislikes}
-                                likeHandler={likeToggler}
-                                dislikeHandler={dislikeToggler}
-                                likedByUser={likedByUser}
-                                dislikedByUser={dislikedByUser}
-                            />
+                            <LikeButtons type={'post'} id={data.id} likes={data.likes} dislikes={data.dislikes} isLiked={data.is_liked}/>
                         </div>
                         <div className={classes.actionItem}>
                             { `${data.comments} ${data.comments > 1 ? 'comments' : 'comment'}` }
