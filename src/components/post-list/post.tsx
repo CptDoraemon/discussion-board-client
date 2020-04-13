@@ -1,6 +1,5 @@
 import React, {useEffect} from "react";
 import {makeStyles} from "@material-ui/core/styles";
-import useGetPostList from "../../requests/useGetPostList";
 import {Box, Paper, Typography} from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
@@ -9,15 +8,9 @@ import ThumbDownRoundedIcon from '@material-ui/icons/ThumbDownRounded';
 import useLike from "../../requests/useLike";
 import red from '@material-ui/core/colors/red';
 import green from '@material-ui/core/colors/green';
-
-const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-const getTimeString = (ISOString: string) => {
-    const date = new Date(ISOString);
-    const hour = date.getHours() < 10 ? `0${date.getHours()}` : date.getHours();
-    const minute = date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes();
-    return `${date.getDate()} ${months[date.getMonth()]}, ${date.getFullYear()} - ${hour}:${minute}`
-};
+import {Link} from "react-router-dom";
+import getTimeString from "../../utils/get-time-string";
+import LikeButtons from "../commons/like-buttons";
 
 export interface PostData {
     id: string
@@ -68,6 +61,9 @@ const useStyles = makeStyles((theme) => ({
             fontWeight: 700,
             color: theme.palette.text.primary,
             margin: theme.spacing(0),
+        },
+        '& h2:hover': {
+            color: theme.palette.primary.main,
         }
     },
     author: {
@@ -86,19 +82,6 @@ const useStyles = makeStyles((theme) => ({
             alignItems: 'flex-start',
             justifyContent: 'center',
         }
-    },
-    likeButtons: {
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    button: {
-        color: theme.palette.grey["400"],
-        fontSize: '1.25rem'
-    },
-    buttonText: {
-        lineHeight: 1
     },
     actionItem: {
         margin: theme.spacing(0, 2)
@@ -130,9 +113,11 @@ const Post: React.FC<PostProps> = ({isLogin, data}) => {
                 </Avatar>
                 <div className={classes.content}>
                     <div className={classes.title}>
-                        <h2>
-                            { data.title }
-                        </h2>
+                        <Link to={`/post/${data.id}`}>
+                            <h2>
+                                { data.title }
+                            </h2>
+                        </Link>
                     </div>
                     <div className={classes.author}>
                         <Typography variant={'caption'} component={'div'}>
@@ -142,19 +127,16 @@ const Post: React.FC<PostProps> = ({isLogin, data}) => {
                         </Typography>
                     </div>
                     <div className={classes.actionArea}>
-                        <div className={`${classes.actionItem} ${classes.likeButtons}`}>
-                            <IconButton aria-label="like post" disabled={likeLoading} onClick={likeToggler}>
-                                <ThumbUpRoundedIcon className={classes.button} style={likedByUser ? {color: green[300]} : {}}/>
-                            </IconButton>
-                            <div className={classes.buttonText}>
-                                { data.likes }
-                            </div>
-                            <IconButton aria-label="dislike post" disabled={likeLoading} onClick={dislikeToggler}>
-                                <ThumbDownRoundedIcon className={classes.button} style={dislikedByUser ? {color: red[300]} : {}}/>
-                            </IconButton>
-                            <div className={classes.buttonText}>
-                                { data.dislikes }
-                            </div>
+                        <div className={classes.actionItem}>
+                            <LikeButtons
+                                disabled={likeLoading}
+                                likes={data.likes}
+                                dislikes={data.dislikes}
+                                likeHandler={likeToggler}
+                                dislikeHandler={dislikeToggler}
+                                likedByUser={likedByUser}
+                                dislikedByUser={dislikedByUser}
+                            />
                         </div>
                         <div className={classes.actionItem}>
                             { `${data.comments} ${data.comments > 1 ? 'comments' : 'comment'}` }

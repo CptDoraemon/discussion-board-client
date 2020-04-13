@@ -8,6 +8,7 @@ const refresh = accountBase + 'refresh/';
 
 const postBase = base + 'post/';
 const getPostList = postBase + 'all/';
+const getPostDetail = (id: number) => `${postBase}${id}/`;
 const createPost = postBase + 'create/';
 
 const userActionsBase = base + 'user_actions/';
@@ -17,8 +18,9 @@ const urls = {
     login,
     register,
     verifySession,
-    getPostList,
     refresh,
+    getPostList,
+    getPostDetail,
     createPost,
     like
 };

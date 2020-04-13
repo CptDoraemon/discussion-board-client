@@ -21,6 +21,7 @@ import {State} from "./redux/state";
 import {Dispatch} from "redux";
 import {closeSnackbar} from "./redux/actions/snackbar";
 import Snackbar from "./components/snackbar/snackbar";
+import PostDetail from "./components/post-detail/post-detail";
 
 const store = configureStore();
 
@@ -63,6 +64,7 @@ const InnerApp: React.FC<InnerAppProps> = ({isLogin}) => {
                         <Route path="/" exact render={ () => <MainPage /> } />
                         <Route path="/login" render={ () => <Login /> } />
                         <Route path="/register" render={ () => <Register /> } />
+                        <Route path="/post/:postID" render={ () => <PostDetail /> } />
                         <PrivateRoute path="/edit-post/:postID?" isLogin={isLogin}>
                             <PostEditor/>
                         </PrivateRoute>
