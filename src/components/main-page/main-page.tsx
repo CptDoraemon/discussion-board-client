@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         [theme.breakpoints.down('md')]: {
             flexDirection: 'column',
+            margin: 0,
         }
     },
     left: {
