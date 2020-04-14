@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
-import {Box, Divider, Fade} from "@material-ui/core";
+import {Box, Divider, Fade, Paper} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import ItemInfo from "./item-info";
 import ChatIcon from '@material-ui/icons/Chat';
@@ -11,20 +11,21 @@ import CommentInput from "./comment-input";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        marginTop: '60px',
+        margin: '20px 0',
         width: '100%',
+        padding: theme.spacing(2)
     },
     content: {
         margin: '32px'
     },
     commentButton: {
         margin: '0 32px',
-        color: theme.palette.grey[500]
+        color: theme.palette.grey[500],
     },
     subCommentPanel: {
         width: 'calc(100% - 32px)',
         margin: '8px 0 8px 32px',
-        border: `1px solid ${theme.palette.grey[500]}`,
+        border: `1px solid ${theme.palette.grey[400]}`,
         borderRadius: '5px',
         padding: theme.spacing(2)
     }
@@ -62,8 +63,8 @@ const CommentItem: React.FC<CommentItemProps> = ({data, postID, isLogin}) => {
     const [isCommentPanelOpen, setIsCommentPanelOpen] = useState(false);
 
     return (
-        <div className={classes.root}>
-            <ItemInfo type={'comment'} username={data.owner.username} created={data.created} id={data.id} likes={data.likes} dislikes={data.dislikes} isLiked={data.isLiked}/>
+        <Paper className={classes.root} elevation={0}>
+            <ItemInfo type={'comment'} username={data.owner.username} created={data.created} id={data.id} likes={data.likes} dislikes={data.dislikes} isLiked={data.isLiked} small/>
             <div className={classes.content}>
                 { data.content }
             </div>
@@ -71,8 +72,9 @@ const CommentItem: React.FC<CommentItemProps> = ({data, postID, isLogin}) => {
                 variant="outlined"
                 className={classes.commentButton}
                 disableElevation
-                startIcon={<ChatIcon fontSize={'small'}/>}
+                startIcon={<ChatIcon />}
                 onClick={() => setIsCommentPanelOpen(prev => !prev)}
+                size={'small'}
             >
                 { data.sub_comments.length }
             </Button>
@@ -87,7 +89,7 @@ const CommentItem: React.FC<CommentItemProps> = ({data, postID, isLogin}) => {
                     </div>
                 </Fade>
             }
-        </div>
+        </Paper>
     )
 
 };

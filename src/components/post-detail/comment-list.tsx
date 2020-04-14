@@ -14,6 +14,10 @@ const useStyles = makeStyles((theme) => ({
         margin: '60px 0',
         width: '100%',
     },
+    paper: {
+        width: '100%',
+        padding: theme.spacing(4)
+    },
     loginToLeaveMessage: {
         width: '100%',
         height: '200px',
@@ -38,18 +42,20 @@ const CommentList: React.FC<CommentListProps> = ({isLogin, comments, postID, dat
 
     return (
         <div className={classes.root}>
-            <Typography variant={'body1'} component={'div'}>
-                <Box fontWeight={700}>
-                    { `${comments} ${comments > 1 ? 'comments' : 'comment'}` }
-                </Box>
-            </Typography>
-            <Divider />
+            <Paper className={classes.paper} elevation={0}>
+                <Typography variant={'body1'} component={'div'}>
+                    <Box fontWeight={700}>
+                        { `${comments} ${comments > 1 ? 'comments' : 'comment'}` }
+                    </Box>
+                </Typography>
+                <Divider />
+            </Paper>
 
-            {
-                data.map((itemData, i) => <CommentItem data={itemData} postID={postID} key={i} isLogin={isLogin}/>)
-            }
+                {
+                    data.map((itemData, i) => <CommentItem data={itemData} postID={postID} key={i} isLogin={isLogin}/>)
+                }
 
-            <div>
+            <Paper className={classes.paper} elevation={0}>
                 {
                     isLogin ?
                         <CommentInput parentPost={postID} parentComment={null}/> :
@@ -57,7 +63,7 @@ const CommentList: React.FC<CommentListProps> = ({isLogin, comments, postID, dat
                             Login to leave a comment
                         </div>
                 }
-            </div>
+            </Paper>
         </div>
     )
 

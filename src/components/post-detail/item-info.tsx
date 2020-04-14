@@ -11,6 +11,8 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'flex-start',
+        color: theme.palette.grey[500],
+        fontWeight: 700,
         [theme.breakpoints.down('md')]: {
             flexDirection: 'column',
             alignItems: 'flex-start',
@@ -18,7 +20,15 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     avatar: {
-        margin: 0
+        backgroundColor: theme.palette.primary.main
+    },
+    avatarSmall: {
+        width: '1.2rem',
+        height: '1.2rem',
+        fontSize: '0.8rem'
+    },
+    username: {
+        color: theme.palette.text.primary
     },
     postInfoItem: {
         margin: theme.spacing(0, 2),
@@ -35,20 +45,24 @@ interface ItemInfoProps {
     id: string,
     likes: number,
     dislikes: number,
-    isLiked: -1 | 0 | 1 | undefined
+    isLiked: -1 | 0 | 1 | undefined,
+    small?: boolean
 }
 
-const ItemInfo: React.FC<ItemInfoProps> = ({type, username, created, id, likes, dislikes, isLiked}) => {
+const ItemInfo: React.FC<ItemInfoProps> = ({type, username, created, id, likes, dislikes, isLiked, small}) => {
     const classes = useStyles();
 
     return (
         <div className={classes.postInfo}>
             <div className={classes.postInfoItem}>
-                <Avatar variant="square" className={classes.avatar}>
-                    N
+                <Avatar
+                    variant="rounded"
+                    className={small ? `${classes.avatar} ${classes.avatarSmall}` : classes.avatar}
+                >
+                    { username.charAt(0) }
                 </Avatar>
             </div>
-            <div className={classes.postInfoItem}>
+            <div className={`${classes.postInfoItem} ${classes.username}`}>
                 { username }
             </div>
             <div className={classes.postInfoItem}>

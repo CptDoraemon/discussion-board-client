@@ -5,6 +5,7 @@ import {State} from "../redux/state";
 import useGetAuthorizationHeader from "./useGetAuthorizationHeader";
 import useVerifyToken from "./useVerifyToken";
 import {PostDetailData} from "../components/post-detail/post-detail";
+import useSetTitle from "../utils/use-set-title";
 
 const useGetPostDetail = (postID: number) => {
     const isLogin = useStore<State>().getState().loginStatus.isLogin;
@@ -14,6 +15,8 @@ const useGetPostDetail = (postID: number) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [data, setData] = useState<PostDetailData | null>(null);
+
+    useSetTitle(data?.title);
 
     useEffect(() => {
         fetchPostDetail()

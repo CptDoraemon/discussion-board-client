@@ -46,7 +46,8 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'flex-start'
     },
     avatar: {
-        margin: theme.spacing(1)
+        margin: theme.spacing(1),
+        backgroundColor: theme.palette.primary.light
     },
     content: {
         display: 'flex',
@@ -95,8 +96,8 @@ const Post: React.FC<PostProps> = ({isLogin, data}) => {
     return (
         <div className={classes.root}>
             <Paper className={classes.paper} elevation={0}>
-                <Avatar variant="square" className={classes.avatar}>
-                    N
+                <Avatar variant="rounded" className={classes.avatar}>
+                    { data.owner.username.charAt(0) }
                 </Avatar>
                 <div className={classes.content}>
                     <div className={classes.title}>

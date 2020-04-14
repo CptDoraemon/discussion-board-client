@@ -23,7 +23,7 @@ const SubCommentItem: React.FC<SubCommentItemProps> = ({data}) => {
 
     return (
         <div className={classes.root}>
-            <ItemInfo type={'comment'} username={data.owner.username} created={data.created} id={data.id} likes={data.likes} dislikes={data.dislikes} isLiked={data.isLiked}/>
+            <ItemInfo type={'comment'} username={data.owner.username} created={data.created} id={data.id} likes={data.likes} dislikes={data.dislikes} isLiked={data.isLiked} small/>
             <div className={classes.content}>
                 { data.content }
             </div>

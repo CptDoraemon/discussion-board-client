@@ -49,7 +49,10 @@ const CommentInput: React.FC<CommentInputProps> = ({parentPost, parentComment}) 
             />
 
             <GenericClickButton onClick={submitHandler} width={'250px'} text={'Submit'} disabled={loading}/>
-            <ErrorMessage loading={loading} error={error} errorMessage={errorMessage}/>
+            {
+                error && errorMessage &&
+                <ErrorMessage loading={loading} error={error} errorMessage={errorMessage}/>
+            }
         </form>
     )
 };

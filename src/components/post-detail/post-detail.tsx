@@ -11,10 +11,14 @@ import useLike from "../../requests/useLike";
 import CommentList from "./comment-list";
 import ItemInfo from "./item-info";
 import {CommentData} from "./comment-item";
+import useSetTitle from "../../utils/use-set-title";
 
 
 const useStyles = makeStyles((theme) => ({
     root: {
+        width: '100%',
+    },
+    paper: {
         width: '100%',
         padding: theme.spacing(4)
     },
@@ -79,20 +83,21 @@ const PostDetail: React.FC<PostDetailProps> = ({isLogin}) => {
         )
     } else if (data) {
         content = (
-            <div>
-                <h1> {data.title} </h1>
-                <ItemInfo type={'post'} username={data.owner.username} created={data.created} id={data.id} likes={data.likes} dislikes={data.dislikes} isLiked={data.is_liked}/>
-                <div dangerouslySetInnerHTML={{__html: data.content}} className={classes.postContent}/>
-
+            <>
+                <Paper className={classes.paper} elevation={0}>
+                    <h1> {data.title} </h1>
+                    <ItemInfo type={'post'} username={data.owner.username} created={data.created} id={data.id} likes={data.likes} dislikes={data.dislikes} isLiked={data.is_liked}/>
+                    <div dangerouslySetInnerHTML={{__html: data.content}} className={classes.postContent}/>
+                </Paper>
                 <CommentList comments={data.comments} isLogin={isLogin} postID={data.id} data={data.comments_data}/>
-            </div>
+            </>
         )
     }
 
     return (
-        <Paper className={classes.root} elevation={0}>
+        <div className={classes.root}>
             { content }
-        </Paper>
+        </div>
     )
 
 };
