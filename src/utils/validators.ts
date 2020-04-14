@@ -1,16 +1,15 @@
 export type Validator = (value: string, reference?: string) => {isValid: boolean, message: string}
 
 const usernameValidator: Validator = (value) => {
-    let isValid = false;
-    let message = 'Invalid username';
+    let isValid = true;
+    let message = '';
 
     if (value.length >= 30) {
+        isValid = true;
         message = 'Username length must be less than 30 characters';
     } else if (value.length === 0) {
-        message = 'Username cannot be empty';
-    } else {
         isValid = true;
-        message = '';
+        message = 'Username cannot be empty';
     }
 
     return {
@@ -20,20 +19,21 @@ const usernameValidator: Validator = (value) => {
 };
 
 const emailValidator: Validator = (value) => {
-    let isValid = false;
-    let message = 'Invalid Email format';
+    let isValid = true;
+    let message = '';
 
     if (value.indexOf('@') === -1) {
-
+        isValid = false;
+        message = 'Invalid Email format'
     } else if (value.indexOf('.') === -1) {
-
+        isValid = false;
+        message = 'Invalid Email format'
     } else if (value.length === 0) {
+        isValid = false;
         message = 'Email cannot be empty';
     } else if (value.length >= 60) {
+        isValid = false;
         message = 'Email too long';
-    }else {
-        isValid = true;
-        message = '';
     }
 
     return {
@@ -43,14 +43,12 @@ const emailValidator: Validator = (value) => {
 };
 
 const passwordValidator: Validator = (value) => {
-    let isValid = false;
+    let isValid = true;
     let message = '';
 
     if (value.length === 0) {
+        isValid = false;
         message = 'Email cannot be empty';
-    } else {
-        isValid = true;
-        message = '';
     }
 
     return {
@@ -60,13 +58,14 @@ const passwordValidator: Validator = (value) => {
 };
 
 const confirmPasswordValidator: Validator = (value, reference) => {
-    let isValid = false;
-    let message = 'Not same as the password';
+    let isValid = true;
+    let message = '';
 
-    if (value === reference) {
-        message = '';
-        isValid = true;
+    if (value !== reference) {
+        message = 'Not same as the password';
+        isValid = false;
     }
+
     return {
         isValid,
         message
@@ -74,13 +73,32 @@ const confirmPasswordValidator: Validator = (value, reference) => {
 };
 
 const postTitleValidator: Validator = (value) => {
-    let isValid = false;
-    let message = 'Title cannot be empty';
+    let isValid = true;
+    let message = '';
 
-    if (value.length > 0) {
-        message = '';
-        isValid = true;
+    if (value.length === 0) {
+        message = 'Title cannot be empty';
+        isValid = false;
     }
+
+    return {
+        isValid,
+        message
+    }
+};
+
+const commentValidator: Validator = (value) => {
+    let isValid = true;
+    let message = '';
+
+    if (value.length === 0) {
+        message = 'Comment cannot be empty';
+        isValid = false;
+    } else if (value.length < 5) {
+        message = 'Comment needs to be at least 5 characters';
+        isValid = false;
+    }
+
     return {
         isValid,
         message
@@ -104,5 +122,6 @@ export {
     passwordValidator,
     confirmPasswordValidator,
     execValidators,
-    postTitleValidator
+    postTitleValidator,
+    commentValidator
 }

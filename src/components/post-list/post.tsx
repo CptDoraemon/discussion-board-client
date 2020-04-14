@@ -61,6 +61,7 @@ const useStyles = makeStyles((theme) => ({
             fontWeight: 700,
             color: theme.palette.text.primary,
             margin: theme.spacing(0),
+            lineHeight: 1.2
         },
         '& h2:hover': {
             color: theme.palette.primary.main,

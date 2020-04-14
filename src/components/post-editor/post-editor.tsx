@@ -74,7 +74,7 @@ const PostEditor: React.FC = () => {
                 </FormControl>
 
                 <div id={ID} className={classes.editor}/>
-                <GenericClickButton onClick={submitHandler} width={'250px'} text={submitted ? 'Submitted' : 'Submit'} disabled={submitted}/>
+                <GenericClickButton onClick={submitHandler} width={'250px'} text={submitted ? 'Submitted' : 'Submit'} disabled={submitted || loading}/>
                 <ErrorMessage loading={loading} error={error} errorMessage={errorMessage}/>
             </form>
         </Paper>

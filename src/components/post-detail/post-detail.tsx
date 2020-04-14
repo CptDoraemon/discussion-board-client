@@ -9,6 +9,8 @@ import getTimeString from "../../utils/get-time-string";
 import LikeButtons from "../commons/like-buttons";
 import useLike from "../../requests/useLike";
 import CommentList from "./comment-list";
+import ItemInfo from "./item-info";
+import {CommentData} from "./comment-item";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -28,27 +30,6 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         justifyContent: 'center'
     },
-    postInfo: {
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-        [theme.breakpoints.down('md')]: {
-            flexDirection: 'column',
-            alignItems: 'flex-start',
-            justifyContent: 'center',
-        }
-    },
-    avatar: {
-        margin: 0
-    },
-    postInfoItem: {
-        margin: theme.spacing(0, 2),
-        [theme.breakpoints.down('md')]: {
-            margin: '4px 0',
-        }
-    },
     postContent: {
         marginTop: '40px'
     }
@@ -62,7 +43,8 @@ export interface PostDetailData {
     }
     likes: number,
     dislikes: number,
-    comments: []
+    comments: number,
+    comments_data: CommentData[]
     title: string,
     content: string,
     created: string,
@@ -70,10 +52,10 @@ export interface PostDetailData {
 }
 
 interface PostDetailProps {
-
+    isLogin: boolean
 }
 
-const PostDetail: React.FC<PostDetailProps> = () => {
+const PostDetail: React.FC<PostDetailProps> = ({isLogin}) => {
     const classes = useStyles();
 
     const { postID } = useParams();
@@ -99,25 +81,10 @@ const PostDetail: React.FC<PostDetailProps> = () => {
         content = (
             <div>
                 <h1> {data.title} </h1>
-                <div className={classes.postInfo}>
-                    <div className={classes.postInfoItem}>
-                        <Avatar variant="square" className={classes.avatar}>
-                            N
-                        </Avatar>
-                    </div>
-                    <div className={classes.postInfoItem}>
-                        { data.owner.username }
-                    </div>
-                    <div className={classes.postInfoItem}>
-                        { getTimeString(data.created) }
-                    </div>
-                    <div className={classes.postInfoItem}>
-                        <LikeButtons type={'post'} id={data.id} likes={data.likes} dislikes={data.dislikes} isLiked={data.is_liked}/>
-                    </div>
-                </div>
+                <ItemInfo type={'post'} username={data.owner.username} created={data.created} id={data.id} likes={data.likes} dislikes={data.dislikes} isLiked={data.is_liked}/>
                 <div dangerouslySetInnerHTML={{__html: data.content}} className={classes.postContent}/>
 
-                <CommentList />
+                <CommentList comments={data.comments} isLogin={isLogin} postID={data.id} data={data.comments_data}/>
             </div>
         )
     }

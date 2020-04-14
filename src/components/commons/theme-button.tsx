@@ -1,7 +1,7 @@
 import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import {Button as MuiButton} from "@material-ui/core";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -28,10 +28,17 @@ interface ButtonProps {
 
 const ThemeButton: React.FC<ButtonProps> = ({text, url, onClick}) => {
     const classes = useStyles();
+    const location = useLocation();
 
     if (url) {
+        const to = {
+            pathname: url,
+            state: {
+                from: location.pathname
+            }
+        };
         return (
-            <MuiButton variant="contained" classes={{root: classes.button}} disableElevation component={Link} to={url}>
+            <MuiButton variant="contained" classes={{root: classes.button}} disableElevation component={Link} to={to}>
                 { text }
             </MuiButton>
         )

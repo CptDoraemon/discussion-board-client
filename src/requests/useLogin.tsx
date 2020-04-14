@@ -12,8 +12,6 @@ const useLogin = () => {
     const dispatch = useDispatch();
     let history = useHistory();
     let location = useLocation();
-    console.log(history)
-    console.log(location)
 
     const login = (
         email: string,

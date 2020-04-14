@@ -11,6 +11,9 @@ const getPostList = postBase + 'all/';
 const getPostDetail = (id: number) => `${postBase}${id}/`;
 const createPost = postBase + 'create/';
 
+const commentBase = base + 'comment/';
+const createComment = commentBase + 'create/';
+
 const userActionsBase = base + 'user_actions/';
 const like = userActionsBase + 'like/';
 
@@ -22,6 +25,7 @@ const urls = {
     getPostList,
     getPostDetail,
     createPost,
+    createComment,
     like
 };
 

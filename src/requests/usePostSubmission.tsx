@@ -6,6 +6,7 @@ import { updateLoginStatus } from "../redux/actions/login-status";
 import { openSnackbar } from "../redux/actions/snackbar";
 import useGetAuthorizationHeader from "./useGetAuthorizationHeader";
 import useVerifyToken from "./useVerifyToken";
+import useRedirectToLogin from "../utils/use-redirect-to-login";
 
 const usePostSubmission = () => {
     const accessHeader = useGetAuthorizationHeader();
@@ -15,9 +16,7 @@ const usePostSubmission = () => {
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [submitted, setSubmitted] = useState(false);
-    const dispatch = useDispatch();
-    let history = useHistory();
-    let location = useLocation();
+    const redirectToLogin = useRedirectToLogin();
 
     const submit = async (
         title: string,
@@ -35,7 +34,7 @@ const usePostSubmission = () => {
             const isTokenValid = await validateToken();
             if (!isTokenValid) {
                 setLoading(false);
-                history.push("/login");
+                redirectToLogin();
                 return
             }
 
