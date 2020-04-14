@@ -5,13 +5,17 @@ import {GenericLinkButton} from "../commons/generic-button";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        width: '100%',
+        width: 'calc(100% - 16px)',
         minHeight: '100px',
-        margin: theme.spacing(1),
+        margin: '8px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        [theme.breakpoints.down('md')]: {
+            width: '100%',
+            margin: '8px 0',
+        }
     }
 }));
 
