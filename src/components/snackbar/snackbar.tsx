@@ -10,12 +10,12 @@ import Close from '@material-ui/icons/Close';
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Typography from "@material-ui/core/Typography";
 
-const useStyles = makeStyles(() => createStyles({
+const useStyles = makeStyles((theme) => createStyles({
     root: {
 
     },
     content: {
-        backgroundColor: '#4a5568',
+        backgroundColor: theme.palette.primary.main,
     },
 }));
 

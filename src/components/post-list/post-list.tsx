@@ -24,8 +24,8 @@ const PostList: React.FC<PostListProps> = ({isLogin}) => {
     if (loading) {
         content = (new Array(10)).fill(0).map((_, i) => {
                 return (
-                    <Box width='100%' my={2} key={i}>
-                        <Skeleton variant="rect" animation="wave" width={'100%'} height={100}/>
+                    <Box width='100%' my={1} borderRadius={'5px'} key={i} overflow={'hidden'}>
+                        <Skeleton variant="rect" animation="wave" width={'100%'} height={150}/>
                     </Box>
                 )
             })
