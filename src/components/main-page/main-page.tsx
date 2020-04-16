@@ -1,7 +1,7 @@
 import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import PostListContainer from "../../containers/post-list-container";
-import SideBar from "../side-bar/side-bar";
+import SideBarContainer from "../../containers/side-bar-container";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -43,7 +43,7 @@ const MainPage: React.FC<MainPageProps> = () => {
                 <PostListContainer />
             </div>
             <div className={classes.right}>
-                <SideBar />
+                <SideBarContainer />
             </div>
         </div>
     )

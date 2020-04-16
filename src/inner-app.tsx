@@ -17,6 +17,7 @@ import PostEditor from "./components/post-editor/post-editor";
 import {State} from "./redux/state";
 import PostDetail from "./components/post-detail/post-detail";
 import RouterScrollRestoration from "./utils/router-scroll-restoration";
+import AccountSettingContainer from "./containers/account-setting-container";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -61,6 +62,9 @@ const InnerApp: React.FC<InnerAppProps> = ({isLogin}) => {
                         <Route path="/post/:postID" render={ () => <PostDetail isLogin={isLogin}/> } />
                         <PrivateRoute path="/edit-post/:postID?" isLogin={isLogin}>
                             <PostEditor/>
+                        </PrivateRoute>
+                        <PrivateRoute path="/account-setting" isLogin={isLogin}>
+                            <AccountSettingContainer/>
                         </PrivateRoute>
                         {/*<Route path="/welcome" component={Welcome} />*/}
                     </Switch>

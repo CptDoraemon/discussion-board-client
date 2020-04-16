@@ -1,13 +1,7 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import {Box, Paper, Typography} from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
-import IconButton from "@material-ui/core/IconButton";
-import ThumbUpRoundedIcon from '@material-ui/icons/ThumbUpRounded';
-import ThumbDownRoundedIcon from '@material-ui/icons/ThumbDownRounded';
-import useLike from "../../requests/useLike";
-import red from '@material-ui/core/colors/red';
-import green from '@material-ui/core/colors/green';
 import {Link} from "react-router-dom";
 import getTimeString from "../../utils/get-time-string";
 import LikeButtons from "../commons/like-buttons";
