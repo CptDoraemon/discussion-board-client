@@ -31,9 +31,9 @@ function getCroppedImg(image: HTMLImageElement, crop: Crop, fileName: string) {
     return new Promise<Blob>((resolve, reject) => {
         canvas.toBlob(blob => {
             console.log(blob);
-            if (blob)
-            // blob.name = fileName;
-            resolve(blob);
+            if (blob) {
+                resolve(blob);
+            }
         }, 'image/jpeg', 1);
     });
 }

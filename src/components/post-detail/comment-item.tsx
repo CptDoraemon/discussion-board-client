@@ -35,7 +35,8 @@ interface CommentBaseData {
     id: string,
     owner: {
         username: string,
-        email: string
+        email: string,
+        avatar_url: string
     }
     likes: number,
     dislikes: number,
@@ -64,7 +65,7 @@ const CommentItem: React.FC<CommentItemProps> = ({data, postID, isLogin}) => {
 
     return (
         <Paper className={classes.root} elevation={0}>
-            <ItemInfo type={'comment'} username={data.owner.username} created={data.created} id={data.id} likes={data.likes} dislikes={data.dislikes} isLiked={data.isLiked} small/>
+            <ItemInfo type={'comment'} username={data.owner.username} avatarUrl={data.owner.avatar_url} created={data.created} id={data.id} likes={data.likes} dislikes={data.dislikes} isLiked={data.isLiked} small/>
             <div className={classes.content}>
                 { data.content }
             </div>

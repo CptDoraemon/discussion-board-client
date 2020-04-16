@@ -1,10 +1,12 @@
 const base = 'https://django-api-xiaoxihome.herokuapp.com/api/discussion_board/';
+// const base = 'http://127.0.0.1:8000/api/discussion_board/';
 
 const accountBase = base + 'account/';
 const login = accountBase + 'login/';
 const register = accountBase + 'register/';
 const verifySession = accountBase + 'verify_session/';
 const refresh = accountBase + 'refresh/';
+const updateAvatar = accountBase + 'update_avatar/';
 
 const postBase = base + 'post/';
 const getPostList = postBase + 'all/';
@@ -22,6 +24,7 @@ const urls = {
     register,
     verifySession,
     refresh,
+    updateAvatar,
     getPostList,
     getPostDetail,
     createPost,

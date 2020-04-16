@@ -16,7 +16,8 @@ export interface PostData {
     comments: number
     owner: {
         email: string,
-        username: string
+        username: string,
+        avatar_url: string
     },
     "is_liked"?: 0 | 1 | -1
 }
@@ -90,7 +91,7 @@ const Post: React.FC<PostProps> = ({isLogin, data}) => {
     return (
         <div className={classes.root}>
             <Paper className={classes.paper} elevation={0}>
-                <Avatar variant="rounded" className={classes.avatar}>
+                <Avatar variant="rounded" className={classes.avatar} src={data.owner.avatar_url}>
                     { data.owner.username.charAt(0) }
                 </Avatar>
                 <div className={classes.content}>

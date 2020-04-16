@@ -43,7 +43,8 @@ export interface PostDetailData {
     id: string,
     owner: {
         email: string,
-        username: string
+        username: string,
+        avatar_url: string
     }
     likes: number,
     dislikes: number,
@@ -86,7 +87,7 @@ const PostDetail: React.FC<PostDetailProps> = ({isLogin}) => {
             <>
                 <Paper className={classes.paper} elevation={0}>
                     <h1> {data.title} </h1>
-                    <ItemInfo type={'post'} username={data.owner.username} created={data.created} id={data.id} likes={data.likes} dislikes={data.dislikes} isLiked={data.is_liked}/>
+                    <ItemInfo type={'post'} username={data.owner.username} avatarUrl={data.owner.avatar_url} created={data.created} id={data.id} likes={data.likes} dislikes={data.dislikes} isLiked={data.is_liked}/>
                     <div dangerouslySetInnerHTML={{__html: data.content}} className={classes.postContent}/>
                 </Paper>
                 <CommentList comments={data.comments} isLogin={isLogin} postID={data.id} data={data.comments_data}/>

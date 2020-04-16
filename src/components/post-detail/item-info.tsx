@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
 interface ItemInfoProps {
     type: 'comment' | 'post',
     username: string,
+    avatarUrl: string
     created: string,
     id: string,
     likes: number,
@@ -49,7 +50,7 @@ interface ItemInfoProps {
     small?: boolean
 }
 
-const ItemInfo: React.FC<ItemInfoProps> = ({type, username, created, id, likes, dislikes, isLiked, small}) => {
+const ItemInfo: React.FC<ItemInfoProps> = ({type, username, avatarUrl, created, id, likes, dislikes, isLiked, small}) => {
     const classes = useStyles();
 
     return (
@@ -58,6 +59,7 @@ const ItemInfo: React.FC<ItemInfoProps> = ({type, username, created, id, likes, 
                 <Avatar
                     variant="rounded"
                     className={small ? `${classes.avatar} ${classes.avatarSmall}` : classes.avatar}
+                    src={avatarUrl}
                 >
                     { username.charAt(0) }
                 </Avatar>

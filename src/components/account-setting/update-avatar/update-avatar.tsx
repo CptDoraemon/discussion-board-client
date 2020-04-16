@@ -7,6 +7,7 @@ import ReactCrop, {Crop} from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
 import ErrorMessage from "../../commons/error-message";
 import getCroppedImg from "./get-cropped-image";
+import useUpdateAvatar from "../../../requests/useUpdateAvatar";
 
 enum Stage {
     'UPLOAD' = 'UPLOAD',
@@ -53,6 +54,25 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+interface FinishStageProps {
+    restart: () => void
+}
+
+const FinishStage: React.FC<FinishStageProps> = ({restart}) => {
+    const classes = useStyles();
+
+    return (
+        <>
+            <div className={classes.backNextButtons}>
+                <GenericClickButton onClick={restart} width={'150px'} text={'Start Again'}/>
+            </div>
+            <div>
+                All set
+            </div>
+        </>
+    )
+};
+
 interface ConfirmStageProps {
     blob: Blob | null,
     back: () => void,
@@ -61,16 +81,31 @@ interface ConfirmStageProps {
 
 const ConfirmStage: React.FC<ConfirmStageProps> = ({blob, back, next}) => {
     const classes = useStyles();
+
+    const [loading, error, errorMessage, upload] = useUpdateAvatar();
+
+    const GoNext = async () => {
+        try {
+            if (blob) {
+                const uploaded = await upload(blob);
+                if (uploaded) {
+                    next();
+                }
+            }
+        } catch (e) {}
+    };
+
     return (
         <>
             <div className={classes.backNextButtons}>
-                <Box justifySelf={'flex-start'}>
+                <Box>
                     <GenericClickButton onClick={back} width={'150px'} text={'Redo Cropping'}/>
                 </Box>
-                <Box justifySelf={'flex-end'}>
-                    <GenericClickButton onClick={next} width={'150px'} text={'Update Avatar'}/>
+                <Box>
+                    <GenericClickButton onClick={GoNext} width={'150px'} text={'Update Avatar'} disabled={loading}/>
                 </Box>
             </div>
+            <ErrorMessage loading={loading} error={error} errorMessage={errorMessage}/>
             <div className={classes.centering}>
                 <img src={URL.createObjectURL(blob)} className={classes.image}/>
             </div>
@@ -215,6 +250,10 @@ const UpdateAvatar: React.FC<UpdateAvatarProps> = ({}) => {
         setStage(Stage.CONFIRM);
     };
 
+    const moveToFinishStage = () => {
+        setStage(Stage.FINISH);
+    };
+
     let content;
     switch (stage) {
         case Stage.UPLOAD:
@@ -224,7 +263,10 @@ const UpdateAvatar: React.FC<UpdateAvatarProps> = ({}) => {
             content = <CropStage src={imageSrc} back={moveToUploadStage} next={moveToConfirmStage}/>;
             break;
         case Stage.CONFIRM:
-            content = <ConfirmStage blob={croppedImageBlob} back={backToCropStage} next={() => false}/>;
+            content = <ConfirmStage blob={croppedImageBlob} back={backToCropStage} next={moveToFinishStage}/>;
+            break;
+        case Stage.FINISH:
+            content = <FinishStage restart={moveToUploadStage}/>;
             break;
         default:
             content = <UploadStage next={moveToCropStage} />;
