@@ -129,7 +129,6 @@ const CropStage: React.FC<CropStageProps> = ({src, back, next}) => {
     const [error, setError] = useState(false);
     const [image, setImage] = useState<HTMLImageElement | null>(null);
     const [crop, setCrop] = useState<Crop>({});
-    console.log(crop);
     const cropperWrapperRef = useRef<HTMLDivElement>(null);
     const [cropperSize, setCropperSize] = useState({
         width: 1,
@@ -168,7 +167,6 @@ const CropStage: React.FC<CropStageProps> = ({src, back, next}) => {
         const height = cropperSize.height;
         if (width >= height) {
             const x = Math.round((width - height) / 2);
-            console.log(x);
             setCrop({
                 aspect: 1,
                 unit: 'px',
