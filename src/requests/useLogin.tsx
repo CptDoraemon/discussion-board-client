@@ -1,17 +1,16 @@
 import {useState} from "react";
 import urls from "./urls";
-import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch } from 'react-redux'
 import { updateLoginStatus } from "../redux/actions/login-status";
 import { openSnackbar } from "../redux/actions/snackbar";
+import useRedirectBack from "../utils/use-redirect-back";
 
 const useLogin = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const dispatch = useDispatch();
-    let history = useHistory();
-    let location = useLocation();
+    const goBack = useRedirectBack();
 
     const login = (
         email: string,
@@ -49,8 +48,7 @@ const useLogin = () => {
                             refresh: json.data.refresh
                         }
                     }));
-                    let { from }: any = location.state || { from: { pathname: "/" } };
-                    history.replace(from);
+                    goBack();
                     dispatch(openSnackbar(`Welcome back ${username}`))
                 } else {
                     setError(true);
