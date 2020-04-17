@@ -1,13 +1,13 @@
-import React, {ReactElement, useEffect, useRef, useState} from "react";
+import React, {useEffect, useMemo, useRef, useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import {GenericClickButton} from "../../commons/generic-button";
 import {Box} from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
 import ReactCrop, {Crop} from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
 import ErrorMessage from "../../commons/error-message";
 import getCroppedImg from "./get-cropped-image";
 import useUpdateAvatar from "../../../requests/useUpdateAvatar";
+import useResizeImage, {getWidthHeight} from "./use-resize-image";
 
 enum Stage {
     'UPLOAD' = 'UPLOAD',
@@ -38,12 +38,6 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between'
-    },
-    image: {
-        width: '500px',
-        [theme.breakpoints.down('md')]: {
-            width: '100%'
-        }
     },
     centering: {
         width: '100%',
@@ -83,6 +77,11 @@ const ConfirmStage: React.FC<ConfirmStageProps> = ({blob, back, next}) => {
     const classes = useStyles();
 
     const [loading, error, errorMessage, upload] = useUpdateAvatar();
+    const containerRef = useRef<HTMLDivElement>(null);
+    const src = useMemo(() => {
+        return URL.createObjectURL(blob)
+    }, [blob]);
+    const [imgWidth, imgHeight] = useResizeImage(containerRef, src);
 
     const GoNext = async () => {
         try {
@@ -106,8 +105,14 @@ const ConfirmStage: React.FC<ConfirmStageProps> = ({blob, back, next}) => {
                 </Box>
             </div>
             <ErrorMessage loading={loading} error={error} errorMessage={errorMessage}/>
-            <div className={classes.centering}>
-                <img src={URL.createObjectURL(blob)} className={classes.image}/>
+            <div className={classes.centering} ref={containerRef}>
+                <img
+                    src={src}
+                    alt={'cropped image'}
+                    style={{
+                    width: imgWidth,
+                    height: imgHeight
+                }}/>
             </div>
         </>
     )
@@ -123,19 +128,18 @@ const CropStage: React.FC<CropStageProps> = ({src, back, next}) => {
     const classes = useStyles();
     const [error, setError] = useState(false);
     const [image, setImage] = useState<HTMLImageElement | null>(null);
-    const [crop, setCrop] = useState<Crop>({
-        aspect: 1,
-        unit: '%',
-        height: 100,
-        x: 25,
+    const [crop, setCrop] = useState<Crop>({});
+    console.log(crop);
+    const cropperWrapperRef = useRef<HTMLDivElement>(null);
+    const [cropperSize, setCropperSize] = useState({
+        width: 1,
+        height: 1
     });
 
     const goNext = async () => {
         try {
-            console.log(image);
             if (!image) return;
             const croppedSrc = await getCroppedImg(image, crop, ' ');
-            console.log(croppedSrc);
             if (croppedSrc) {
                 next(croppedSrc);
             }
@@ -143,6 +147,49 @@ const CropStage: React.FC<CropStageProps> = ({src, back, next}) => {
             console.log(e);
         }
     };
+
+    const handleImageLoaded = (image: HTMLImageElement) => {
+        setImage(image);
+        if (cropperWrapperRef.current) {
+            const [width, height] = getWidthHeight(
+                cropperWrapperRef.current.getBoundingClientRect().width,
+                image.naturalWidth,
+                image.naturalHeight
+            );
+            setCropperSize({
+                width,
+                height
+            });
+        }
+    };
+
+    useEffect(() => {
+        const width = cropperSize.width;
+        const height = cropperSize.height;
+        if (width >= height) {
+            const x = Math.round((width - height) / 2);
+            console.log(x);
+            setCrop({
+                aspect: 1,
+                unit: 'px',
+                height: height,
+                width: height,
+                x,
+                y: 0
+            })
+        } else {
+            const y = Math.round((height - width) / 2);
+            setCrop({
+                aspect: 1,
+                unit: 'px',
+                height: width,
+                width: width,
+                x: 0,
+                y
+            })
+        }
+    }, [cropperSize.width, cropperSize.height]);
+
 
     return (
         <>
@@ -155,15 +202,20 @@ const CropStage: React.FC<CropStageProps> = ({src, back, next}) => {
                 </Box>
             </div>
 
-            <ReactCrop
-                src={src}
-                crop={crop}
-                onChange={(newCrop) => setCrop(newCrop)}
-                className={classes.image}
-                ruleOfThirds={true}
-                onImageError={() => setError(true)}
-                onImageLoaded = {(image) => setImage(image)}
-            />
+            <div ref={cropperWrapperRef} className={classes.centering}>
+                <ReactCrop
+                    src={src}
+                    crop={crop}
+                    onChange={(newCrop) => setCrop(newCrop)}
+                    ruleOfThirds={true}
+                    onImageError={() => setError(true)}
+                    onImageLoaded = {handleImageLoaded}
+                    style={{
+                        width: cropperSize.width,
+                        height: cropperSize.height
+                    }}
+                />
+            </div>
             {
                 error &&
                 <ErrorMessage loading={false} error={true} errorMessage={'Image can\'t be loaded'}/>
