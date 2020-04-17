@@ -62,7 +62,7 @@ const FinishStage: React.FC<FinishStageProps> = ({restart}) => {
                 <GenericClickButton onClick={restart} width={'150px'} text={'Start Again'}/>
             </div>
             <div className={'centering'}>
-                <Box fontWeight={700}>
+                <Box fontWeight={700} my={2}>
                     All set
                 </Box>
             </div>
@@ -236,6 +236,7 @@ const UploadStage: React.FC<UploadStageProps> = ({next}) => {
     const classes = useStyles();
     const inputRef = useRef<HTMLInputElement>(null);
     const [link, setLink] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const openFileInput = () => {
         inputRef.current?.click();
@@ -247,6 +248,8 @@ const UploadStage: React.FC<UploadStageProps> = ({next}) => {
             inputRef.current.files &&
             inputRef.current.files.length
         ) {
+            if (loading) return;
+            setLoading(true);
             loadImage(
                 inputRef.current.files[0],
                 (img) => {
@@ -260,7 +263,10 @@ const UploadStage: React.FC<UploadStageProps> = ({next}) => {
     };
 
     useEffect(() => {
-        inputRef.current?.addEventListener('change', handleFiles)
+        inputRef.current?.addEventListener('change', handleFiles);
+        return () => {
+            inputRef.current?.removeEventListener('change', handleFiles);
+        }
     }, []);
 
     return (
@@ -274,8 +280,14 @@ const UploadStage: React.FC<UploadStageProps> = ({next}) => {
                     {/*    <GenericClickButton onClick={() => next(link)} width={'150px'} text={'Get Image'}/>*/}
                     {/*</Box>*/}
                     {/*<Box mx={1}> or </Box>*/}
-                    <Box>
-                        <GenericClickButton onClick={openFileInput} width={'150px'} text={'Upload From Disk'}/>
+                    <Box my={2}>
+                        {
+                            loading ?
+                                <ErrorMessage loading={true} error={false} errorMessage={''} /> :
+                                <Box>
+                                    <GenericClickButton onClick={openFileInput} width={'150px'} text={'Upload From Disk'} disabled={loading}/>
+                                </Box>
+                        }
                     </Box>
                     <input type="file" ref={inputRef} accept="image/*" style={{display: 'none'}}/>
                 </div>
