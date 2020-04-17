@@ -253,12 +253,14 @@ const UploadStage: React.FC<UploadStageProps> = ({next}) => {
             loadImage(
                 inputRef.current.files[0],
                 (img) => {
-                    // returns canvas with option orientation: true
                     // @ts-ignore
                     next(img.toDataURL('image/jpeg'));
                 },
-                {orientation: true}
-                );
+                {
+                    orientation: true,
+                    canvas: true
+                }
+            );
         }
     };
 
