@@ -8,6 +8,7 @@ import ErrorMessage from "../../commons/error-message";
 import getCroppedImg from "./get-cropped-image";
 import useUpdateAvatar from "../../../requests/useUpdateAvatar";
 import useResizeImage, {getWidthHeight} from "./use-resize-image";
+import loadImage from 'blueimp-load-image'
 
 enum Stage {
     'UPLOAD' = 'UPLOAD',
@@ -138,7 +139,7 @@ const CropStage: React.FC<CropStageProps> = ({src, back, next}) => {
     const goNext = async () => {
         try {
             if (!image) return;
-            const croppedSrc = await getCroppedImg(image, crop, ' ');
+            const croppedSrc = await getCroppedImg(image, crop, image.naturalWidth / cropperSize.width, ' ');
             if (croppedSrc) {
                 next(croppedSrc);
             }
@@ -241,8 +242,15 @@ const UploadStage: React.FC<UploadStageProps> = ({next}) => {
             inputRef.current.files &&
             inputRef.current.files.length
         ) {
-            const files = inputRef.current.files;
-            next(URL.createObjectURL(files[0]));
+            loadImage(
+                inputRef.current.files[0],
+                (img) => {
+                    // returns canvas with option orientation: true
+                    // @ts-ignore
+                    next(img.toDataURL('image/jpeg'));
+                },
+                {orientation: true}
+                );
         }
     };
 
