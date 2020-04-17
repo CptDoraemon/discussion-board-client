@@ -61,8 +61,10 @@ const FinishStage: React.FC<FinishStageProps> = ({restart}) => {
             <div className={classes.backNextButtons}>
                 <GenericClickButton onClick={restart} width={'150px'} text={'Start Again'}/>
             </div>
-            <div>
-                All set
+            <div className={'centering'}>
+                <Box fontWeight={700}>
+                    All set
+                </Box>
             </div>
         </>
     )
@@ -106,15 +108,18 @@ const ConfirmStage: React.FC<ConfirmStageProps> = ({blob, back, next}) => {
                 </Box>
             </div>
             <ErrorMessage loading={loading} error={error} errorMessage={errorMessage}/>
-            <div className={classes.centering} ref={containerRef}>
-                <img
-                    src={src}
-                    alt={'cropped image'}
-                    style={{
-                    width: imgWidth,
-                    height: imgHeight
-                }}/>
-            </div>
+            {
+                !loading &&
+                <div className={classes.centering} ref={containerRef}>
+                    <img
+                        src={src}
+                        alt={'cropped image'}
+                        style={{
+                            width: imgWidth,
+                            height: imgHeight
+                        }}/>
+                </div>
+            }
         </>
     )
 };
@@ -200,7 +205,7 @@ const CropStage: React.FC<CropStageProps> = ({src, back, next}) => {
                     <GenericClickButton onClick={goNext} width={'150px'} text={'Crop'}/>
                 </Box>
             </div>
-
+            <ErrorMessage loading={false} error={false} errorMessage={''}/>
             <div ref={cropperWrapperRef} className={classes.centering}>
                 <ReactCrop
                     src={src}
