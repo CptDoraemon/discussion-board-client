@@ -2,16 +2,11 @@ import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import {Paper} from "@material-ui/core";
 import { useParams } from "react-router-dom";
-import useGetPostDetail from "../../requests/useGetPostDetail";
+import useGetPostDetail from "../../requests/use-get-post-detail";
 import {Skeleton} from "@material-ui/lab";
-import Avatar from "@material-ui/core/Avatar";
-import getTimeString from "../../utils/get-time-string";
-import LikeButtons from "../commons/like-buttons";
-import useLike from "../../requests/useLike";
 import CommentList from "./comment-list";
 import ItemInfo from "./item-info";
 import {CommentData} from "./comment-item";
-import useSetTitle from "../../utils/use-set-title";
 
 
 const useStyles = makeStyles((theme) => ({

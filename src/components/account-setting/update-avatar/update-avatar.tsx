@@ -6,7 +6,7 @@ import ReactCrop, {Crop} from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
 import ErrorMessage from "../../commons/error-message";
 import getCroppedImg from "./get-cropped-image";
-import useUpdateAvatar from "../../../requests/useUpdateAvatar";
+import useUpdateAvatar from "../../../requests/use-update-avatar";
 import useResizeImage, {getWidthHeight} from "./use-resize-image";
 import loadImage from 'blueimp-load-image'
 
@@ -265,9 +265,10 @@ const UploadStage: React.FC<UploadStageProps> = ({next}) => {
     };
 
     useEffect(() => {
-        inputRef.current?.addEventListener('change', handleFiles);
+        const input = inputRef.current;
+        input?.addEventListener('change', handleFiles);
         return () => {
-            inputRef.current?.removeEventListener('change', handleFiles);
+            input?.removeEventListener('change', handleFiles);
         }
     }, []);
 

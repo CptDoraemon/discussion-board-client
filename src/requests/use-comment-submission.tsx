@@ -1,7 +1,7 @@
 import {useState} from "react";
 import urls from "./urls";
-import useGetAuthorizationHeader from "./useGetAuthorizationHeader";
-import useVerifyToken from "./useVerifyToken";
+import useGetAuthorizationHeader from "./use-get-authorization-header";
+import useVerifyToken from "./use-verify-token";
 import useRedirectToLogin from "../utils/use-redirect-to-login";
 import useReload from "../utils/use-reload";
 

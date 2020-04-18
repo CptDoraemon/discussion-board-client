@@ -6,8 +6,8 @@ import useRedirectBack from "../utils/use-redirect-back";
 
 const useLogout = () => {
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
+    // const [error, setError] = useState(false);
+    // const [errorMessage, setErrorMessage] = useState('');
     const dispatch = useDispatch();
     const goBack = useRedirectBack();
 
@@ -22,7 +22,7 @@ const useLogout = () => {
         clientSideLogout()
     };
 
-    return [loading, error, errorMessage, logout] as [boolean, boolean, string, typeof logout]
+    return [loading, logout] as [typeof loading, typeof logout]
 
 };
 

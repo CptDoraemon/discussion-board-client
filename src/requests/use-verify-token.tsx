@@ -1,13 +1,13 @@
 import urls from "./urls";
 import {useDispatch, useStore} from 'react-redux'
-import useGetAuthorizationHeader from "./useGetAuthorizationHeader";
+import useGetAuthorizationHeader from "./use-get-authorization-header";
 import { refreshToken as refreshTokenAction } from '../redux/actions/login-status'
 import {State} from "../redux/state";
 
 const useVerifyToken = () => {
     const state = useStore<State>().getState();
     const isLogin = state.loginStatus.isLogin;
-    const refreshToken = state.loginStatus.token.access;
+    const refreshToken = state.loginStatus.token.refresh;
 
     const accessHeader = useGetAuthorizationHeader();
     const dispatch = useDispatch();

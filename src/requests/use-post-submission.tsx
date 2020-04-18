@@ -1,38 +1,29 @@
-import useGetAuthorizationHeader from "./useGetAuthorizationHeader";
-import useVerifyToken from "./useVerifyToken";
 import {useState} from "react";
-import {useDispatch} from "react-redux";
 import urls from "./urls";
-import {openSnackbar} from "../redux/actions/snackbar";
-import {PostData} from "../components/post-list/post";
+import useGetAuthorizationHeader from "./use-get-authorization-header";
+import useVerifyToken from "./use-verify-token";
 import useRedirectToLogin from "../utils/use-redirect-to-login";
 
-type Type = 'post' | 'comment';
-type Action = 1 | 0 | -1;
-
-const useLike = (type: Type, id: string) => {
+const usePostSubmission = () => {
     const accessHeader = useGetAuthorizationHeader();
     const validateToken = useVerifyToken();
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
-    const [updatedData, setUpdatedData] = useState<PostData | null>(null);
-    const dispatch = useDispatch();
+    const [errorMessage, setErrorMessage] = useState('');
+    const [submitted, setSubmitted] = useState(false);
     const redirectToLogin = useRedirectToLogin();
 
-    const like = async (
-        action: Action
+    const submit = async (
+        title: string,
+        content: string
     ) => {
         try {
-            console.log(JSON.stringify({
-                "target_type": type,
-                "target_id": id,
-                action
-            }));
-            if (loading) return;
+            if (loading || submitted) return;
 
             // reset states
             setError(false);
+            setErrorMessage(' ');
             setLoading(true);
 
             // redirect to login if token not valid
@@ -44,35 +35,35 @@ const useLike = (type: Type, id: string) => {
             }
 
             //
-            const res = await fetch(urls.like, {
+            const res = await fetch(urls.createPost, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     ...accessHeader
                 },
                 body: JSON.stringify({
-                    "target_type": type,
-                    "target_id": id,
-                    action
+                    title,
+                    content
                 })
             });
             const json = await res.json();
             setLoading(false);
             if (json.status === 'success') {
-                setUpdatedData(json.data)
+                console.log(json)
+                setSubmitted(true)
             } else {
-                dispatch(openSnackbar(json.message));
+                setErrorMessage(json.message);
                 setError(true)
             }
         } catch (e) {
             console.log(e);
             setLoading(false);
-            setError(true);
-            dispatch(openSnackbar('Server is not available please try again later'));
+            setErrorMessage('Server is not available please try again later');
+            setError(true)
         }
     };
 
-    return [loading, error, updatedData, like] as [typeof loading, typeof error, typeof updatedData, typeof like]
+    return [loading, error, errorMessage, submit, submitted] as [typeof loading, typeof error, typeof errorMessage, typeof submit, typeof submitted]
 };
 
-export default useLike
+export default usePostSubmission

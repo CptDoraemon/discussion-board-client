@@ -1,7 +1,7 @@
 import {useState} from "react";
 import urls from "./urls";
 import useReload from "../utils/use-reload";
-import useGetAuthorizationHeader from "./useGetAuthorizationHeader";
+import useGetAuthorizationHeader from "./use-get-authorization-header";
 
 const useUpdateAvatar = () => {
     const accessHeader = useGetAuthorizationHeader();

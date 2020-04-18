@@ -1,11 +1,11 @@
-import {FormControl, FormHelperText, Input, InputLabel, TextField} from "@material-ui/core";
+import {TextField} from "@material-ui/core";
 import {GenericClickButton} from "../commons/generic-button";
 import ErrorMessage from "../commons/error-message";
 import React, {FormEvent} from "react";
 import useInputField from "../../utils/use-input-field";
 import {commentValidator} from "../../utils/validators";
 import {makeStyles} from "@material-ui/core/styles";
-import useCommentSubmission from "../../requests/useCommentSubmission";
+import useCommentSubmission from "../../requests/use-comment-submission";
 
 const useStyles = makeStyles((theme) => ({
     root: {

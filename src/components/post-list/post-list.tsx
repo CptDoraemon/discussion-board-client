@@ -1,9 +1,9 @@
 import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
-import useGetPostList from "../../requests/useGetPostList";
+import useGetPostList from "../../requests/use-get-post-list";
 import Skeleton from '@material-ui/lab/Skeleton';
-import {Box, CircularProgress, Typography} from "@material-ui/core";
-import Post, {PostData} from "./post";
+import {Box, Typography} from "@material-ui/core";
+import Post from "./post";
 
 const useStyles = makeStyles((theme) => ({
     root: {

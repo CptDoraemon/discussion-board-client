@@ -1,14 +1,14 @@
 import ThemeButton from "../commons/theme-button";
 import React from "react";
 import {Box, CircularProgress, Grid, Typography} from "@material-ui/core";
-import useLogout from "../../requests/useLogout";
+import useLogout from "../../requests/use-logout";
 
 interface LoggedInUserPanelProps {
     username: string
 }
 
 const LoggedInUserPanel: React.FC<LoggedInUserPanelProps> = ({username}) => {
-    const [loading, error, errorMessage, logout] = useLogout();
+    const [loading, logout] = useLogout();
 
     return (
         <Grid container alignItems={"center"} justify={"center"} spacing={1}>

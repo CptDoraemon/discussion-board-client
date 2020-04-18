@@ -1,25 +1,28 @@
 import {useEffect, useState} from "react";
 import urls from "./urls";
-import {PostData} from "../components/post-list/post";
 import {useStore} from "react-redux";
 import {State} from "../redux/state";
-import useGetAuthorizationHeader from "./useGetAuthorizationHeader";
-import useVerifyToken from "./useVerifyToken";
+import useGetAuthorizationHeader from "./use-get-authorization-header";
+import useVerifyToken from "./use-verify-token";
+import {PostDetailData} from "../components/post-detail/post-detail";
+import useSetTitle from "../utils/use-set-title";
 
-const useGetPostList = () => {
+const useGetPostDetail = (postID: number) => {
     const isLogin = useStore<State>().getState().loginStatus.isLogin;
     const accessHeader = useGetAuthorizationHeader();
     const validateToken = useVerifyToken();
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
-    const [data, setData] = useState<PostData[] | null>(null);
+    const [data, setData] = useState<PostDetailData | null>(null);
+
+    useSetTitle(data?.title);
 
     useEffect(() => {
-        fetchPostList()
-    }, [isLogin]);
+        fetchPostDetail()
+    }, [isLogin, postID]);
 
-    const fetchPostList = async (
+    const fetchPostDetail = async (
     ) => {
         try {
             if (loading) return;
@@ -35,7 +38,7 @@ const useGetPostList = () => {
 
             // start fetching
             setLoading(true);
-            const res = await fetch(urls.getPostList, {
+            const res = await fetch(urls.getPostDetail(postID), {
                 method: 'GET',
                 headers: hasValidToken ? {...accessHeader} : {}
             });
@@ -61,4 +64,4 @@ const useGetPostList = () => {
 
 };
 
-export default useGetPostList
+export default useGetPostDetail

@@ -13,7 +13,7 @@ import {
     usernameValidator
 } from "../../utils/validators";
 import ErrorMessage from "../commons/error-message";
-import useRegister from "../../requests/useRegister";
+import useRegister from "../../requests/use-register";
 
 const useStyles = makeStyles((theme) => ({
     textField: {

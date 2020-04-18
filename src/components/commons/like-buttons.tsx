@@ -5,7 +5,7 @@ import ThumbDownRoundedIcon from "@material-ui/icons/ThumbDownRounded";
 import red from "@material-ui/core/colors/red";
 import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
-import useLike from "../../requests/useLike";
+import useLike from "../../requests/use-like";
 
 const useStyles = makeStyles((theme) => ({
     likeButtons: {

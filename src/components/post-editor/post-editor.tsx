@@ -7,7 +7,7 @@ import {FormControl, FormHelperText, Input, InputLabel, Paper} from "@material-u
 import useInputField from "../../utils/use-input-field";
 import {postTitleValidator} from "../../utils/validators";
 import {GenericClickButton} from "../commons/generic-button";
-import usePostSubmission from "../../requests/usePostSubmission";
+import usePostSubmission from "../../requests/use-post-submission";
 import ErrorMessage from "../commons/error-message";
 
 const ID = 'editor';
@@ -39,7 +39,8 @@ const PostEditor: React.FC = () => {
         e.preventDefault();
         if (!validateTitle()) return;
 
-        submit(title, quill.root.innerHTML)
+        console.log(quill.root.innerHTML)
+        // submit(title, quill.root.innerHTML)
     };
 
     useEffect(() => {
@@ -53,6 +54,9 @@ const PostEditor: React.FC = () => {
             },
             placeholder: 'Compose an epic...',
             theme: 'snow'  // or 'bubble'
+        });
+        quillInstance.getModule('toolbar').addHandler('image', () => {
+            console.log('asdasd')
         });
 
         setQuill(quillInstance)
