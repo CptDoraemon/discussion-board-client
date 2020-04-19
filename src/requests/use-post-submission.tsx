@@ -16,7 +16,8 @@ const usePostSubmission = () => {
 
     const submit = async (
         title: string,
-        content: string
+        content: string,
+        objectURLArray: string[]
     ) => {
         try {
             if (loading || submitted) return;
@@ -35,21 +36,21 @@ const usePostSubmission = () => {
             }
 
             //
+            objectURLArray = removeUnusedObjectURL(content, objectURLArray);
+
+            //
+            const form = await getForm(title, content, objectURLArray);
             const res = await fetch(urls.createPost, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
                     ...accessHeader
                 },
-                body: JSON.stringify({
-                    title,
-                    content
-                })
+                body: form
             });
             const json = await res.json();
             setLoading(false);
             if (json.status === 'success') {
-                console.log(json)
+                console.log(json);
                 setSubmitted(true)
             } else {
                 setErrorMessage(json.message);
@@ -64,6 +65,48 @@ const usePostSubmission = () => {
     };
 
     return [loading, error, errorMessage, submit, submitted] as [typeof loading, typeof error, typeof errorMessage, typeof submit, typeof submitted]
+};
+
+const removeUnusedObjectURL = (content: string, objectURLArray: string[]) => {
+    // some images may be deleted while editing
+
+    return objectURLArray.filter(url => content.indexOf(url) !== -1)
+};
+
+interface NamedBlob {
+    blob: Blob,
+    name: string
+}
+
+const getForm = (title: string, content: string, objectURLArray: string[]) => {
+    return new Promise<FormData>((resolve, reject) => {
+        const form = new FormData();
+        form.append('title', title);
+        form.append('content', content);
+
+        const promiseArray = objectURLArray.map((url) => getBlobFromObjectURL(url));
+
+        Promise.all<NamedBlob>(promiseArray)
+            .then(blobs => {
+                blobs.forEach((blob, i) => {
+                    console.log(blob.name + '.jpg');
+                    form.append(`file${i}`, blob.blob, blob.name + '.jpg')
+                });
+                resolve(form);
+            })
+    })
+};
+
+const getBlobFromObjectURL = (url: string) => {
+    return new Promise<NamedBlob>((resolve, reject) => {
+        fetch(url)
+            .then(res => res.blob())
+            .then(blob => resolve({
+                blob,
+                name: url
+            }))
+            .catch((e) => reject(e))
+    })
 };
 
 export default usePostSubmission

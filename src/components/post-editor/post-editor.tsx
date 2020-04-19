@@ -1,6 +1,5 @@
-import React, {FormEvent, useEffect, useState} from "react";
+import React, {FormEvent} from "react";
 import { useParams } from "react-router-dom";
-import Quill from 'quill'
 import {makeStyles} from "@material-ui/core/styles";
 import 'quill/dist/quill.snow.css';
 import {FormControl, FormHelperText, Input, InputLabel, Paper} from "@material-ui/core";
@@ -9,6 +8,7 @@ import {postTitleValidator} from "../../utils/validators";
 import {GenericClickButton} from "../commons/generic-button";
 import usePostSubmission from "../../requests/use-post-submission";
 import ErrorMessage from "../commons/error-message";
+import useEditor from "./use-editor";
 
 const ID = 'editor';
 
@@ -31,7 +31,7 @@ const PostEditor: React.FC = () => {
     const classes = useStyles();
     const {postID} = useParams();
 
-    const [quill, setQuill] = useState<any>(null);
+    const [editor, getObjectURLArray] = useEditor(ID);
     const [title, titleChangeHandler, titleError, titleErrorMessage, validateTitle] = useInputField('', postTitleValidator);
     const [loading, error, errorMessage, submit, submitted] = usePostSubmission();
 
@@ -39,28 +39,9 @@ const PostEditor: React.FC = () => {
         e.preventDefault();
         if (!validateTitle()) return;
 
-        console.log(quill.root.innerHTML)
-        // submit(title, quill.root.innerHTML)
+        if (!editor) return;
+        submit(title, editor.root.innerHTML, getObjectURLArray())
     };
-
-    useEffect(() => {
-        const quillInstance = new Quill(`#${ID}`, {
-            modules: {
-                toolbar: [
-                    [{header: [1, 2, false]}],
-                    ['bold', 'italic', 'underline'],
-                    ['image', 'code-block']
-                ]
-            },
-            placeholder: 'Compose an epic...',
-            theme: 'snow'  // or 'bubble'
-        });
-        quillInstance.getModule('toolbar').addHandler('image', () => {
-            console.log('asdasd')
-        });
-
-        setQuill(quillInstance)
-    }, []);
 
     return (
         <Paper className={classes.root} elevation={0}>
