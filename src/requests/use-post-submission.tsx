@@ -50,7 +50,6 @@ const usePostSubmission = () => {
             const json = await res.json();
             setLoading(false);
             if (json.status === 'success') {
-                console.log(json);
                 setSubmitted(true)
             } else {
                 setErrorMessage(json.message);
@@ -69,7 +68,6 @@ const usePostSubmission = () => {
 
 const removeUnusedObjectURL = (content: string, objectURLArray: string[]) => {
     // some images may be deleted while editing
-
     return objectURLArray.filter(url => content.indexOf(url) !== -1)
 };
 
@@ -82,16 +80,26 @@ const getForm = (title: string, content: string, objectURLArray: string[]) => {
     return new Promise<FormData>((resolve, reject) => {
         const form = new FormData();
         form.append('title', title);
-        form.append('content', content);
 
         const promiseArray = objectURLArray.map((url) => getBlobFromObjectURL(url));
 
         Promise.all<NamedBlob>(promiseArray)
             .then(blobs => {
                 blobs.forEach((blob, i) => {
-                    console.log(blob.name + '.jpg');
+                    // blob name has format of:
+                    // blob:http://localhost:3000/f4d49560-de4e-420b-bcdf-64bfa833a555
+                    // use the pathname as the filename (eg: f4d49560-de4e-420b-bcdf-64bfa833a555)
+                    // replace the url in content with the new filename
+                    const urlComponents = blob.name.split('/');
+                    let filename = urlComponents[urlComponents.length - 1].length === 0 ?
+                        urlComponents[urlComponents.length - 2] :
+                        urlComponents[urlComponents.length - 1];
+
+                    content = content.replace(blob.name, filename);
+                    // file ext is .jpg because it was loaded with js, drawn in canvas ans exported as jpg
                     form.append(`file${i}`, blob.blob, blob.name + '.jpg')
                 });
+                form.append('content', content);
                 resolve(form);
             })
     })

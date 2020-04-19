@@ -26,18 +26,5 @@ let theme = createMuiTheme({
     }
 });
 theme = responsiveFontSizes(theme);
-theme.typography.h1 = {
-    fontFamily: [
-        'Open-sans',
-        'sans-serif',
-    ].join(','),
-    fontWeight: 800,
-    fontSize: '1.25rem',
-    [theme.breakpoints.up('md')]: {
-        fontSize: '1.5rem',
-    },
-    fontStyle: "normal",
-    color: "inherit"
-};
 
 export default theme;

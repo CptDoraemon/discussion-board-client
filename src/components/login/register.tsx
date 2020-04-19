@@ -64,8 +64,8 @@ const Register: React.FC<RegisterProps> = () => {
             <form onSubmit={submitHandler} id={formID}>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
-                        <Typography variant={'h1'} component={'h1'} color={"textPrimary"}>
-                            <Box textAlign={'center'}>
+                        <Typography variant={'h5'} component={'h1'} color={"textPrimary"}>
+                            <Box textAlign={'center'} fontWeight={700}>
                                 Join Us
                             </Box>
                         </Typography>

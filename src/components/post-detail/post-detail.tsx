@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useRef} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import {Paper} from "@material-ui/core";
 import { useParams } from "react-router-dom";
@@ -7,6 +7,9 @@ import {Skeleton} from "@material-ui/lab";
 import CommentList from "./comment-list";
 import ItemInfo from "./item-info";
 import {CommentData} from "./comment-item";
+import useResizeImages from "./use-resize-images";
+import Box from "@material-ui/core/Box";
+import useInsertedHTMLStyle from "./inserted-html-style";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -28,9 +31,6 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center'
-    },
-    postContent: {
-        marginTop: '40px'
     }
 }));
 
@@ -57,11 +57,12 @@ interface PostDetailProps {
 
 const PostDetail: React.FC<PostDetailProps> = ({isLogin}) => {
     const classes = useStyles();
+    const insertedHTMLClasses = useInsertedHTMLStyle();
 
     const { postID } = useParams();
     const [loading, error, data] = useGetPostDetail(parseInt(postID || '1'));
-
-    // const [likeLoading, likeError, updatedData, like] = useLike('post', postID);
+    const HTMLStringContainerRef = useRef<HTMLDivElement>(null);
+    // useResizeImages(HTMLStringContainerRef, data !== null);
 
     let content;
     if (loading) {
@@ -83,7 +84,8 @@ const PostDetail: React.FC<PostDetailProps> = ({isLogin}) => {
                 <Paper className={classes.paper} elevation={0}>
                     <h1> {data.title} </h1>
                     <ItemInfo type={'post'} username={data.owner.username} avatarUrl={data.owner.avatar_url} created={data.created} id={data.id} likes={data.likes} dislikes={data.dislikes} isLiked={data.is_liked}/>
-                    <div dangerouslySetInnerHTML={{__html: data.content}} className={classes.postContent}/>
+                    <Box width={'100%'} height={'40px'}> </Box>
+                    <div dangerouslySetInnerHTML={{__html: data.content}} className={insertedHTMLClasses.root} ref={HTMLStringContainerRef}/>
                 </Paper>
                 <CommentList comments={data.comments} isLogin={isLogin} postID={data.id} data={data.comments_data}/>
             </>
