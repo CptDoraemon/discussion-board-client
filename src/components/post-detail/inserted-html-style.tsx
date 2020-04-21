@@ -13,7 +13,8 @@ const useInsertedHTMLStyle = makeStyles((theme) => ({
             wordWrap: 'break-word'
         },
         '& a': {
-            wordWrap: 'break-word'
+            wordWrap: 'break-word',
+            width: '100%',
         },
         '& img': {
             maxWidth: '100%',
