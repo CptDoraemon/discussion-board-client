@@ -14,20 +14,23 @@ const useInsertedHTMLStyle = makeStyles((theme) => ({
         },
         '& a': {
             wordWrap: 'break-word',
-            width: '100%',
+            background: `linear-gradient(to bottom, ${theme.palette.primary.light} 0%, ${theme.palette.primary.light} 100%)`,
+            backgroundPosition: '0 100%',
+            backgroundRepeat: 'repeat-x',
+            backgroundSize: '4px 4px',
+            transition: theme.transitions.create('background-size'),
+        },
+        '& a:hover': {
+            backgroundSize: '4px 100%',
         },
         '& img': {
             maxWidth: '100%',
             maxHeight: '600px',
-            alignSelf: 'center',
-            margin: theme.spacing(1, 0)
+            display: 'block',
+            margin: '4px auto'
         },
         '& p': {
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'flex-start',
-            justifyContent: 'flex-start'
+
         }
         // '& h1': {
         //     fontSize: '3rem',
