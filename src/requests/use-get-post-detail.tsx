@@ -2,15 +2,13 @@ import {useEffect, useState} from "react";
 import urls from "./urls";
 import {useStore} from "react-redux";
 import {State} from "../redux/state";
-import useGetAuthorizationHeader from "./use-get-authorization-header";
-import useVerifyToken from "./use-verify-token";
 import {PostDetailData} from "../components/post-detail/post-detail";
 import useSetTitle from "../utils/use-set-title";
+import useFetchWithTokenVerification from "./use-fetch-with-token-verification";
 
 const useGetPostDetail = (postID: number) => {
     const isLogin = useStore<State>().getState().loginStatus.isLogin;
-    const accessHeader = useGetAuthorizationHeader();
-    const validateToken = useVerifyToken();
+    const fetchWithTokenVerification = useFetchWithTokenVerification();
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
@@ -30,21 +28,13 @@ const useGetPostDetail = (postID: number) => {
             // reset states
             setError(false);
 
-            // validate token if logged in
-            let hasValidToken = false;
-            if (isLogin) {
-                hasValidToken  = await validateToken()
-            }
-
             // start fetching
             setLoading(true);
-            const res = await fetch(urls.getPostDetail(postID), {
+            const res = await fetchWithTokenVerification(false, urls.getPostDetail(postID), {
                 method: 'GET',
-                headers: hasValidToken ? {...accessHeader} : {}
             });
             const json = await res.json();
             setLoading(false);
-            console.log(json);
 
             if (json.status === 'success') {
                 console.log(json.data);

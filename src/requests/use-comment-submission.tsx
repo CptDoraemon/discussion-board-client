@@ -1,18 +1,14 @@
 import {useState} from "react";
 import urls from "./urls";
-import useGetAuthorizationHeader from "./use-get-authorization-header";
-import useVerifyToken from "./use-verify-token";
-import useRedirectToLogin from "../utils/use-redirect-to-login";
 import useReload from "../utils/use-reload";
+import useFetchWithTokenVerification from "./use-fetch-with-token-verification";
 
 const useCommentSubmission = () => {
-    const accessHeader = useGetAuthorizationHeader();
-    const validateToken = useVerifyToken();
+    const fetchWithTokenVerification = useFetchWithTokenVerification();
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
-    const redirectToLogin = useRedirectToLogin();
     const reload = useReload();
 
     const submit = async (
@@ -28,20 +24,11 @@ const useCommentSubmission = () => {
             setErrorMessage(' ');
             setLoading(true);
 
-            // redirect to login if token not valid
-            const isTokenValid = await validateToken();
-            if (!isTokenValid) {
-                setLoading(false);
-                redirectToLogin();
-                return
-            }
-
             //
-            const res = await fetch(urls.createComment, {
+            const res = await fetchWithTokenVerification(true, urls.createComment, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                    ...accessHeader
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
                     'content': content,

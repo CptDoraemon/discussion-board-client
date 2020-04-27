@@ -1,18 +1,13 @@
 import {useState} from "react";
 import urls from "./urls";
-import useGetAuthorizationHeader from "./use-get-authorization-header";
-import useVerifyToken from "./use-verify-token";
-import useRedirectToLogin from "../utils/use-redirect-to-login";
+import useFetchWithTokenVerification from "./use-fetch-with-token-verification";
 
 const usePostSubmission = () => {
-    const accessHeader = useGetAuthorizationHeader();
-    const validateToken = useVerifyToken();
-
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [submitted, setSubmitted] = useState(false);
-    const redirectToLogin = useRedirectToLogin();
+    const fetchWithTokenVerification = useFetchWithTokenVerification();
 
     const submit = async (
         title: string,
@@ -27,24 +22,13 @@ const usePostSubmission = () => {
             setErrorMessage(' ');
             setLoading(true);
 
-            // redirect to login if token not valid
-            const isTokenValid = await validateToken();
-            if (!isTokenValid) {
-                setLoading(false);
-                redirectToLogin();
-                return
-            }
-
             //
             objectURLArray = removeUnusedObjectURL(content, objectURLArray);
 
             //
             const form = await getForm(title, content, objectURLArray);
-            const res = await fetch(urls.createPost, {
+            const res = await fetchWithTokenVerification(true, urls.createPost, {
                 method: 'POST',
-                headers: {
-                    ...accessHeader
-                },
                 body: form
             });
             const json = await res.json();

@@ -1,14 +1,12 @@
 import {useState} from "react";
 import urls from "./urls";
-import useReload from "../utils/use-reload";
-import useGetAuthorizationHeader from "./use-get-authorization-header";
+import useFetchWithTokenVerification from "./use-fetch-with-token-verification";
 
 const useUpdateAvatar = () => {
-    const accessHeader = useGetAuthorizationHeader();
+    const fetchWithTokenVerification = useFetchWithTokenVerification();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
-    const reload = useReload();
 
     const upload = (
         file: File | Blob
@@ -28,11 +26,8 @@ const useUpdateAvatar = () => {
             const form = new FormData();
             form.append('image', file, "avatar.jpg");
 
-            fetch(urls.updateAvatar, {
+            fetchWithTokenVerification(true, urls.updateAvatar, {
                 method: 'POST',
-                headers: {
-                    ...accessHeader
-                },
                 body: form
             })
                 .then((res) => res.json())
