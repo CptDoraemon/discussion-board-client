@@ -12,7 +12,8 @@ const usePostSubmission = () => {
     const submit = async (
         title: string,
         content: string,
-        objectURLArray: string[]
+        objectURLArray: string[],
+        updatePostID?: number
     ) => {
         try {
             if (loading || submitted) return;
@@ -27,7 +28,8 @@ const usePostSubmission = () => {
 
             //
             const form = await getForm(title, content, objectURLArray);
-            const res = await fetchWithTokenVerification(true, urls.createPost, {
+            const url = updatePostID === undefined ? urls.createPost : urls.editPost(updatePostID);
+            const res = await fetchWithTokenVerification(true, url, {
                 method: 'POST',
                 body: form
             });

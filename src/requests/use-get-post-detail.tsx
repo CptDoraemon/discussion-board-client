@@ -1,13 +1,10 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import urls from "./urls";
-import {useStore} from "react-redux";
-import {State} from "../redux/state";
 import {PostDetailData} from "../components/post-detail/post-detail";
 import useSetTitle from "../utils/use-set-title";
 import useFetchWithTokenVerification from "./use-fetch-with-token-verification";
 
-const useGetPostDetail = (postID: number) => {
-    const isLogin = useStore<State>().getState().loginStatus.isLogin;
+const useGetPostDetail = () => {
     const fetchWithTokenVerification = useFetchWithTokenVerification();
 
     const [loading, setLoading] = useState(false);
@@ -16,11 +13,8 @@ const useGetPostDetail = (postID: number) => {
 
     useSetTitle(data?.title);
 
-    useEffect(() => {
-        fetchPostDetail()
-    }, [isLogin, postID]);
-
     const fetchPostDetail = async (
+        postID: number
     ) => {
         try {
             if (loading) return;
@@ -50,7 +44,7 @@ const useGetPostDetail = (postID: number) => {
         }
     };
 
-    return [loading, error, data] as [typeof loading, typeof error, typeof data]
+    return [loading, error, data, fetchPostDetail] as [typeof loading, typeof error, typeof data, typeof fetchPostDetail]
 
 };
 

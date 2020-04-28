@@ -35,7 +35,13 @@ const useEditor = (ID: string) => {
         return objectURLArray
     };
 
-    return [quill, getObjectURLArray] as [typeof quill, typeof getObjectURLArray]
+    const setContent = (content: string) => {
+        if (!quill) return;
+        const delta = quill.clipboard.convert(content);
+        quill.setContents(delta)
+    };
+
+    return [quill, getObjectURLArray, setContent] as [typeof quill, typeof getObjectURLArray, typeof setContent]
 };
 
 const imageUploadHandler = (editor: Quill) => {

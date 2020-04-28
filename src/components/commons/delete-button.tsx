@@ -22,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
             color: theme.palette.warning.main
         }
     },
+    confirmButton: {
+        color: theme.palette.warning.main
+    }
 }));
 
 interface DeleteButtonProps {
@@ -71,10 +74,10 @@ const DeleteButton: React.FC<DeleteButtonProps> = ({id}) => {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={closeDialog} color="primary">
-                        Disagree
+                        Forget it
                     </Button>
-                    <Button onClick={doDeletePost} color="primary" autoFocus disabled={loading}>
-                        Agree
+                    <Button onClick={doDeletePost} autoFocus disabled={loading} className={classes.confirmButton}>
+                        I'm sure
                     </Button>
                 </DialogActions>
             </Dialog>

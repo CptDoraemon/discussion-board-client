@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React, {useEffect, useRef} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import {Paper} from "@material-ui/core";
 import { useParams } from "react-router-dom";
@@ -59,10 +59,13 @@ interface PostDetailProps {
 const PostDetail: React.FC<PostDetailProps> = ({isLogin}) => {
     const classes = useStyles();
     const insertedHTMLClasses = useInsertedHTMLStyle();
+    const HTMLStringContainerRef = useRef<HTMLDivElement>(null);
 
     const { postID } = useParams();
-    const [loading, error, data] = useGetPostDetail(parseInt(postID || '1'));
-    const HTMLStringContainerRef = useRef<HTMLDivElement>(null);
+    const [loading, error, data, fetchPostDetail] = useGetPostDetail();
+    useEffect(() => {
+        fetchPostDetail(parseInt(postID || '1'))
+    }, []);
 
     let content;
     if (loading) {
@@ -98,7 +101,7 @@ const PostDetail: React.FC<PostDetailProps> = ({isLogin}) => {
                             data.is_owner &&
                                 <>
                                     <DeleteButton id={parseInt(data.id)}/>
-                                    <EditButton />
+                                    <EditButton id={parseInt(data.id)}/>
                                 </>
                         }
                     </Box>
