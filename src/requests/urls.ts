@@ -12,6 +12,7 @@ const postBase = base + 'post/';
 const getPostList = postBase + 'all/';
 const getPostDetail = (id: number) => `${postBase}${id}/`;
 const createPost = postBase + 'create/';
+const deletePost = (id: number) => `${postBase}delete/${id}/`;
 
 const commentBase = base + 'comment/';
 const createComment = commentBase + 'create/';
@@ -28,6 +29,7 @@ const urls = {
     getPostList,
     getPostDetail,
     createPost,
+    deletePost,
     createComment,
     like
 };

@@ -42,7 +42,8 @@ interface CommentBaseData {
     dislikes: number,
     content: string,
     created: string,
-    isLiked: -1 | 0 | 1 | undefined
+    is_liked: 0 | 1 | -1 | undefined,
+    is_owner?: boolean
 }
 
 export interface CommentData extends CommentBaseData {
@@ -65,7 +66,17 @@ const CommentItem: React.FC<CommentItemProps> = ({data, postID, isLogin}) => {
 
     return (
         <Paper className={classes.root} elevation={0}>
-            <ItemInfo type={'comment'} username={data.owner.username} avatarUrl={data.owner.avatar_url} created={data.created} id={data.id} likes={data.likes} dislikes={data.dislikes} isLiked={data.isLiked} small/>
+            <ItemInfo
+                type={'comment'}
+                username={data.owner.username}
+                avatarUrl={data.owner.avatar_url}
+                created={data.created}
+                id={data.id}
+                likes={data.likes}
+                dislikes={data.dislikes}
+                isLiked={data.is_liked}
+                small
+            />
             <div className={classes.content}>
                 { data.content }
             </div>

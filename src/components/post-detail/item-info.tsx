@@ -3,6 +3,9 @@ import getTimeString from "../../utils/get-time-string";
 import LikeButtons from "../commons/like-buttons";
 import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
+import DeleteButton from "../commons/delete-button";
+import EditButton from "../commons/edit-button";
+import {Box} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     postInfo: {

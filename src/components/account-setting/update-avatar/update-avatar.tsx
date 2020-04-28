@@ -113,7 +113,7 @@ const ConfirmStage: React.FC<ConfirmStageProps> = ({blob, back, next}) => {
                 <div className={classes.centering} ref={containerRef}>
                     <img
                         src={src}
-                        alt={'cropped image'}
+                        alt={'cropped'}
                         style={{
                             width: imgWidth,
                             height: imgHeight
