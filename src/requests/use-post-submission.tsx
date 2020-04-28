@@ -11,6 +11,7 @@ const usePostSubmission = () => {
 
     const submit = async (
         title: string,
+        tag: string,
         content: string,
         objectURLArray: string[],
         updatePostID?: number
@@ -27,7 +28,7 @@ const usePostSubmission = () => {
             objectURLArray = removeUnusedObjectURL(content, objectURLArray);
 
             //
-            const form = await getForm(title, content, objectURLArray);
+            const form = await getForm(title, tag, content, objectURLArray);
             const url = updatePostID === undefined ? urls.createPost : urls.editPost(updatePostID);
             const res = await fetchWithTokenVerification(true, url, {
                 method: 'POST',
@@ -62,10 +63,11 @@ interface NamedBlob {
     name: string
 }
 
-const getForm = (title: string, content: string, objectURLArray: string[]) => {
+const getForm = (title: string, tag: string, content: string, objectURLArray: string[]) => {
     return new Promise<FormData>((resolve, reject) => {
         const form = new FormData();
         form.append('title', title);
+        form.append('tag', tag);
 
         const promiseArray = objectURLArray.map((url) => getBlobFromObjectURL(url));
 

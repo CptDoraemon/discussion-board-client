@@ -18,10 +18,11 @@ const useInsertedHTMLStyle = makeStyles((theme) => ({
             backgroundPosition: '0 100%',
             backgroundRepeat: 'repeat-x',
             backgroundSize: '4px 4px',
-            transition: theme.transitions.create('background-size'),
+            transition: theme.transitions.create(['background-size', 'color']),
         },
         '& a:hover': {
             backgroundSize: '4px 100%',
+            color: theme.palette.primary.contrastText,
         },
         '& img': {
             maxWidth: '100%',

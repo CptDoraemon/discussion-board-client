@@ -5,6 +5,7 @@ import Avatar from "@material-ui/core/Avatar";
 import {Link} from "react-router-dom";
 import getTimeString from "../../utils/get-time-string";
 import LikeButtons from "../commons/like-buttons";
+import TagChip from "../commons/tag-chip";
 
 export interface PostData {
     id: string
@@ -19,6 +20,7 @@ export interface PostData {
         username: string,
         avatar_url: string
     },
+    tag: string,
     "is_liked"?: 0 | 1 | -1
 }
 
@@ -108,6 +110,9 @@ const Post: React.FC<PostProps> = ({isLogin, data}) => {
                                 { data.owner.username }
                             </Box>
                         </Typography>
+                    </div>
+                    <div className={classes.author}>
+                        <TagChip text={data.tag} size={'small'}/>
                     </div>
                     <div className={classes.actionArea}>
                         <div className={classes.actionItem}>

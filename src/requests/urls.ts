@@ -14,6 +14,7 @@ const getPostDetail = (id: number) => `${postBase}${id}/`;
 const createPost = postBase + 'create/';
 const editPost = (id: number) => `${postBase}edit/${id}/`;
 const deletePost = (id: number) => `${postBase}delete/${id}/`;
+const tagList = postBase + 'tag-list/';
 
 const commentBase = base + 'comment/';
 const createComment = commentBase + 'create/';
@@ -32,6 +33,7 @@ const urls = {
     createPost,
     editPost,
     deletePost,
+    tagList,
     createComment,
     like
 };

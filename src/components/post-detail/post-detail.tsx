@@ -11,6 +11,7 @@ import Box from "@material-ui/core/Box";
 import useInsertedHTMLStyle from "./inserted-html-style";
 import DeleteButton from "../commons/delete-button";
 import EditButton from "../commons/edit-button";
+import TagChip from "../commons/tag-chip";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -48,6 +49,7 @@ export interface PostDetailData {
     title: string,
     content: string,
     created: string,
+    tag: string,
     is_liked: 0 | 1 | -1 | undefined,
     is_owner?: boolean
 }
@@ -85,6 +87,9 @@ const PostDetail: React.FC<PostDetailProps> = ({isLogin}) => {
         content = (
             <>
                 <Paper className={classes.paper} elevation={0}>
+                    <Box width={'100%'}>
+                        <TagChip text={data.tag} size={'normal'}/>
+                    </Box>
                     <h1> {data.title} </h1>
                     <ItemInfo
                         type={'post'}

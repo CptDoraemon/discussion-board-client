@@ -1,4 +1,4 @@
-import React, {FormEvent, useEffect, useState} from "react";
+import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import { useParams } from "react-router-dom";
 import {makeStyles} from "@material-ui/core/styles";
 import 'quill/dist/quill.snow.css';
@@ -12,6 +12,9 @@ import useEditor from "./use-editor";
 import useGetPostDetail from "../../requests/use-get-post-detail";
 import Box from "@material-ui/core/Box";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import useGetTagList from "../../requests/use-get-tag-list";
 
 const ID = 'editor';
 
@@ -35,6 +38,7 @@ const PostEditor: React.FC = () => {
     const {postID} = useParams();
     const [needData, setNeedData] = useState(true);
     const [postDetailLoading, postDetailError, postDetailData, fetchPostDetail] = useGetPostDetail();
+    const [tagListLoading, tagListError, tagList] = useGetTagList();
 
     useEffect(() => {
         if (postID === undefined) {
@@ -44,7 +48,7 @@ const PostEditor: React.FC = () => {
         }
     }, []);
 
-    const showEditor = !needData || postDetailData !== null;
+    const showEditor = (!needData || postDetailData !== null) && tagList !== null;
 
     return (
         <Paper className={classes.root} elevation={0}>
@@ -52,19 +56,20 @@ const PostEditor: React.FC = () => {
                 !showEditor &&
                     <Box width={"100%"} height={500} display={"flex"} flexDirection={"column"} alignItems={"center"} justifyContent={"center"}>
                         {
-                            postDetailError ?
+                            postDetailError || tagListError ?
                                 "Cannot retrieve post data at the moment" :
                                 <CircularProgress color="primary" />
                         }
                     </Box>
             }
             {
-                !needData &&
-                    <PostEditorForm />
+                !needData && showEditor &&
+                    <PostEditorForm tagList={tagList || []}/>
             }
             {
-                postDetailData !== null &&
+                postDetailData !== null && showEditor &&
                     <PostEditorForm
+                        tagList={tagList || []}
                         updatePost={{
                             title: postDetailData.title,
                             content: postDetailData.content,
@@ -81,16 +86,18 @@ interface PostEditorFormProps {
         title: string,
         content: string,
         postID: number
-    }
+    },
+    tagList: string[][]
 }
 
-const PostEditorForm: React.FC<PostEditorFormProps> = ({updatePost}) => {
+const PostEditorForm: React.FC<PostEditorFormProps> = ({updatePost, tagList}) => {
     // create new post if updatePost === undefined
     // else update existing post
     const classes = useStyles();
 
     const [editor, getObjectURLArray, setContent] = useEditor(ID);
     const [title, titleChangeHandler, titleError, titleErrorMessage, validateTitle] = useInputField(updatePost === undefined ? "" : updatePost.title, postTitleValidator);
+    const [tag, setTag] = useState<string>(tagList[0][0]);
     const [loading, error, errorMessage, submit, submitted] = usePostSubmission();
 
     useEffect(() => {
@@ -104,10 +111,15 @@ const PostEditorForm: React.FC<PostEditorFormProps> = ({updatePost}) => {
 
         if (!editor) return;
         if (updatePost === undefined) {
-            submit(title, editor.root.innerHTML, getObjectURLArray())
+            submit(title, tag, editor.root.innerHTML, getObjectURLArray())
         } else {
-            submit(title, editor.root.innerHTML, getObjectURLArray(), updatePost.postID)
+            submit(title, tag, editor.root.innerHTML, getObjectURLArray(), updatePost.postID)
         }
+    };
+
+    const tagChangeHandler = (e: any) => {
+        console.log(e.target.value);
+        setTag(e.target.value)
     };
 
     return (
@@ -122,6 +134,20 @@ const PostEditorForm: React.FC<PostEditorFormProps> = ({updatePost}) => {
                 />
                 <FormHelperText id="post-editor-title-helper-text" error={titleError}>{titleError && titleErrorMessage ? titleErrorMessage : ' '}</FormHelperText>
             </FormControl>
+
+            <Box mb={2}>
+                <FormControl>
+                    <Select
+                        value={tag}
+                        onChange={tagChangeHandler}
+                        displayEmpty
+                    >
+                        {
+                            tagList.map(arr => <MenuItem value={arr[0]} key={arr[0]}>{arr[1]}</MenuItem>)
+                        }
+                    </Select>
+                </FormControl>
+            </Box>
 
             <div id={ID} className={classes.editor}/>
             <GenericClickButton onClick={submitHandler} width={'250px'} text={submitted ? 'Submitted' : 'Submit'} disabled={submitted || loading}/>
