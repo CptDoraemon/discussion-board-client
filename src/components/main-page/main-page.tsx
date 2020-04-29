@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     tags: {
+        margin: theme.spacing(2, 0, 0, 0),
         width: "100%",
     },
     left: {
