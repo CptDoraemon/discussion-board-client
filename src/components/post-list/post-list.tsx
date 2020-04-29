@@ -13,12 +13,12 @@ const useStyles = makeStyles((theme) => ({
 
 interface PostListProps {
     isLogin: boolean
+    tag: string | null
 }
 
-const PostList: React.FC<PostListProps> = ({isLogin}) => {
+const PostList: React.FC<PostListProps> = ({isLogin, tag}) => {
     const classes = useStyles();
-
-    const [loading, error, data] = useGetPostList();
+    const [loading, error, data] = useGetPostList(tag || null);
 
     let content;
     if (loading) {
@@ -38,11 +38,7 @@ const PostList: React.FC<PostListProps> = ({isLogin}) => {
             </Typography>
         )
     } else {
-        content = data?.map((_, i) => {
-            return (
-                <Post key={i} isLogin={isLogin} data={_}/>
-            )
-        })
+        content = data?.map((_, i) =>  <Post key={i} isLogin={isLogin} data={_}/> )
     }
 
     return (

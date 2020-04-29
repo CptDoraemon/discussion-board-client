@@ -15,6 +15,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import useGetTagList from "../../requests/use-get-tag-list";
+import TagSelector from "./tag-selector";
 
 const ID = 'editor';
 
@@ -73,7 +74,8 @@ const PostEditor: React.FC = () => {
                         updatePost={{
                             title: postDetailData.title,
                             content: postDetailData.content,
-                            postID: parseInt(postDetailData.id)
+                            postID: parseInt(postDetailData.id),
+                            tag: postDetailData.tag
                         }}
                     />
             }
@@ -85,7 +87,8 @@ interface PostEditorFormProps {
     updatePost?: {
         title: string,
         content: string,
-        postID: number
+        postID: number,
+        tag: string
     },
     tagList: string[][]
 }
@@ -95,9 +98,11 @@ const PostEditorForm: React.FC<PostEditorFormProps> = ({updatePost, tagList}) =>
     // else update existing post
     const classes = useStyles();
 
+    const defaultTitle = updatePost === undefined ? "" : updatePost.title;
+    const defaultTag = updatePost === undefined ? tagList[0][0] : updatePost.tag;
     const [editor, getObjectURLArray, setContent] = useEditor(ID);
-    const [title, titleChangeHandler, titleError, titleErrorMessage, validateTitle] = useInputField(updatePost === undefined ? "" : updatePost.title, postTitleValidator);
-    const [tag, setTag] = useState<string>(tagList[0][0]);
+    const [title, titleChangeHandler, titleError, titleErrorMessage, validateTitle] = useInputField(defaultTitle, postTitleValidator);
+    const [tag, setTag] = useState<string>(defaultTag);
     const [loading, error, errorMessage, submit, submitted] = usePostSubmission();
 
     useEffect(() => {
@@ -118,7 +123,6 @@ const PostEditorForm: React.FC<PostEditorFormProps> = ({updatePost, tagList}) =>
     };
 
     const tagChangeHandler = (e: any) => {
-        console.log(e.target.value);
         setTag(e.target.value)
     };
 
@@ -136,17 +140,7 @@ const PostEditorForm: React.FC<PostEditorFormProps> = ({updatePost, tagList}) =>
             </FormControl>
 
             <Box mb={2}>
-                <FormControl>
-                    <Select
-                        value={tag}
-                        onChange={tagChangeHandler}
-                        displayEmpty
-                    >
-                        {
-                            tagList.map(arr => <MenuItem value={arr[0]} key={arr[0]}>{arr[1]}</MenuItem>)
-                        }
-                    </Select>
-                </FormControl>
+                <TagSelector tagList={tagList} tagValue={tag} tagChangeHandler={tagChangeHandler}/>
             </Box>
 
             <div id={ID} className={classes.editor}/>

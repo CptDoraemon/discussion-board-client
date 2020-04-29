@@ -57,6 +57,7 @@ const InnerApp: React.FC<InnerAppProps> = ({isLogin}) => {
                 <div className={classes.widthWrapper}>
                     <Switch>
                         <Route path="/" exact render={ () => <MainPage /> } />
+                        <Route path="/tag/:tag" render={ () => <MainPage /> } />
                         <Route path="/login" render={ () => <Login /> } />
                         <Route path="/register" render={ () => <Register /> } />
                         <Route path="/post/:postID" render={ () => <PostDetail isLogin={isLogin}/> } />

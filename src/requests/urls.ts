@@ -10,6 +10,7 @@ const updateAvatar = accountBase + 'update_avatar/';
 
 const postBase = base + 'post/';
 const getPostList = postBase + 'all/';
+const getPostListWithTag = (tag: string) => postBase + 'all/' + `?tag=${tag}`;
 const getPostDetail = (id: number) => `${postBase}${id}/`;
 const createPost = postBase + 'create/';
 const editPost = (id: number) => `${postBase}edit/${id}/`;
@@ -29,6 +30,7 @@ const urls = {
     refresh,
     updateAvatar,
     getPostList,
+    getPostListWithTag,
     getPostDetail,
     createPost,
     editPost,

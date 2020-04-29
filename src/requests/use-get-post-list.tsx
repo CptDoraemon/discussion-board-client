@@ -5,7 +5,7 @@ import {useStore} from "react-redux";
 import {State} from "../redux/state";
 import useFetchWithTokenVerification from "./use-fetch-with-token-verification";
 
-const useGetPostList = () => {
+const useGetPostList = (tag: string | null) => {
     const isLogin = useStore<State>().getState().loginStatus.isLogin;
     const fetchWithTokenVerification = useFetchWithTokenVerification();
 
@@ -14,10 +14,11 @@ const useGetPostList = () => {
     const [data, setData] = useState<PostData[] | null>(null);
 
     useEffect(() => {
-        fetchPostList()
-    }, [isLogin]);
+        fetchPostList(tag)
+    }, [isLogin, tag]);
 
     const fetchPostList = async (
+        tag: string | null
     ) => {
         try {
             if (loading) return;
@@ -27,7 +28,10 @@ const useGetPostList = () => {
 
             // start fetching
             setLoading(true);
-            const res = await fetchWithTokenVerification(false, urls.getPostList, {
+            const url = tag === null ?
+                urls.getPostList :
+                urls.getPostListWithTag(tag);
+            const res = await fetchWithTokenVerification(false, url, {
                 method: 'GET'
             });
             const json = await res.json();
