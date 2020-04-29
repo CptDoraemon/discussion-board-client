@@ -20,7 +20,7 @@ const useEditor = (ID: string) => {
                 toolbar: [
                     [{header: [1, 2, false]}],
                     ['bold', 'italic', 'underline'],
-                    ['image', 'code-block']
+                    ['link', 'image', 'code-block']
                 ]
             },
             placeholder: 'Compose an epic...',
