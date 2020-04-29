@@ -140,6 +140,7 @@ const PostEditorForm: React.FC<PostEditorFormProps> = ({updatePost, tagList}) =>
             </FormControl>
 
             <Box mb={2}>
+                {'Tag: '}
                 <TagSelector tagList={tagList} tagValue={tag} tagChangeHandler={tagChangeHandler}/>
             </Box>
 

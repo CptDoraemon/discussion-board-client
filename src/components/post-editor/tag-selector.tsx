@@ -10,17 +10,28 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: fade(theme.palette.primary.main, 0.8),
         color: theme.palette.primary.contrastText,
         borderRadius: 5,
+        padding: '5px 15px',
         '&:focus': {
             backgroundColor: fade(theme.palette.primary.main, 0.8),
             color: theme.palette.primary.contrastText,
             borderRadius: 5,
+        },
+    },
+    icon: {
+        color: theme.palette.primary.contrastText,
+    },
+    menuItemRoot: {
+        '&:hover': {
+            backgroundColor: theme.palette.primary.main,
+        },
+        '&:focus': {
+            backgroundColor: theme.palette.primary.main,
         }
     },
-    select: {
-        backgroundColor: fade(theme.palette.primary.main, 0.8),
-    },
-    selectMenu: {
-        backgroundColor: fade(theme.palette.primary.main, 0.8),
+    menuRoot: {
+        backgroundColor: theme.palette.primary.light,
+        color: theme.palette.primary.contrastText,
+        borderRadius: 5,
     }
 }));
 
@@ -34,26 +45,37 @@ const TagSelector: React.FC<TagSelectorProps> = ({tagList, tagValue, tagChangeHa
     const classes = useStyles();
 
     return (
-
-            <Select
-                value={tagValue}
-                onChange={tagChangeHandler}
-                displayEmpty
-                classes={{
-                    // root: classes.root,
-                    // select: classes.select,
-                    // selectMenu: classes.selectMenu
-                }}
-            >
-                {
-                    tagList.map(arr => {
-                        const tag = arr[0];
-                        const humanReadable = arr[1];
-                        return <MenuItem value={tag} key={tag}>{humanReadable}</MenuItem>
-                    })
+        <Select
+            value={tagValue}
+            onChange={tagChangeHandler}
+            displayEmpty
+            disableUnderline
+            classes={{
+                root: classes.root,
+                icon: classes.icon
+            }}
+            MenuProps={{
+                classes: {
+                    paper: classes.menuRoot,
                 }
-            </Select>
-
+            }}
+        >
+            {
+                tagList.map(arr => {
+                    const tag = arr[0];
+                    const humanReadable = arr[1];
+                    return (
+                        <MenuItem
+                            value={tag}
+                            key={tag}
+                            classes={{
+                                root: classes.menuItemRoot
+                            }}
+                        >{humanReadable}</MenuItem>
+                        )
+                })
+            }
+        </Select>
     )
 };
 
