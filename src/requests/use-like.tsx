@@ -3,7 +3,7 @@ import {useDispatch} from "react-redux";
 import urls from "./urls";
 import {openSnackbar} from "../redux/actions/snackbar";
 import {PostData} from "../components/post-list/post";
-import useFetchWithTokenVerification from "./use-fetch-with-token-verification";
+import useFetchWithTokenVerification from "./common/use-fetch-with-token-verification";
 
 type Type = 'post' | 'comment';
 type Action = 1 | 0 | -1;

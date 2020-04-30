@@ -1,8 +1,8 @@
-import urls from "./urls";
+import urls from "../urls";
 import {useDispatch, useStore} from 'react-redux'
-import { refreshToken as refreshTokenAction } from '../redux/actions/login-status'
-import {State} from "../redux/state";
-import useRedirectToLogin from "../utils/use-redirect-to-login";
+import { refreshToken as refreshTokenAction } from '../../redux/actions/login-status'
+import {State} from "../../redux/state";
+import useRedirectToLogin from "../../utils/use-redirect-to-login";
 
 /**
  * enhanced fetch with JWT token verification, and token refreshing when needed

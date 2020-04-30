@@ -1,6 +1,6 @@
 import {useState} from "react";
 import urls from "./urls";
-import useFetchWithTokenVerification from "./use-fetch-with-token-verification";
+import useFetchWithTokenVerification from "./common/use-fetch-with-token-verification";
 
 const useUpdateAvatar = () => {
     const fetchWithTokenVerification = useFetchWithTokenVerification();

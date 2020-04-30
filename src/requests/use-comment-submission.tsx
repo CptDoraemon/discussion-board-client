@@ -1,7 +1,7 @@
 import {useState} from "react";
 import urls from "./urls";
 import useReload from "../utils/use-reload";
-import useFetchWithTokenVerification from "./use-fetch-with-token-verification";
+import useFetchWithTokenVerification from "./common/use-fetch-with-token-verification";
 
 const useCommentSubmission = () => {
     const fetchWithTokenVerification = useFetchWithTokenVerification();

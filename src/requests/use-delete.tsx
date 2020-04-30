@@ -2,7 +2,7 @@ import {useState} from "react";
 import {useDispatch} from "react-redux";
 import urls from "./urls";
 import {openSnackbar} from "../redux/actions/snackbar";
-import useFetchWithTokenVerification from "./use-fetch-with-token-verification";
+import useFetchWithTokenVerification from "./common/use-fetch-with-token-verification";
 import {useHistory} from "react-router-dom";
 
 const useDelete = () => {
