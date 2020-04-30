@@ -1,8 +1,5 @@
 import React from "react";
-import {Box, Grid, Paper, Typography} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
-import Logo from "../commons/logo";
-import {Link} from "react-router-dom";
 
 type FooterColumnData = {
     title: string,
