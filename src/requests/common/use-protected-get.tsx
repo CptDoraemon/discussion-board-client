@@ -3,7 +3,7 @@ import GENERIC_ERROR_MESSAGE from "./generic-error-message";
 import useFetchWithTokenVerification from "./use-fetch-with-token-verification";
 
 /**
- * The base of fetch with get method
+ * Generic hook to fetch data with get method, with authentications
  * @param {string} url The link to fetch
  * @param {boolean} fetchWhenComponentDidMount If true, will fetch automatically when componentDidMount
  * @param {boolean} redirectInvalidToken Redirect to login page if true
