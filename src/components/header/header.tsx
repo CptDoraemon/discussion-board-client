@@ -1,7 +1,6 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {makeStyles} from "@material-ui/core/styles";
-import {Box, Grid, Typography} from "@material-ui/core";
-import {Link} from "react-router-dom";
+import {Grid} from "@material-ui/core";
 import LoggedInUserPanel from "./logged-in-user-panel";
 import AnonymousUserPanel from "./anonymous-user-panel";
 import Logo from "../commons/logo";

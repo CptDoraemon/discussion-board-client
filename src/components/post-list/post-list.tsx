@@ -4,6 +4,7 @@ import useGetPostList from "../../requests/use-get-post-list";
 import Skeleton from '@material-ui/lab/Skeleton';
 import {Box, Typography} from "@material-ui/core";
 import Post from "./post";
+import ServerWakingNotification from "./server-waking-notification";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -43,6 +44,7 @@ const PostList: React.FC<PostListProps> = ({isLogin, tag}) => {
 
     return (
         <div className={classes.root}>
+            <ServerWakingNotification isLoaded={data !== null}/>
             { content }
         </div>
     )
