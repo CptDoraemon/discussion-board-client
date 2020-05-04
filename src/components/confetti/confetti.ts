@@ -21,13 +21,13 @@ class ConfettiSprite {
         dOpacity: 0.01
     };
 
-    constructor(x: number, y: number) {
+    constructor(width: number, height: number) {
         this.color = getColor();
-        this.x = x;
-        this.y = y;
+        this.x = 0.2 * width;
+        this.y = 0.5 * height;
         this.r = 5;
-        this.vx = (-2 * Math.random() + 1) * -15;
-        this.vy = (Math.random() + 1) * -8;
+        this.vx = (-7 * Math.random() + 1) * -4;
+        this.vy = (2.5 * Math.random() + 1) * -5;
         this.opacity = 1;
     }
 
@@ -92,11 +92,8 @@ class Confetti {
     }
 
     initSprites() {
-        const x = 0.5 * this.params.width;
-        const y = 0.5 * this.params.height;
-
         for (let i=0; i<this.params.spritesCount; i++) {
-            this.sprites.push(new ConfettiSprite(x, y));
+            this.sprites.push(new ConfettiSprite(this.params.width, this.params.height));
         }
     }
 
