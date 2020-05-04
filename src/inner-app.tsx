@@ -43,8 +43,8 @@ const useStyles = makeStyles((theme) => ({
     },
     confetti: {
         position: 'fixed',
-        zIndex: theme.zIndex.tooltip,
-        bottom: '100px'
+        zIndex: theme.zIndex.tooltip + 1,
+        bottom: '0'
     }
 }));
 
