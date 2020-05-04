@@ -14,10 +14,11 @@ class ConfettiSprite {
     vy: number;
     opacity: number;
     params = {
-        dx: 0.99,
-        g: 0.4,
+        dx: 0.9,
+        dy: 0.92,
+        g: 0.2,
         dr: 0.99,
-        dOpacity: 0.02
+        dOpacity: 0.01
     };
 
     constructor(x: number, y: number) {
@@ -25,24 +26,29 @@ class ConfettiSprite {
         this.x = x;
         this.y = y;
         this.r = 5;
-        this.vx = (-2 * Math.random() + 1) * -4;
-        this.vy = (Math.random() + 1) * -5;
+        this.vx = (-2 * Math.random() + 1) * -15;
+        this.vy = (Math.random() + 1) * -8;
         this.opacity = 1;
     }
 
     move() {
+        // horizontal speed
         this.vx = this.vx * this.params.dx;
-        this.vy = this.vy + this.params.g;
         this.x = this.x + this.vx;
+
+        // vertical speed
+        this.vy = this.vy * this.params.dy;
+        this.vy = this.vy + this.params.g;
         this.y = this.y + this.vy;
 
+
         // reduce opacity when it starts to fall
-        // if (this.vy >= 0) {
-        //     const nextOpacity = this.opacity - this.params.dOpacity;
-        //     if (nextOpacity > 0) {
-        //         this.opacity = nextOpacity
-        //     }
-        // }
+        if (this.vy >= 0) {
+            const nextOpacity = this.opacity - this.params.dOpacity;
+            if (nextOpacity > 0) {
+                this.opacity = nextOpacity
+            }
+        }
     }
 }
 
@@ -104,9 +110,9 @@ class Confetti {
             this.ctx.beginPath();
             this.ctx.arc(_.x, _.y, _.r, 0, 2 * Math.PI);
             this.ctx.fillStyle = _.color;
-            // this.ctx.globalAlpha = _.opacity;
+            this.ctx.globalAlpha = _.opacity;
             this.ctx.fill();
-            // this.ctx.globalAlpha = 1;
+            this.ctx.globalAlpha = 1;
         })
     }
 
