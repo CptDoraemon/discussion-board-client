@@ -7,12 +7,12 @@ function snackbar (
     action: SnackbarAction
 ): State['snackbar'] {
     switch (action.type) {
-        case SnackbarActionTypes.OPEN:
+        case SnackbarActionTypes.OPEN_SNACKBAR:
             return {
                 open: true,
                 message: action.message
             };
-        case SnackbarActionTypes.CLOSE:
+        case SnackbarActionTypes.CLOSE_SNACKBAR:
             return defaultState.snackbar;
         default:
             return state

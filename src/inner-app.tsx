@@ -18,6 +18,7 @@ import {State} from "./redux/state";
 import PostDetail from "./components/post-detail/post-detail";
 import RouterScrollRestoration from "./utils/router-scroll-restoration";
 import AccountSettingContainer from "./containers/account-setting-container";
+import ConfettiWrapper from "./components/confetti/confetti-wrapper";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -39,14 +40,20 @@ const useStyles = makeStyles((theme) => ({
             width: 'calc(100% - 16px)',
             margin: theme.spacing(0, 1),
         }
+    },
+    confetti: {
+        position: 'fixed',
+        zIndex: theme.zIndex.tooltip,
+        bottom: '100px'
     }
 }));
 
 interface InnerAppProps {
-    isLogin: boolean
+    isLogin: boolean,
+    confetti: boolean
 }
 
-const InnerApp: React.FC<InnerAppProps> = ({isLogin}) => {
+const InnerApp: React.FC<InnerAppProps> = ({isLogin, confetti}) => {
     const classes = useStyles();
 
     return (
@@ -73,6 +80,12 @@ const InnerApp: React.FC<InnerAppProps> = ({isLogin}) => {
                 </div>
             </Router>
 
+            {
+                confetti &&
+                <div className={classes.confetti}>
+                    <ConfettiWrapper />
+                </div>
+            }
             <SnackbarContainer />
         </div>
     )
@@ -80,7 +93,8 @@ const InnerApp: React.FC<InnerAppProps> = ({isLogin}) => {
 
 function mapStateToProps(state: State) {
     return {
-        isLogin: state.loginStatus.isLogin
+        isLogin: state.loginStatus.isLogin,
+        confetti: state.confetti
     }
 }
 

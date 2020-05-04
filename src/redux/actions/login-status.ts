@@ -6,20 +6,6 @@ export enum LoginStatusActionTypes {
     'REFRESH_TOKEN'='REFRESH_TOKEN'
 }
 
-// export type LoginStatusAction =
-//     {
-//         type: typeof LoginStatusActionTypes.LOGOUT,
-//         newStatus: State['loginStatus']
-//     } |
-//     {
-//         type: typeof LoginStatusActionTypes.UPDATE_LOGIN_STATUS,
-//         newStatus: State['loginStatus']
-//     } |
-//     {
-//         type: typeof LoginStatusActionTypes.REFRESH_TOKEN,
-//         newStatus: State['loginStatus']
-//     }
-
 export type LoginStatusAction = ReturnType<typeof logout> | ReturnType<typeof updateLoginStatus> | ReturnType<typeof refreshToken>
 
 export function logout() {

@@ -2,7 +2,7 @@ import {useState} from "react";
 import urls from "./urls";
 import { useDispatch } from 'react-redux'
 import { updateLoginStatus } from "../redux/actions/login-status";
-import { openSnackbar } from "../redux/actions/snackbar";
+import {openSnackbarWithConfetti} from "../redux/actions/snackbar";
 import useRedirectBack from "../utils/use-redirect-back";
 
 const useLogin = () => {
@@ -49,7 +49,7 @@ const useLogin = () => {
                         }
                     }));
                     goBack();
-                    dispatch(openSnackbar(`Welcome back ${username}`))
+                    dispatch(openSnackbarWithConfetti(`Welcome back ${username}`));
                 } else {
                     setError(true);
                     if (json.status === 'error') {

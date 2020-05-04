@@ -10,7 +10,8 @@ export interface State {
     snackbar: {
         open: boolean,
         message: string
-    }
+    },
+    confetti: boolean
 }
 
 export const defaultState: State = {
@@ -25,5 +26,6 @@ export const defaultState: State = {
     snackbar: {
         open: false,
         message: ''
-    }
+    },
+    confetti: false
 };
