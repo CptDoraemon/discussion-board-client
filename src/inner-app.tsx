@@ -44,7 +44,12 @@ const useStyles = makeStyles((theme) => ({
     confetti: {
         position: 'fixed',
         zIndex: theme.zIndex.tooltip + 1,
-        bottom: '0'
+        bottom: '0',
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center'
     }
 }));
 
