@@ -15,8 +15,8 @@ class ConfettiSprite {
     vy: number;
     opacity: number;
     params = {
-        dx: 0.9,
-        dy: 0.92,
+        dx: 0.92,
+        dy: 0.95,
         g: 0.2,
         dr: 0.99,
         dOpacity: 0.01,
@@ -30,8 +30,8 @@ class ConfettiSprite {
         this.y = 0.5 * height;
         this.r = 5;
         this.rotation = Math.random() * Math.PI;
-        this.vx = (-7 * Math.random() + 1) * -4;
-        this.vy = (2.5 * Math.random() + 1) * -5;
+        this.vx = (-7 * Math.random() + 1) * -(width / 90);
+        this.vy = (2.5 * Math.random() + 1) * -(height / 100);
         this.opacity = 1;
     }
 
