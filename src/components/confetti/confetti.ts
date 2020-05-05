@@ -10,6 +10,7 @@ class ConfettiSprite {
     x: number;
     y: number;
     r: number;
+    rotation: number;
     vx: number;
     vy: number;
     opacity: number;
@@ -18,7 +19,9 @@ class ConfettiSprite {
         dy: 0.92,
         g: 0.2,
         dr: 0.99,
-        dOpacity: 0.01
+        dOpacity: 0.01,
+        dRotation: Math.random() + 1,
+        ddRotation: 0.95
     };
 
     constructor(width: number, height: number) {
@@ -26,6 +29,7 @@ class ConfettiSprite {
         this.x = 0.2 * width;
         this.y = 0.5 * height;
         this.r = 5;
+        this.rotation = Math.random() * Math.PI;
         this.vx = (-7 * Math.random() + 1) * -4;
         this.vy = (2.5 * Math.random() + 1) * -5;
         this.opacity = 1;
@@ -41,7 +45,6 @@ class ConfettiSprite {
         this.vy = this.vy + this.params.g;
         this.y = this.y + this.vy;
 
-
         // reduce opacity when it starts to fall
         if (this.vy >= 0) {
             const nextOpacity = this.opacity - this.params.dOpacity;
@@ -49,6 +52,10 @@ class ConfettiSprite {
                 this.opacity = nextOpacity
             }
         }
+
+        // rotation
+        this.params.dRotation *= this.params.ddRotation;
+        this.rotation += this.params.dRotation
     }
 }
 
@@ -79,7 +86,7 @@ class Confetti {
         return {
             width,
             height,
-            spritesCount: 20
+            spritesCount: 30
         }
     }
 
@@ -97,6 +104,28 @@ class Confetti {
         }
     }
 
+    /**
+     * set drawer() according to if CanvasRenderingContext2D.ellipse() is supported
+     */
+    initDrawer() {
+        if (!this.ctx) return;
+
+        if (this.ctx.ellipse === undefined) {
+            this.drawer = (ctx: CanvasRenderingContext2D, x: number, y: number, r: number) => {
+                ctx.arc(x, y, r, 0, 2 * Math.PI);
+            }
+        } else {
+            this.drawer = (ctx: CanvasRenderingContext2D, x: number, y: number, r: number, rotation: number) => {
+                ctx.ellipse(x, y, r, r * 1.2, rotation, 0, 2 * Math.PI);
+            }
+        }
+    }
+
+    /**
+     * drawer draws ellipse if supported, otherwise draw arc
+     */
+    drawer(ctx: CanvasRenderingContext2D, x: number, y: number, r: number, rotation?: number) {}
+
     draw() {
         if (!this.ctx) return;
         this.ctx.clearRect(0, 0, this.params.width, this.params.height);
@@ -104,12 +133,13 @@ class Confetti {
         this.sprites.forEach(_ => {
             if (!this.ctx) return;
 
+            this.ctx.save();
             this.ctx.beginPath();
-            this.ctx.arc(_.x, _.y, _.r, 0, 2 * Math.PI);
+            this.drawer(this.ctx, _.x, _.y, _.r, _.rotation);
             this.ctx.fillStyle = _.color;
             this.ctx.globalAlpha = _.opacity;
             this.ctx.fill();
-            this.ctx.globalAlpha = 1;
+            this.ctx.restore();
         })
     }
 
@@ -131,6 +161,7 @@ class Confetti {
     main() {
         this.initCanvas();
         this.initSprites();
+        this.initDrawer();
         this.timestamp = Date.now();
         this.loop();
     }
