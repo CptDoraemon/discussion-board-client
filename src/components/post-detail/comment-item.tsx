@@ -68,6 +68,7 @@ const CommentItem: React.FC<CommentItemProps> = ({data, postID, isLogin}) => {
         <Paper className={classes.root} elevation={0}>
             <ItemInfo
                 type={'comment'}
+                isLogin={isLogin}
                 username={data.owner.username}
                 avatarUrl={data.owner.avatar_url}
                 created={data.created}
@@ -96,7 +97,7 @@ const CommentItem: React.FC<CommentItemProps> = ({data, postID, isLogin}) => {
                 <Fade in={isCommentPanelOpen} timeout={1000}>
                     <div className={classes.subCommentPanel}>
                         { !data.sub_comments.length && <Box textAlign={'center'}>No comment yet</Box> }
-                        { data.sub_comments.map((item, i) => <SubCommentItem data={item} key={i}/>) }
+                        { data.sub_comments.map((item, i) => <SubCommentItem isLogin={isLogin} data={item} key={i}/>) }
                         { isLogin && <CommentInput parentPost={postID} parentComment={data.id}/> }
                     </div>
                 </Fade>

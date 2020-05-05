@@ -3,7 +3,7 @@ import urls from "./urls";
 import { useDispatch } from 'react-redux'
 import { updateLoginStatus } from "../redux/actions/login-status";
 import {openSnackbarWithConfetti} from "../redux/actions/snackbar";
-import useRedirectBack from "../utils/use-redirect-back";
+import useRedirectBack from "../utils/redirects/use-redirect-back";
 
 const useRegister = () => {
     const [loading, setLoading] = useState(false);

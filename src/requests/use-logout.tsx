@@ -2,18 +2,16 @@ import {useState} from "react";
 import { useDispatch } from 'react-redux'
 import {logout as logoutAction} from "../redux/actions/login-status";
 import {openSnackbar} from "../redux/actions/snackbar";
-import useRedirectBack from "../utils/use-redirect-back";
+import useRedirectToHome from "../utils/redirects/use-redirect-to-home";
 
 const useLogout = () => {
     const [loading, setLoading] = useState(false);
-    // const [error, setError] = useState(false);
-    // const [errorMessage, setErrorMessage] = useState('');
     const dispatch = useDispatch();
-    const goBack = useRedirectBack();
+    const toHome = useRedirectToHome();
 
     const clientSideLogout = () => {
         dispatch(logoutAction());
-        goBack();
+        toHome();
 
         dispatch(openSnackbar('Logout succeeded'))
     };

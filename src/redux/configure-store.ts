@@ -8,11 +8,17 @@ const loggerMiddleware = createLogger();
 
 
 export default function configureStore() {
-    return createStore(
-        rootReducers,
-        defaultState,
-        // applyMiddleware(thunkMiddleware)
-        applyMiddleware(thunkMiddleware, loggerMiddleware)
-        // applyMiddleware(loggerMiddleware)
-    )
+    if (process.env.DEBUG === 'true') {
+        return createStore(
+            rootReducers,
+            defaultState,
+            applyMiddleware(thunkMiddleware, loggerMiddleware)
+        )
+    } else {
+        return createStore(
+            rootReducers,
+            defaultState,
+            applyMiddleware(thunkMiddleware)
+        )
+    }
 }

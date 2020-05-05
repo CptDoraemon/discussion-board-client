@@ -1,5 +1,5 @@
 import urls from "./urls";
-import useReload from "../utils/use-reload";
+import useReload from "../utils/redirects/use-reload";
 import usePost from "./common/use-post";
 
 const useCommentSubmission = () => {

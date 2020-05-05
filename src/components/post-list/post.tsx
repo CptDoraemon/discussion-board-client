@@ -89,6 +89,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Post: React.FC<PostProps> = ({isLogin, data}) => {
     const classes = useStyles();
+    const isLiked = isLogin ? data.is_liked : undefined;
 
     return (
         <div className={classes.root}>
@@ -116,7 +117,7 @@ const Post: React.FC<PostProps> = ({isLogin, data}) => {
                     </div>
                     <div className={classes.actionArea}>
                         <div className={classes.actionItem}>
-                            <LikeButtons type={'post'} id={data.id} likes={data.likes} dislikes={data.dislikes} isLiked={data.is_liked}/>
+                            <LikeButtons type={'post'} id={data.id} likes={data.likes} dislikes={data.dislikes} isLiked={isLiked}/>
                         </div>
                         <div className={classes.actionItem}>
                             { `${data.comments} ${data.comments > 1 ? 'comments' : 'comment'}` }

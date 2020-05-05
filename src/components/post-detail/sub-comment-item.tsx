@@ -15,16 +15,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface SubCommentItemProps {
+    isLogin: boolean,
     data: SubCommentData
 }
 
-const SubCommentItem: React.FC<SubCommentItemProps> = ({data}) => {
+const SubCommentItem: React.FC<SubCommentItemProps> = ({isLogin, data}) => {
     const classes = useStyles();
 
     return (
         <div className={classes.root}>
             <ItemInfo
                 type={'comment'}
+                isLogin={isLogin}
                 username={data.owner.username}
                 avatarUrl={data.owner.avatar_url}
                 created={data.created}

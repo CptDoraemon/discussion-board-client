@@ -3,9 +3,6 @@ import getTimeString from "../../utils/get-time-string";
 import LikeButtons from "../commons/like-buttons";
 import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
-import DeleteButton from "../commons/delete-button";
-import EditButton from "../commons/edit-button";
-import {Box} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     postInfo: {
@@ -43,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
 
 interface ItemInfoProps {
     type: 'comment' | 'post',
+    isLogin: boolean,
     username: string,
     avatarUrl: string
     created: string,
@@ -53,8 +51,9 @@ interface ItemInfoProps {
     small?: boolean
 }
 
-const ItemInfo: React.FC<ItemInfoProps> = ({type, username, avatarUrl, created, id, likes, dislikes, isLiked, small}) => {
+const ItemInfo: React.FC<ItemInfoProps> = ({type, isLogin, username, avatarUrl, created, id, likes, dislikes, isLiked, small}) => {
     const classes = useStyles();
+    const _isLiked = isLogin ? isLiked : undefined;
 
     return (
         <div className={classes.postInfo}>
@@ -74,7 +73,7 @@ const ItemInfo: React.FC<ItemInfoProps> = ({type, username, avatarUrl, created, 
                 { getTimeString(created) }
             </div>
             <div className={classes.postInfoItem}>
-                <LikeButtons type={type} id={id} likes={likes} dislikes={dislikes} isLiked={isLiked}/>
+                <LikeButtons type={type} id={id} likes={likes} dislikes={dislikes} isLiked={_isLiked}/>
             </div>
         </div>
     )

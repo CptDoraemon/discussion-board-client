@@ -93,6 +93,7 @@ const PostDetail: React.FC<PostDetailProps> = ({isLogin}) => {
                     <h1> {data.title} </h1>
                     <ItemInfo
                         type={'post'}
+                        isLogin={isLogin}
                         username={data.owner.username}
                         avatarUrl={data.owner.avatar_url}
                         created={data.created}
@@ -103,7 +104,7 @@ const PostDetail: React.FC<PostDetailProps> = ({isLogin}) => {
                     />
                     <Box className={classes.center} my={2}>
                         {
-                            data.is_owner &&
+                            isLogin && data.is_owner &&
                                 <>
                                     <DeleteButton id={parseInt(data.id)}/>
                                     <EditButton id={parseInt(data.id)}/>
