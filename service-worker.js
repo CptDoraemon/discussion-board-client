@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/discussion-board-client/precache-manifest.7d8877dc7c45662629132fc364c1b7fe.js"
+  "/discussion-board-client/precache-manifest.728e4cbb59e7666b5dddc7779b40d685.js"
 );
 
 self.addEventListener('message', (event) => {
