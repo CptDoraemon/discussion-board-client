@@ -25,7 +25,6 @@ const useUnprotectedGet = <FetchedDataType,>(
     ) => {
         try {
             if (loading) return;
-
             // reset states
             setError(false);
             setErrorMessage('');
