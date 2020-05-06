@@ -10,7 +10,7 @@ interface ConfettiWrapperProps {
 const ConfettiWrapper: React.FC<ConfettiWrapperProps> = () => {
 
     useEffect(() => {
-        (new Confetti(CANVAS_ID, 300, 300)).main();
+        (new Confetti(CANVAS_ID)).main();
     }, []);
 
     return (

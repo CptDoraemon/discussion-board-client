@@ -5,7 +5,7 @@ const getColor = () => {
     return COLORS[index];
 };
 
-class ConfettiSprite {
+export class ConfettiSprite {
     color: string;
     x: number;
     y: number;
@@ -14,12 +14,13 @@ class ConfettiSprite {
     vx: number;
     vy: number;
     opacity: number;
+    finished: boolean;
     params = {
         dx: 0.92,
         dy: 0.95,
         g: 0.2,
         dr: 0.99,
-        dOpacity: 0.01,
+        dOpacity: 0.015,
         dRotation: Math.random() + 1,
         ddRotation: 0.95
     };
@@ -27,12 +28,13 @@ class ConfettiSprite {
     constructor(width: number, height: number) {
         this.color = getColor();
         this.x = 0.2 * width;
-        this.y = 0.5 * height;
+        this.y = 0.4 * height;
         this.r = 5;
         this.rotation = Math.random() * Math.PI;
         this.vx = (-7 * Math.random() + 1) * -(width / 90);
         this.vy = (2.5 * Math.random() + 1) * -(height / 100);
         this.opacity = 1;
+        this.finished = false;
     }
 
     move() {
@@ -46,10 +48,13 @@ class ConfettiSprite {
         this.y = this.y + this.vy;
 
         // reduce opacity when it starts to fall
+        // set this.finished to true when opacity <= 0
         if (this.vy >= 0) {
             const nextOpacity = this.opacity - this.params.dOpacity;
             if (nextOpacity > 0) {
                 this.opacity = nextOpacity
+            } else {
+                this.finished = true
             }
         }
 
@@ -59,35 +64,41 @@ class ConfettiSprite {
     }
 }
 
+interface ConfettiOptions extends Object {
+    width: number,
+    height: number,
+    spritesCount: number,
+    [key: string]: any
+}
 
 class Confetti {
-    params: {
-        width: number,
-        height: number,
-        spritesCount: number
-    };
+    params: ConfettiOptions;
     ID: string;
     canvas: HTMLCanvasElement | null;
     ctx: CanvasRenderingContext2D | null;
     sprites: ConfettiSprite[];
-    timestamp: null | number;
 
-    constructor(ID: string, width: number, height: number) {
-        this.params = this.initParams(width, height);
+    constructor(ID: string, options?: Partial<ConfettiOptions>) {
+        this.params = this.initParams(options);
         this.ID = ID;
         this.canvas = null;
         this.ctx = null;
         this.sprites = [];
-        this.timestamp = null;
         this.loop = this.loop.bind(this);
     }
 
-    initParams(width: number, height: number) {
-        return {
-            width,
-            height,
-            spritesCount: 30
+    initParams(options?: Partial<ConfettiOptions>) {
+        const defaultOptions = {
+            width: 300,
+            height: 300,
+            spritesCount: 30,
+        } as ConfettiOptions;
+
+        if (options !== undefined) {
+            return {...defaultOptions, ...options}
         }
+
+        return defaultOptions
     }
 
     initCanvas() {
@@ -144,16 +155,17 @@ class Confetti {
     }
 
     update() {
-        this.sprites.forEach(_ => {
+        this.sprites = this.sprites.filter(_ => {
             _.move();
-        })
+            return !_.finished
+        });
     }
 
     loop() {
         this.draw();
         this.update();
 
-        if (this.timestamp && Date.now() - this.timestamp <= 2000) {
+        if (this.sprites.length > 0) {
             requestAnimationFrame(this.loop);
         }
     }
@@ -162,7 +174,6 @@ class Confetti {
         this.initCanvas();
         this.initSprites();
         this.initDrawer();
-        this.timestamp = Date.now();
         this.loop();
     }
 }
