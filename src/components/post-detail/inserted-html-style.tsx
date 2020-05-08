@@ -8,6 +8,7 @@ const useInsertedHTMLStyle = makeStyles((theme) => ({
         justifyContent: 'center',
         color: theme.palette.text.primary,
         whiteSpace: 'normal',
+        overflowWrap: 'break-word',
         '& pre': {
             whiteSpace: 'pre-wrap',
             wordWrap: 'break-word'
