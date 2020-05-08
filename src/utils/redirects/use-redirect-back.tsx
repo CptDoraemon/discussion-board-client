@@ -1,5 +1,4 @@
 import {useHistory, useLocation} from "react-router-dom";
-import useReload from "./use-reload";
 
 // redirect to "/" in these cases:
 const blacklist: string[] = [
@@ -10,7 +9,6 @@ const blacklist: string[] = [
 const useRedirectBack = () => {
     let history = useHistory();
     let location = useLocation<any>();
-    const reload = useReload();
 
     const goBack = () => {
         let from = "/";

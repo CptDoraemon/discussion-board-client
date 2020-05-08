@@ -4,6 +4,7 @@ import {Box, Divider, Paper} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import CommentInput from "./comment-input";
 import CommentItem, {CommentData} from "./comment-item";
+import ThemeLink from "../commons/theme-link";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -57,7 +58,10 @@ const CommentList: React.FC<CommentListProps> = ({isLogin, comments, postID, dat
                     isLogin ?
                         <CommentInput parentPost={postID} parentComment={null}/> :
                         <div className={classes.loginToLeaveMessage}>
-                            Login to leave a comment
+                            <span>
+                                <ThemeLink text={'Login'} to={'/login'} fromState/>
+                                {` to leave a comment`}
+                            </span>
                         </div>
                 }
             </Paper>
