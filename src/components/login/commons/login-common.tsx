@@ -10,11 +10,12 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        overflow: 'hidden',
     },
     image: {
         width: '40%',
-        height: '100%',
+        height: '0',
         '& img': {
             width: '100%',
             height: '100%',
@@ -61,11 +62,10 @@ const LoginCommon: React.FC<LoginCommonProps> = ({children, imageUrl}) => {
 
     return (
         <Paper elevation={0} className={classes.root} ref={containerRef}>
-            <div className={classes.image}>
+            <div className={classes.image} style={{height: `${height}px`}}>
                 <img
                     src={process.env.PUBLIC_URL + imageUrl}
                     alt={'login background'}
-                    style={{height: `${height}px`}}
                     title={'login background'}
                 />
             </div>
