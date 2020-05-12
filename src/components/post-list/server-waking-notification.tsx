@@ -8,12 +8,19 @@ import Fade from "@material-ui/core/Fade";
 const DELAY = 3000; // ms
 let timeoutID: null | number = null;
 
-const useServerWaking = () => {
+/**
+ * 1. init states: active === false, isMount === false --> null component returned
+ * 2. switch active and isMount to true after DELAY after component is mounted --> actual component returned, fade in animation is activated
+ * 3. if isLoaded props set to true within DELAY --> step 2 will be canceled
+ * 4. if isLoaded props set to true after DELAY --> step 5
+ * 5. active set to false, fade out animation is activated
+ * 6. isMounted will be set to false when fade out animation is done
+ */
+export const useServerWaking = () => {
+    // the state of fade is in
     const [active, setActive] = useState(false);
-
-    const turnToActive = () => {
-        setActive(true)
-    };
+    // the state of mounting (null component returned if !isMount)
+    const [isMount, setIsMount] = useState(false);
 
     const cleanUp = () => {
         if (timeoutID !== null) {
@@ -22,16 +29,36 @@ const useServerWaking = () => {
         }
     };
 
-    const cancel = () => {
+    const showNotification = () => {
+        setIsMount(true);
+        setActive(true)
+    };
+
+    const cancelTimeout = () => {
         cleanUp();
+        if (active) {
+            setActive(false)
+        }
+        if (isMount) {
+            setIsMount(false)
+        }
+    };
+
+    const turnToInactive = () => {
         if (active) {
             setActive(false)
         }
     };
 
+    const unMount = () => {
+        if (isMount) {
+            setIsMount(false)
+        }
+    };
+
     useEffect(() => {
         // set active to true after DELAY
-        timeoutID = window.setTimeout(turnToActive, DELAY);
+        timeoutID = window.setTimeout(showNotification, DELAY);
 
         return () => {
             cleanUp();
@@ -40,7 +67,10 @@ const useServerWaking = () => {
 
     return {
         active,
-        cancel
+        cancelTimeout,
+        turnToInactive,
+        isMount,
+        unMount
     }
 };
 
@@ -88,16 +118,15 @@ const useStyles = makeStyles((theme) => ({
 const ServerWakingNotification: React.FC<HeaderProps> = ({isLoaded}) => {
     const classes = useStyles();
 
-    const {active, cancel} = useServerWaking();
-    const [fadeInActive, setFadeInActive] = useState(true);
+    const {active, cancelTimeout, turnToInactive, isMount, unMount} = useServerWaking();
 
     useEffect(() => {
-        if (isLoaded) cancel();
-    }, [isLoaded, cancel]);
+        if (isLoaded) cancelTimeout();
+    }, [isLoaded, cancelTimeout]);
 
-    if (active) {
+    if (isMount) {
         return (
-            <Fade in={fadeInActive} timeout={500} onExited={cancel}>
+            <Fade in={active} timeout={500} onExited={unMount}>
                 <Paper elevation={0} className={classes.root}>
                     <div className={classes.text}>
                         <p>
@@ -119,7 +148,7 @@ const ServerWakingNotification: React.FC<HeaderProps> = ({isLoaded}) => {
                             <span> while waiting?</span>
                         </p>
                     </div>
-                    <IconButton aria-label="close" onClick={() => setFadeInActive(false)} className={classes.button}>
+                    <IconButton aria-label="close" name="close" title="close" onClick={turnToInactive} className={classes.button}>
                         <CloseIcon />
                     </IconButton>
                 </Paper>
