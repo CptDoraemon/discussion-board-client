@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import {Paper} from "@material-ui/core";
+import {fade, Paper} from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from '@material-ui/icons/Close';
 import Fade from "@material-ui/core/Fade";
@@ -68,6 +68,19 @@ const useStyles = makeStyles((theme) => ({
     },
     noWrap: {
         whiteSpace: 'nowrap'
+    },
+    link: {
+        '&:link': {
+            textDecoration: 'underline',
+            fontWeight: 700
+        },
+        '&:visited': {
+            textDecoration: 'underline',
+            fontWeight: 700
+        },
+        '&:hover': {
+            color: fade(theme.palette.warning.contrastText, 0.5)
+        }
     }
 }));
 
@@ -87,10 +100,24 @@ const ServerWakingNotification: React.FC<HeaderProps> = ({isLoaded}) => {
             <Fade in={fadeInActive} timeout={500} onExited={cancel}>
                 <Paper elevation={0} className={classes.root}>
                     <div className={classes.text}>
-                        {'The backend of this application falls asleep again, usually he will wake up in half minute '}
-                        <span className={classes.noWrap}>
-                            ٩(ˊ〇ˋ*)و
-                        </span>
+                        <p>
+                            {'The backend of this application falls asleep again, usually he will wake up in half minute '}
+                            <span className={classes.noWrap}>
+                                ٩(ˊ〇ˋ*)و
+                            </span>
+                        </p>
+                        <p>
+                            <span>Wanna check out </span>
+                            <a
+                                href='https://www.xiaoxihome.com/'
+                                target='_blank'
+                                rel='noopener noreferrer'
+                                className={classes.link}
+                            >
+                                XiaoxiHome
+                            </a>
+                            <span> while waiting?</span>
+                        </p>
                     </div>
                     <IconButton aria-label="close" onClick={() => setFadeInActive(false)} className={classes.button}>
                         <CloseIcon />
