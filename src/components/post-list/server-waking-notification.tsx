@@ -6,6 +6,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Fade from "@material-ui/core/Fade";
 
 const DELAY = 3000; // ms
+const FADE_ANIMATION_DURATION = 500;
 let timeoutID: null | number = null;
 
 /**
@@ -34,13 +35,10 @@ export const useServerWaking = () => {
         setActive(true)
     };
 
-    const cancelTimeout = () => {
+    const handleLoaded = () => {
         cleanUp();
         if (active) {
             setActive(false)
-        }
-        if (isMount) {
-            setIsMount(false)
         }
     };
 
@@ -67,7 +65,7 @@ export const useServerWaking = () => {
 
     return {
         active,
-        cancelTimeout,
+        handleLoaded,
         turnToInactive,
         isMount,
         unMount
@@ -118,15 +116,15 @@ const useStyles = makeStyles((theme) => ({
 const ServerWakingNotification: React.FC<HeaderProps> = ({isLoaded}) => {
     const classes = useStyles();
 
-    const {active, cancelTimeout, turnToInactive, isMount, unMount} = useServerWaking();
+    const {active, handleLoaded, turnToInactive, isMount, unMount} = useServerWaking();
 
     useEffect(() => {
-        if (isLoaded) cancelTimeout();
-    }, [isLoaded, cancelTimeout]);
+        if (isLoaded) handleLoaded();
+    }, [isLoaded, handleLoaded]);
 
     if (isMount) {
         return (
-            <Fade in={active} timeout={500} onExited={unMount}>
+            <Fade in={active} timeout={FADE_ANIMATION_DURATION} onExited={unMount}>
                 <Paper elevation={0} className={classes.root}>
                     <div className={classes.text}>
                         <p>

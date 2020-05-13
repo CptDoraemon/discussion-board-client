@@ -38,7 +38,7 @@ describe('sprites should not animate outside of the canvas in Math.random() edge
 
     const dimensions = [
         [300, 300],
-        [500, 500],
+        // [500, 500],
     ];
 
     const spiedMathRandom = jest.spyOn(global.Math, 'random');
