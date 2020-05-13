@@ -80,6 +80,9 @@ const InnerApp: React.FC<InnerAppProps> = ({isLogin, confetti}) => {
                             <AccountSettingContainer/>
                         </PrivateRoute>
                         {/*<Route path="/welcome" component={Welcome} />*/}
+
+                        {/*fall back*/}
+                        <Route path="/*" render={ () => <MainPage /> } />
                     </Switch>
                     <Footer />
                 </div>

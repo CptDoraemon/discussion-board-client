@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import useGetPostList from "../../requests/use-get-post-list";
 import Skeleton from '@material-ui/lab/Skeleton';
@@ -20,16 +20,17 @@ interface PostListProps {
 const PostList: React.FC<PostListProps> = ({isLogin, tag}) => {
     const classes = useStyles();
     const [loading, error, data] = useGetPostList(tag || null);
+    const isLoaded = data !== null;
 
     let content;
-    if (loading) {
+    if (loading || !isLoaded) {
         content = (new Array(10)).fill(0).map((_, i) => {
-                return (
-                    <Box width='100%' my={1} borderRadius={'5px'} key={i} overflow={'hidden'}>
-                        <Skeleton variant="rect" animation="wave" width={'100%'} height={150}/>
-                    </Box>
-                )
-            })
+            return (
+                <Box width='100%' my={1} borderRadius={'5px'} key={i} overflow={'hidden'}>
+                    <Skeleton variant="rect" animation="wave" width={'100%'} height={150}/>
+                </Box>
+            )
+        })
     } else if (error) {
         content = (
             <Typography variant={'body1'} component={'h2'}>
@@ -44,7 +45,7 @@ const PostList: React.FC<PostListProps> = ({isLogin, tag}) => {
 
     return (
         <div className={classes.root}>
-            <ServerWakingNotification isLoaded={data !== null}/>
+            <ServerWakingNotification isLoaded={isLoaded}/>
             { content }
         </div>
     )
