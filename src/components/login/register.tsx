@@ -75,6 +75,7 @@ const Register: React.FC<RegisterProps> = () => {
                             <TextField
                                 error={usernameError}
                                 label="Username"
+                                id="register-username"
                                 name="username"
                                 value={username}
                                 onChange={setUsername}
@@ -89,6 +90,7 @@ const Register: React.FC<RegisterProps> = () => {
                             <TextField
                                 error={emailError}
                                 label="Email"
+                                id="register-email"
                                 name="email"
                                 value={email}
                                 onChange={setEmail}
@@ -104,6 +106,7 @@ const Register: React.FC<RegisterProps> = () => {
                                 error={passwordError}
                                 label="Password"
                                 name="password"
+                                id="register-password"
                                 type="password"
                                 value={password}
                                 onChange={setPassword}
@@ -119,6 +122,7 @@ const Register: React.FC<RegisterProps> = () => {
                                 error={confirmPasswordError}
                                 label="Confirm Password"
                                 name="confirm-password"
+                                id="register-confirm-password"
                                 type="password"
                                 value={confirmPassword}
                                 onChange={setConfirmPassword}

@@ -64,6 +64,7 @@ const Login: React.FC<LoginProps> = () => {
                             <TextField
                                 error={emailError}
                                 label="Email"
+                                id="login-email"
                                 name="email"
                                 value={email}
                                 onChange={setEmail}
@@ -80,6 +81,7 @@ const Login: React.FC<LoginProps> = () => {
                                 error={passwordError}
                                 type="password"
                                 label="Password"
+                                id="login-password"
                                 name="password"
                                 value={password}
                                 onChange={setPassword}
