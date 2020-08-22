@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FormEvent, useEffect, useState} from "react";
+import React, {FormEvent, useEffect, useState} from "react";
 import { useParams } from "react-router-dom";
 import {makeStyles} from "@material-ui/core/styles";
 import 'quill/dist/quill.snow.css';
@@ -12,8 +12,6 @@ import useEditor from "./use-editor";
 import useGetPostDetail from "../../requests/use-get-post-detail";
 import Box from "@material-ui/core/Box";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
 import useGetTagList from "../../requests/use-get-tag-list";
 import TagSelector from "./tag-selector";
 

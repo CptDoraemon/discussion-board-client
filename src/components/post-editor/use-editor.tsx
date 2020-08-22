@@ -21,7 +21,10 @@ const useEditor = (ID: string) => {
                     [{header: [1, 2, false]}],
                     ['bold', 'italic', 'underline'],
                     ['link', 'image', 'code-block']
-                ]
+                ],
+                clipboard: {
+                    matchVisual: false
+                }
             },
             placeholder: 'Compose an epic...',
             theme: 'snow'  // or 'bubble'
