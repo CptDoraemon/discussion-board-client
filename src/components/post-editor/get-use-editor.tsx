@@ -6,6 +6,16 @@ const getUseEditor = (ID: string) => {
     let quill: Quill | null = null;
     const objectURLs: string[] = [];
 
+    const setContent = (content: string) => {
+        if (!quill) return;
+        const delta = quill.clipboard.convert(content);
+        quill.setContents(delta)
+    };
+
+    const getObjectURLArray = () => {
+        return objectURLs
+    };
+
     return () => {
         useEffect(() => {
             // override methods to support objectURL
@@ -32,16 +42,6 @@ const getUseEditor = (ID: string) => {
             quillInstance.getModule('toolbar').addHandler('image', () => imageUploadHandler(quillInstance, objectURLs));
             quill = quillInstance;
         }, []);
-
-        const getObjectURLArray = () => {
-            return objectURLs
-        };
-
-        const setContent = (content: string) => {
-            if (!quill) return;
-            const delta = quill.clipboard.convert(content);
-            quill.setContents(delta)
-        };
 
         return [quill, getObjectURLArray, setContent] as [typeof quill, typeof getObjectURLArray, typeof setContent]
     };

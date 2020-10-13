@@ -104,10 +104,13 @@ const PostEditorForm: React.FC<PostEditorFormProps> = ({updatePost, tagList}) =>
     const [tag, setTag] = useState<string>(defaultTag);
     const [loading, error, errorMessage, submit, submitted] = usePostSubmission();
 
+    const [isEditorHydrated, setIsEditorHydrated] = useState(false);
     useEffect(() => {
         if (!editor || updatePost === undefined) return;
-        setContent(updatePost.content)
-    }, [editor, setContent, updatePost]);
+        if (isEditorHydrated) return;
+        setContent(updatePost.content);
+        setIsEditorHydrated(true)
+    }, [editor, setContent, updatePost, isEditorHydrated]);
 
     const submitHandler = (e: FormEvent) => {
         e.preventDefault();
