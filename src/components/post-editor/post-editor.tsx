@@ -8,14 +8,12 @@ import {postTitleValidator} from "../../utils/validators";
 import {GenericClickButton} from "../commons/generic-button";
 import usePostSubmission from "../../requests/use-post-submission";
 import ErrorMessage from "../commons/error-message";
-import useEditor from "./use-editor";
+import getUseEditor from "./get-use-editor";
 import useGetPostDetail from "../../requests/use-get-post-detail";
 import Box from "@material-ui/core/Box";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import useGetTagList from "../../requests/use-get-tag-list";
 import TagSelector from "./tag-selector";
-
-const ID = 'editor';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -45,7 +43,7 @@ const PostEditor: React.FC = () => {
         } else {
             fetchPostDetail(parseInt(postID))
         }
-    }, []);
+    }, [fetchPostDetail, postID]);
 
     const showEditor = (!needData || postDetailData !== null) && tagList !== null;
 
@@ -81,6 +79,9 @@ const PostEditor: React.FC = () => {
     )
 };
 
+const ID = 'editor';
+const useEditor = getUseEditor(ID);
+
 interface PostEditorFormProps {
     updatePost?: {
         title: string,
@@ -98,7 +99,7 @@ const PostEditorForm: React.FC<PostEditorFormProps> = ({updatePost, tagList}) =>
 
     const defaultTitle = updatePost === undefined ? "" : updatePost.title;
     const defaultTag = updatePost === undefined ? tagList[0][0] : updatePost.tag;
-    const [editor, getObjectURLArray, setContent] = useEditor(ID);
+    const [editor, getObjectURLArray, setContent] = useEditor();
     const [title, titleChangeHandler, titleError, titleErrorMessage, validateTitle] = useInputField(defaultTitle, postTitleValidator);
     const [tag, setTag] = useState<string>(defaultTag);
     const [loading, error, errorMessage, submit, submitted] = usePostSubmission();
@@ -106,7 +107,7 @@ const PostEditorForm: React.FC<PostEditorFormProps> = ({updatePost, tagList}) =>
     useEffect(() => {
         if (!editor || updatePost === undefined) return;
         setContent(updatePost.content)
-    }, [editor, updatePost]);
+    }, [editor, setContent, updatePost]);
 
     const submitHandler = (e: FormEvent) => {
         e.preventDefault();
