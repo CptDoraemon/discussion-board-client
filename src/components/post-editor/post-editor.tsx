@@ -144,7 +144,9 @@ const PostEditorForm: React.FC<PostEditorFormProps> = ({updatePost, tagList}) =>
 
             <div id={ID} className={classes.editor}/>
             <GenericClickButton onClick={submitHandler} width={'250px'} text={submitted ? 'Submitted' : 'Submit'} disabled={submitted || loading}/>
-            <ErrorMessage loading={loading} error={error} errorMessage={errorMessage}/>
+            <Box mt={1}>
+                <ErrorMessage loading={loading} error={error} errorMessage={errorMessage} spinnerSize={25}/>
+            </Box>
         </form>
     )
 };

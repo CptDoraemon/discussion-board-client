@@ -12,18 +12,19 @@ const useStyles = makeStyles((theme) => ({
 interface ErrorMessageProps {
     loading: boolean,
     error: boolean,
-    errorMessage: string
+    errorMessage: string,
+    spinnerSize?: number
 
 }
 
-const ErrorMessage:React.FC<ErrorMessageProps> = ({loading, errorMessage, error}) => {
+const ErrorMessage:React.FC<ErrorMessageProps> = ({loading, errorMessage, error, spinnerSize}) => {
     const classes = useStyles();
 
     return (
         <Typography variant={'body1'} component={'div'}>
             <Box className={classes.errorMessage} height={40}>
                 {   loading ?
-                        <CircularProgress color="primary" /> :
+                        <CircularProgress color="primary" size={spinnerSize || 40}/> :
                         error && errorMessage ?
                             errorMessage :
                             ' '
