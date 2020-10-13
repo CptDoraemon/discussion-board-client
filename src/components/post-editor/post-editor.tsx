@@ -1,4 +1,4 @@
-import React, {FormEvent, useEffect, useState} from "react";
+import React, {FormEvent, useEffect, useRef, useState} from "react";
 import { useParams } from "react-router-dom";
 import {makeStyles} from "@material-ui/core/styles";
 import 'quill/dist/quill.snow.css';
@@ -8,7 +8,7 @@ import {postTitleValidator} from "../../utils/validators";
 import {GenericClickButton} from "../commons/generic-button";
 import usePostSubmission from "../../requests/use-post-submission";
 import ErrorMessage from "../commons/error-message";
-import getUseEditor from "./get-use-editor";
+import useEditor from "./use-editor";
 import useGetPostDetail from "../../requests/use-get-post-detail";
 import Box from "@material-ui/core/Box";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -43,7 +43,7 @@ const PostEditor: React.FC = () => {
         } else {
             fetchPostDetail(parseInt(postID))
         }
-    }, [fetchPostDetail, postID]);
+    }, [postID, fetchPostDetail]);
 
     const showEditor = (!needData || postDetailData !== null) && tagList !== null;
 
@@ -79,9 +79,6 @@ const PostEditor: React.FC = () => {
     )
 };
 
-const ID = 'editor';
-const useEditor = getUseEditor(ID);
-
 interface PostEditorFormProps {
     updatePost?: {
         title: string,
@@ -92,6 +89,7 @@ interface PostEditorFormProps {
     tagList: string[][]
 }
 
+const ID = 'editor';
 const PostEditorForm: React.FC<PostEditorFormProps> = ({updatePost, tagList}) => {
     // create new post if updatePost === undefined
     // else update existing post
@@ -99,18 +97,18 @@ const PostEditorForm: React.FC<PostEditorFormProps> = ({updatePost, tagList}) =>
 
     const defaultTitle = updatePost === undefined ? "" : updatePost.title;
     const defaultTag = updatePost === undefined ? tagList[0][0] : updatePost.tag;
-    const [editor, getObjectURLArray, setContent] = useEditor();
+    const [editor, getObjectURLArray, setContent] = useEditor(ID);
     const [title, titleChangeHandler, titleError, titleErrorMessage, validateTitle] = useInputField(defaultTitle, postTitleValidator);
     const [tag, setTag] = useState<string>(defaultTag);
     const [loading, error, errorMessage, submit, submitted] = usePostSubmission();
 
-    const [isEditorHydrated, setIsEditorHydrated] = useState(false);
+    const isEditorHydrated = useRef(false);
     useEffect(() => {
         if (!editor || updatePost === undefined) return;
-        if (isEditorHydrated) return;
+        if (isEditorHydrated.current) return;
         setContent(updatePost.content);
-        setIsEditorHydrated(true)
-    }, [editor, setContent, updatePost, isEditorHydrated]);
+        isEditorHydrated!.current = true;
+    }, [editor, setContent, updatePost]);
 
     const submitHandler = (e: FormEvent) => {
         e.preventDefault();
