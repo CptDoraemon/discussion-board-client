@@ -5,7 +5,7 @@ import Avatar from "@material-ui/core/Avatar";
 import {Link} from "react-router-dom";
 import getTimeString from "../../utils/get-time-string";
 import LikeButtons from "../commons/like-buttons";
-import TagChip from "../commons/tag-chip";
+import TagChip from "../commons/tag-chip/tag-chip";
 
 export interface PostData {
     id: string

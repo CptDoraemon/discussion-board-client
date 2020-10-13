@@ -11,7 +11,7 @@ import Box from "@material-ui/core/Box";
 import useInsertedHTMLStyle from "./inserted-html-style";
 import DeleteButton from "../commons/delete-button";
 import EditButton from "../commons/edit-button";
-import TagChip from "../commons/tag-chip";
+import TagChip from "../commons/tag-chip/tag-chip";
 
 
 const useStyles = makeStyles((theme) => ({

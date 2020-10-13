@@ -1,17 +1,15 @@
 import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
-import Chip from "@material-ui/core/Chip";
-import {Box} from "@material-ui/core";
 import { fade } from '@material-ui/core/styles/colorManipulator';
-import {Link} from "react-router-dom";
+import TagChipCommon from "./tag-chip-common";
 
 interface TagChipProps {
     text: string
-    size: 'small' | 'normal'
+    size: 'small' | 'normal',
 }
 
 const useStyles = makeStyles((theme) => ({
-    inheritColor: {
+    root: {
         color: theme.palette.primary.contrastText,
     },
     chipRoot: {
@@ -38,21 +36,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TagChip: React.FC<TagChipProps> = ({text, size}) => {
-    const classes = useStyles();
+    const _classes = useStyles();
+    const classes = {
+        root: _classes.root,
+        chipRoot: _classes.chipRoot,
+        chipLabel: size === 'small' ? _classes.chipLabelSmall : _classes.chipLabelNormal
+    };
 
     return (
-        <Box className={classes.inheritColor}>
-            <Chip
-                label={text.toUpperCase()}
-                component={Link}
-                to={`/tag/${text}`}
-                clickable
-                classes={{
-                    clickable: classes.chipRoot,
-                    label: size === 'small' ? classes.chipLabelSmall : classes.chipLabelNormal
-                }}
-            />
-        </Box>
+        <TagChipCommon text={text.toUpperCase()} classes={classes} toTag={text.toUpperCase()}/>
     )
 };
 
