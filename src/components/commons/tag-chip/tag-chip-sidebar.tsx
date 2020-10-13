@@ -5,7 +5,7 @@ import TagChipCommon from "./tag-chip-common";
 
 interface TagChipSideBarProps {
   text: string,
-  toTag: string
+  to: string
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -35,11 +35,11 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const TagChipSideBar: React.FC<TagChipSideBarProps> = ({text, toTag}) => {
+const TagChipSideBar: React.FC<TagChipSideBarProps> = ({text, to}) => {
   const classes = useStyles();
 
   return (
-    <TagChipCommon text={text} classes={classes} toTag={toTag}/>
+    <TagChipCommon text={text} classes={classes} to={to}/>
   );
 };
 

@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 
 interface TagChipCommonProps {
   text: string,
-  toTag: string,
+  to: string,
   classes: {
     root: string,
     chipRoot: string,
@@ -13,13 +13,13 @@ interface TagChipCommonProps {
   }
 }
 
-const TagChipCommon: React.FC<TagChipCommonProps> = ({text, toTag, classes}) => {
+const TagChipCommon: React.FC<TagChipCommonProps> = ({text, to, classes}) => {
   return (
     <Box className={classes.root}>
       <Chip
         label={text}
         component={Link}
-        to={`/tag/${toTag}`}
+        to={to}
         clickable
         classes={{
           clickable: classes.chipRoot,

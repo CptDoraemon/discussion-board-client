@@ -44,7 +44,7 @@ const TagChip: React.FC<TagChipProps> = ({text, size}) => {
     };
 
     return (
-        <TagChipCommon text={text.toUpperCase()} classes={classes} toTag={text.toUpperCase()}/>
+        <TagChipCommon text={text.toUpperCase()} classes={classes} to={`/tag/${text.toUpperCase()}`} />
     )
 };
 
