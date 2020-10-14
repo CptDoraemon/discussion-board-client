@@ -19,6 +19,7 @@ import PostDetail from "./components/post-detail/post-detail";
 import RouterScrollRestoration from "./utils/router-scroll-restoration";
 import AccountSettingContainer from "./containers/account-setting-container";
 import ConfettiWrapper from "./components/confetti/confetti-wrapper";
+import routes from "./routes";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -68,20 +69,20 @@ const InnerApp: React.FC<InnerAppProps> = ({isLogin, confetti}) => {
                 <HeaderContainer />
                 <div className={classes.widthWrapper}>
                     <Switch>
-                        <Route path="/" exact render={ () => <MainPage/> } />
-                        <Route path="/login" render={ () => <Login /> } />
-                        <Route path="/register" render={ () => <Register /> } />
-                        <Route path="/post/:postID" render={ () => <PostDetail isLogin={isLogin}/> } />
-                        <PrivateRoute path="/edit-post/:postID?" isLogin={isLogin}>
+                        <Route path={routes.home} exact render={ () => <MainPage/> } />
+                        <Route path={routes.login} render={ () => <Login /> } />
+                        <Route path={routes.register} render={ () => <Register /> } />
+                        <Route path={routes.postDetail} render={ () => <PostDetail isLogin={isLogin}/> } />
+                        <PrivateRoute path={routes.editPost} isLogin={isLogin}>
                             <PostEditor/>
                         </PrivateRoute>
-                        <PrivateRoute path="/account-setting" isLogin={isLogin}>
+                        <PrivateRoute path={routes.accountSetting} isLogin={isLogin}>
                             <AccountSettingContainer/>
                         </PrivateRoute>
                         {/*<Route path="/welcome" component={Welcome} />*/}
 
                         {/*fall back*/}
-                        <Route path="/*" render={ () => <MainPage/>} />
+                        <Route path={routes.fallback} render={ () => <MainPage/>} />
                     </Switch>
                     <Footer />
                 </div>

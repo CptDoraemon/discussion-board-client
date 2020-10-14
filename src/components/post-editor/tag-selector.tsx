@@ -4,9 +4,11 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import {makeStyles} from "@material-ui/core/styles";
 import {fade} from "@material-ui/core/styles/colorManipulator";
+import {TagList} from "../../requests/use-get-tag-list";
 
 const useStyles = makeStyles(theme => ({
     root: {
+        textTransform: 'capitalize',
         backgroundColor: fade(theme.palette.primary.main, 0.8),
         color: theme.palette.primary.contrastText,
         borderRadius: 5,
@@ -21,6 +23,7 @@ const useStyles = makeStyles(theme => ({
         color: theme.palette.primary.contrastText,
     },
     menuItemRoot: {
+        textTransform: 'capitalize',
         '&:hover': {
             backgroundColor: theme.palette.primary.main,
         },
@@ -36,7 +39,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 interface TagSelectorProps {
-    tagList: string[][],
+    tagList: TagList,
     tagValue: string,
     tagChangeHandler: (e: any) => void
 }
@@ -61,9 +64,8 @@ const TagSelector: React.FC<TagSelectorProps> = ({tagList, tagValue, tagChangeHa
             }}
         >
             {
-                tagList.map(arr => {
-                    const tag = arr[0];
-                    const humanReadable = arr[1];
+                tagList.map(obj => {
+                    const tag = obj.tag;
                     return (
                         <MenuItem
                             value={tag}
@@ -71,7 +73,7 @@ const TagSelector: React.FC<TagSelectorProps> = ({tagList, tagValue, tagChangeHa
                             classes={{
                                 root: classes.menuItemRoot
                             }}
-                        >{humanReadable}</MenuItem>
+                        >{tag.toLowerCase()}</MenuItem>
                         )
                 })
             }

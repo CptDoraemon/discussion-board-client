@@ -12,7 +12,7 @@ import useEditor from "./use-editor";
 import useGetPostDetail from "../../requests/use-get-post-detail";
 import Box from "@material-ui/core/Box";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import useGetTagList from "../../requests/use-get-tag-list";
+import useGetTagList, {TagList} from "../../requests/use-get-tag-list";
 import TagSelector from "./tag-selector";
 
 const useStyles = makeStyles((theme) => ({
@@ -86,7 +86,7 @@ interface PostEditorFormProps {
         postID: number,
         tag: string
     },
-    tagList: string[][]
+    tagList: TagList
 }
 
 const ID = 'editor';
@@ -96,7 +96,7 @@ const PostEditorForm: React.FC<PostEditorFormProps> = ({updatePost, tagList}) =>
     const classes = useStyles();
 
     const defaultTitle = updatePost === undefined ? "" : updatePost.title;
-    const defaultTag = updatePost === undefined ? tagList[0][0] : updatePost.tag;
+    const defaultTag = updatePost === undefined ? tagList[0].tag : updatePost.tag;
     const [editor, getObjectURLArray, setContent] = useEditor(ID);
     const [title, titleChangeHandler, titleError, titleErrorMessage, validateTitle] = useInputField(defaultTitle, postTitleValidator);
     const [tag, setTag] = useState<string>(defaultTag);

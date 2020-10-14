@@ -16,6 +16,7 @@ const getPostList = ({tag, page}: {tag: string | null, page: string}) => {
     }
     return url
 };
+const popularPosts = postBase + `all/?sort_by=view_count&limit=5`;
 const getPostDetail = (id: number) => `${postBase}${id}/`;
 const createPost = postBase + 'create/';
 const editPost = (id: number) => `${postBase}edit/${id}/`;
@@ -35,6 +36,7 @@ const urls = {
     refresh,
     updateAvatar,
     getPostList,
+    popularPosts,
     getPostDetail,
     createPost,
     editPost,
