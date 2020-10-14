@@ -50,23 +50,23 @@ const LikeButtons: React.FC<LikeButtonsProps> = ({type, id, likes, dislikes, isL
     const likedByUser = isLiked === 1;
     const dislikedByUser = isLiked === -1;
 
-    const likeToggler = () => {
+    const handleLikeClick = () => {
         likedByUser ? like(0) : like(1);
     };
 
-    const dislikeToggler = () => {
+    const handleDislikeClick = () => {
         dislikedByUser ? like(0) : like(-1);
     };
 
     return (
         <div className={classes.likeButtons}>
-            <IconButton aria-label={`like ${type}`} disabled={likeLoading} onClick={likeToggler}>
+            <IconButton aria-label={`like ${type}`} disabled={likeLoading} onClick={handleLikeClick}>
                 <ThumbUpRoundedIcon className={classes.button} style={likedByUser ? {color: green[300]} : {}}/>
             </IconButton>
             <div className={classes.buttonText}>
                 { likes }
             </div>
-            <IconButton aria-label={`dislike ${type}`} disabled={likeLoading} onClick={dislikeToggler}>
+            <IconButton aria-label={`dislike ${type}`} disabled={likeLoading} onClick={handleDislikeClick}>
                 <ThumbDownRoundedIcon className={classes.button} style={dislikedByUser ? {color: red[300]} : {}}/>
             </IconButton>
             <div className={classes.buttonText}>

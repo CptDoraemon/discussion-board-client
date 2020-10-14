@@ -92,7 +92,7 @@ const ItemInfo: React.FC<ItemInfoProps> = ({type, isLogin, username, avatarUrl, 
             {
                 viewCount !== undefined &&
                 <div className={classes.postInfoItem}>
-                    <Tooltip title="Page view" aria-label="Page view">
+                    <Tooltip title="Page View" aria-label="Page View">
                         <div className={classes.iconTextItem}>
                             <ChromeReaderModeIcon/>
                             <p>{viewCount}</p>
