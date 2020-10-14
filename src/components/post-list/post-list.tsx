@@ -7,6 +7,7 @@ import Post from "./post";
 import ServerWakingNotification from "./server-waking-notification";
 import Pagination from "../pagination/pagination";
 import Paper from "@material-ui/core/Paper";
+import useQuery from "../../utils/use-query";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -19,13 +20,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface PostListProps {
-    isLogin: boolean
-    tag: string | null
+    isLogin: boolean,
+    tag: string | null,
+    page: string
 }
 
-const PostList: React.FC<PostListProps> = ({isLogin, tag}) => {
+const PostList: React.FC<PostListProps> = ({isLogin, tag, page}) => {
     const classes = useStyles();
-    const [loading, error, data] = useGetPostList(tag || null);
+    const [loading, error, data] = useGetPostList({tag, page});
     const isLoaded = data !== null;
 
     let content;
@@ -45,17 +47,21 @@ const PostList: React.FC<PostListProps> = ({isLogin, tag}) => {
                 </Box>
             </Typography>
         )
-    } else {
-        content = data?.posts.map((_, i) =>  <Post key={i} isLogin={isLogin} data={_}/> )
+    } else if (data) {
+        content = (
+          <>
+              { data.posts.map((_, i) =>  <Post key={i} isLogin={isLogin} data={_}/> ) }
+              <Paper className={classes.pagination} elevation={0}>
+                  <Pagination count={data?.total_pages || 1} page={data?.current_page || 1}/>
+              </Paper>
+          </>
+        )
     }
 
     return (
         <div className={classes.root}>
             <ServerWakingNotification isLoaded={isLoaded}/>
             { content }
-            <Paper className={classes.pagination} elevation={0}>
-                <Pagination count={10} page={1} onChange={() => false}/>
-            </Paper>
         </div>
     )
 };

@@ -4,6 +4,7 @@ import PostListContainer from "../../containers/post-list-container";
 import SideBarContainer from "../../containers/side-bar-container";
 import {useParams} from "react-router-dom";
 import ActiveTagChip from "./active-tag-chip";
+import useQuery from "../../utils/use-query";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -43,18 +44,20 @@ interface MainPageProps {
 
 const MainPage: React.FC<MainPageProps> = () => {
     const classes = useStyles();
-    const { tag } = useParams();
+    const query = useQuery();
+    const tag = query.get('tag');
+    const page = query.get('page') || '1';
 
     return (
         <div className={classes.root}>
             {
-                tag !== undefined &&
+                tag &&
                 <div className={classes.tags}>
                     <ActiveTagChip text={tag}/>
                 </div>
             }
             <div className={classes.left}>
-                <PostListContainer tag={tag || null}/>
+                <PostListContainer tag={tag} page={page} key={`tag=${tag}&page=${page}`}/>
             </div>
             <div className={classes.right}>
                 <SideBarContainer />

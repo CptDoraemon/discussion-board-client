@@ -1,6 +1,9 @@
 import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import MuiPagination from '@material-ui/lab/Pagination';
+import {PaginationItem} from "@material-ui/lab";
+import {Link} from "react-router-dom";
+import useQuery from "../../utils/use-query";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -18,14 +21,24 @@ const useStyles = makeStyles((theme) => ({
 interface PaginationProps {
   count: number,
   page: number,
-  onChange: () => void
 }
 
-const Pagination: React.FC<PaginationProps> = ({count, page, onChange}) => {
+const Pagination: React.FC<PaginationProps> = ({count, page}) => {
   const classes = useStyles();
+  const query = useQuery();
 
   return (
-    <MuiPagination count={count} page={page} onChange={onChange} shape={'rounded'} className={classes.root}/>
+    <MuiPagination count={count} page={page} shape={'rounded'} className={classes.root}
+       renderItem={(item) => {
+         query.set('page', item.page.toString());
+         console.log(query.toString());
+         return <PaginationItem
+           component={Link}
+           to={'/?' + query.toString()}
+           {...item}
+         />
+       }}
+    />
   )
 };
 

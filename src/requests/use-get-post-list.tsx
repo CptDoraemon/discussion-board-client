@@ -26,10 +26,8 @@ export interface PostListData {
 }
 
 
-const useGetPostList = (tag: string | null) => {
-    const url = tag === null ?
-        urls.getPostList :
-        urls.getPostListWithTag(tag);
+const useGetPostList = ({tag, page}: {tag: string | null, page: string}) => {
+    const url = urls.getPostList({tag, page});
 
     const {
         loading,
@@ -40,7 +38,7 @@ const useGetPostList = (tag: string | null) => {
 
     useEffect(() => {
         doGet(url, false)
-    }, [tag]);
+    }, [tag, page]);
 
     return [loading, error, data] as [typeof loading, typeof error, typeof data]
 };

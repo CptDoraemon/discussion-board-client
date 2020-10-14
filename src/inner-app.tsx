@@ -68,8 +68,7 @@ const InnerApp: React.FC<InnerAppProps> = ({isLogin, confetti}) => {
                 <HeaderContainer />
                 <div className={classes.widthWrapper}>
                     <Switch>
-                        <Route path="/" exact render={ () => <MainPage /> } />
-                        <Route path="/tag/:tag" render={ () => <MainPage /> } />
+                        <Route path="/" exact render={ () => <MainPage/> } />
                         <Route path="/login" render={ () => <Login /> } />
                         <Route path="/register" render={ () => <Register /> } />
                         <Route path="/post/:postID" render={ () => <PostDetail isLogin={isLogin}/> } />
@@ -82,7 +81,7 @@ const InnerApp: React.FC<InnerAppProps> = ({isLogin, confetti}) => {
                         {/*<Route path="/welcome" component={Welcome} />*/}
 
                         {/*fall back*/}
-                        <Route path="/*" render={ () => <MainPage /> } />
+                        <Route path="/*" render={ () => <MainPage/>} />
                     </Switch>
                     <Footer />
                 </div>
