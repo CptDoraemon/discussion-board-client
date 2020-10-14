@@ -1,9 +1,9 @@
 import {useDispatch} from "react-redux";
 import urls from "./urls";
 import {openSnackbar} from "../redux/actions/snackbar";
-import {PostData} from "../components/post-list/post";
 import usePost from "./common/use-post";
 import GENERIC_ERROR_MESSAGE from "./common/generic-error-message";
+import {PostListPost} from "./use-get-post-list";
 
 type Type = 'post' | 'comment';
 type Action = 1 | 0 | -1;
@@ -16,7 +16,7 @@ const useLike = (type: Type, id: string) => {
         error,
         data: updatedData,
         doPost
-    } = usePost<PostData>();
+    } = usePost<PostListPost>();
 
     const like = async (
         action: Action

@@ -6,7 +6,6 @@ import useGetPostDetail from "../../requests/use-get-post-detail";
 import {Skeleton} from "@material-ui/lab";
 import CommentList from "./comment-list";
 import ItemInfo from "./item-info";
-import {CommentData} from "./comment-item";
 import Box from "@material-ui/core/Box";
 import useInsertedHTMLStyle from "./inserted-html-style";
 import DeleteButton from "../commons/delete-button";
@@ -34,25 +33,6 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center'
     }
 }));
-
-export interface PostDetailData {
-    id: string,
-    owner: {
-        email: string,
-        username: string,
-        avatar_url: string
-    }
-    likes: number,
-    dislikes: number,
-    comments: number,
-    comments_data: CommentData[]
-    title: string,
-    content: string,
-    created: string,
-    tag: string,
-    is_liked: 0 | 1 | -1 | undefined,
-    is_owner?: boolean
-}
 
 interface PostDetailProps {
     isLogin: boolean
@@ -101,6 +81,7 @@ const PostDetail: React.FC<PostDetailProps> = ({isLogin}) => {
                         likes={data.likes}
                         dislikes={data.dislikes}
                         isLiked={data.is_liked}
+                        viewCount={data.view_count}
                     />
                     <Box className={classes.center} my={2}>
                         {

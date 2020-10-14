@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
-import {Box, Divider, Fade, Paper} from "@material-ui/core";
-import Typography from "@material-ui/core/Typography";
+import {Box, Fade, Paper} from "@material-ui/core";
 import ItemInfo from "./item-info";
 import ChatIcon from '@material-ui/icons/Chat';
 import Button from "@material-ui/core/Button";

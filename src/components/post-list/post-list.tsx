@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import useGetPostList from "../../requests/use-get-post-list";
 import Skeleton from '@material-ui/lab/Skeleton';
@@ -46,7 +46,7 @@ const PostList: React.FC<PostListProps> = ({isLogin, tag}) => {
             </Typography>
         )
     } else {
-        content = data?.map((_, i) =>  <Post key={i} isLogin={isLogin} data={_}/> )
+        content = data?.posts.map((_, i) =>  <Post key={i} isLogin={isLogin} data={_}/> )
     }
 
     return (

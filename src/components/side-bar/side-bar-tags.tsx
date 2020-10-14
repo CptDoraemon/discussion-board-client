@@ -21,7 +21,7 @@ const SideBarTags: React.FC<SideBarTagsProps> = () => {
   ] = useGetTagList();
 
   return (
-    <SideBarSection isLoading={loading} title={'tags'}>
+    <SideBarSection isLoading={loading} title={'tags'} error={error}>
       {
         data && data.map(tag => <TagChipSideBar text={tag[1]} to={`/tag/${tag[0]}`} key={tag[1]}/>)
       }

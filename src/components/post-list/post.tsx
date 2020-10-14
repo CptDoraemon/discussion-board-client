@@ -6,27 +6,11 @@ import {Link} from "react-router-dom";
 import getTimeString from "../../utils/get-time-string";
 import LikeButtons from "../commons/like-buttons";
 import TagChip from "../commons/tag-chip/tag-chip";
-
-export interface PostData {
-    id: string
-    title: string,
-    content: string,
-    likes: number,
-    dislikes: number,
-    created: string,
-    comments: number
-    owner: {
-        email: string,
-        username: string,
-        avatar_url: string
-    },
-    tag: string,
-    "is_liked"?: 0 | 1 | -1
-}
+import {PostListPost} from "../../requests/use-get-post-list";
 
 interface PostProps {
     isLogin: boolean,
-    data: PostData
+    data: PostListPost
 }
 
 const useStyles = makeStyles((theme) => ({

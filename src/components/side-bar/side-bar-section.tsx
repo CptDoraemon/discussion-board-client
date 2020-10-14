@@ -13,13 +13,12 @@ interface SideBarSectionProps {
 const useStyles = makeStyles((theme) => ({
   root: {
     width: 'calc(100% - 16px)',
-    minHeight: '100px',
     margin: theme.spacing(1),
     overflow: 'hidden',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     [theme.breakpoints.down('md')]: {
       width: '100%',
       margin: theme.spacing(1, 0),
@@ -27,8 +26,8 @@ const useStyles = makeStyles((theme) => ({
   },
   main: {
     width: '80%',
-    height: '100%',
-    padding: theme.spacing(1, 0),
+    minHeight: '100px',
+    padding: theme.spacing(2, 0),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -72,7 +71,7 @@ const SideBarSection: React.FC<SideBarSectionProps> = ({children, isLoading, tit
           isLoading && <CircularProgress color="primary" size={25}/>
         }
         {
-          error && <BrokenImageIcon color='primary'/>
+          error && <BrokenImageIcon color='disabled'/>
         }
         {
           !isLoading && !error && children

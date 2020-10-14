@@ -15,7 +15,7 @@ let theme = createMuiTheme({
         },
         background: {
             default: 'rgb(241, 242, 245)'
-        }
+        },
     },
     typography: {
         "fontFamily": "system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji",
@@ -23,7 +23,7 @@ let theme = createMuiTheme({
         "fontWeightLight": 300,
         "fontWeightRegular": 400,
         "fontWeightMedium": 500
-    }
+    },
 });
 theme = responsiveFontSizes(theme);
 

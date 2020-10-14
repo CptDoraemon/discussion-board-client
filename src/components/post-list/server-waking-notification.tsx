@@ -5,7 +5,7 @@ import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from '@material-ui/icons/Close';
 import Fade from "@material-ui/core/Fade";
 
-const DELAY = 3000; // ms
+const DELAY = 5000; // ms
 const FADE_ANIMATION_DURATION = 500;
 let timeoutID: null | number = null;
 

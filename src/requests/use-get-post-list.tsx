@@ -1,7 +1,30 @@
 import {useEffect} from "react";
 import urls from "./urls";
-import {PostData} from "../components/post-list/post";
 import useProtectedGet from "./common/use-protected-get";
+
+export interface PostListPost {
+    id: string
+    title: string,
+    content: string,
+    likes: number,
+    dislikes: number,
+    created: string,
+    comments: number
+    owner: {
+        email: string,
+        username: string,
+        avatar_url: string
+    },
+    tag: string,
+    "is_liked"?: 0 | 1 | -1
+}
+
+export interface PostListData {
+    posts: PostListPost[],
+    total_pages: number
+    current_page: number
+}
+
 
 const useGetPostList = (tag: string | null) => {
     const url = tag === null ?
@@ -13,7 +36,7 @@ const useGetPostList = (tag: string | null) => {
         error,
         data,
         doGet
-    } = useProtectedGet<PostData[]>(url, false, false);
+    } = useProtectedGet<PostListData>(url, false, false);
 
     useEffect(() => {
         doGet(url, false)

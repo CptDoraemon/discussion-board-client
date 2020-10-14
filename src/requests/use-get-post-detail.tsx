@@ -1,8 +1,28 @@
 import urls from "./urls";
-import {PostDetailData} from "../components/post-detail/post-detail";
 import useSetTitle from "../utils/use-set-title";
 import useProtectedGet from "./common/use-protected-get";
 import {useMemo} from "react";
+import {CommentData} from "../components/post-detail/comment-item";
+
+export interface PostDetailData {
+    id: string,
+    owner: {
+        email: string,
+        username: string,
+        avatar_url: string
+    }
+    likes: number,
+    dislikes: number,
+    comments: number,
+    comments_data: CommentData[]
+    title: string,
+    content: string,
+    created: string,
+    tag: string,
+    is_liked: 0 | 1 | -1 | undefined,
+    is_owner?: boolean,
+    view_count: number
+}
 
 const useGetPostDetail = () => {
     const {

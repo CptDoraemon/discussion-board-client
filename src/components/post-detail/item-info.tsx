@@ -3,6 +3,8 @@ import getTimeString from "../../utils/get-time-string";
 import LikeButtons from "../commons/like-buttons";
 import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
+import ChromeReaderModeIcon from '@material-ui/icons/ChromeReaderMode';
+import {Tooltip} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     postInfo: {
@@ -35,6 +37,17 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('md')]: {
             margin: '4px 0',
         }
+    },
+    iconTextItem: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: theme.palette.grey[400],
+        '& p': {
+            margin: theme.spacing(0, 1),
+            color: theme.palette.grey[500],
+        }
     }
 }));
 
@@ -48,10 +61,11 @@ interface ItemInfoProps {
     likes: number,
     dislikes: number,
     isLiked: -1 | 0 | 1 | undefined,
+    viewCount?: number,
     small?: boolean
 }
 
-const ItemInfo: React.FC<ItemInfoProps> = ({type, isLogin, username, avatarUrl, created, id, likes, dislikes, isLiked, small}) => {
+const ItemInfo: React.FC<ItemInfoProps> = ({type, isLogin, username, avatarUrl, created, id, likes, dislikes, isLiked, small, viewCount}) => {
     const classes = useStyles();
     const _isLiked = isLogin ? isLiked : undefined;
 
@@ -75,6 +89,17 @@ const ItemInfo: React.FC<ItemInfoProps> = ({type, isLogin, username, avatarUrl, 
             <div className={classes.postInfoItem}>
                 <LikeButtons type={type} id={id} likes={likes} dislikes={dislikes} isLiked={_isLiked}/>
             </div>
+            {
+                viewCount !== undefined &&
+                <div className={classes.postInfoItem}>
+                    <Tooltip title="Page view" aria-label="Page view">
+                        <div className={classes.iconTextItem}>
+                            <ChromeReaderModeIcon/>
+                            <p>{viewCount}</p>
+                        </div>
+                    </Tooltip>
+                </div>
+            }
         </div>
     )
 };
