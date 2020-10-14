@@ -7,10 +7,11 @@ import {Link} from "react-router-dom";
 interface SideBarListViewItemProps {
   text: string,
   to: string,
-  number: number
+  number: number,
+  barPercentage: string
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = (barWidth: string) => makeStyles((theme) => ({
   root: {
     margin: 0,
     width: '100%',
@@ -21,12 +22,17 @@ const useStyles = makeStyles((theme) => ({
     transitions: theme.transitions.create(['background-color']),
     color: theme.palette.text.primary,
     justifyContent: 'flex-start',
-    '&:hover': {
-      backgroundColor: theme.palette.secondary.light,
+    position: 'relative',
+    '&:hover $barItem': {
+      height: '100%',
+      width: '100%',
+      transition: theme.transitions.create(['height', 'width']),
     },
-    '&:focus': {
-      backgroundColor: theme.palette.secondary.light,
-    }
+    '&:focus $barItem': {
+      height: '100%',
+      width: '100%',
+      transition: theme.transitions.create(['height', 'width'])
+    },
   },
   label: {
     width: '100%',
@@ -47,19 +53,43 @@ const useStyles = makeStyles((theme) => ({
   number: {
     textAlign: 'end',
     paddingLeft: '4px'
+  },
+  barWrapper: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    justifyContent: 'flex-start',
+    borderRadius: '5px',
+  },
+  barItem: {
+    backgroundColor: fade(theme.palette.secondary.light, 0.5),
+    height: '50%',
+    width: barWidth,
+    borderRadius: '5px',
+    transition: theme.transitions.create(['height', 'width'])
   }
 }));
 
-const SideBarListViewItem: React.FC<SideBarListViewItemProps> = ({text, to, number}) => {
-  const classes = useStyles();
+const SideBarListViewItem: React.FC<SideBarListViewItemProps> = ({text, to, number, barPercentage}) => {
+  const classes = useStyles(barPercentage)();
 
   return (
     <Button component={Link} to={to} classes={{root: classes.root, label: classes.label}}>
-      <div className={classes.text}>
+      <div className={classes.text} style={{zIndex: 2}}>
         {text}
       </div>
-      <div className={classes.number}>
+      <div className={classes.number} style={{zIndex: 2}}>
         {number}
+      </div>
+      <div className={classes.barWrapper} style={{zIndex: 1}}>
+        <div className={classes.barItem}>
+
+        </div>
       </div>
     </Button>
   );
