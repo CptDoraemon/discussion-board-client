@@ -2,8 +2,6 @@ import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import PostListContainer from "../../containers/post-list-container";
 import SideBarContainer from "../../containers/side-bar-container";
-import {useParams} from "react-router-dom";
-import ActiveTagChip from "./active-tag-chip";
 import useQuery from "../../utils/use-query";
 
 const useStyles = makeStyles((theme) => ({
@@ -19,10 +17,6 @@ const useStyles = makeStyles((theme) => ({
             flexDirection: 'column',
             margin: 0,
         }
-    },
-    tags: {
-        margin: theme.spacing(2, 0, 0, 0),
-        width: "100%",
     },
     left: {
         width: "75%",
@@ -50,12 +44,6 @@ const MainPage: React.FC<MainPageProps> = () => {
 
     return (
         <div className={classes.root}>
-            {
-                tag &&
-                <div className={classes.tags}>
-                    <ActiveTagChip text={tag}/>
-                </div>
-            }
             <div className={classes.left}>
                 <PostListContainer tag={tag} page={page} key={`tag=${tag}&page=${page}`}/>
             </div>

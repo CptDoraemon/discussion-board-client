@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     chipRoot: {
         borderRadius: 2,
         height: 'auto',
-        backgroundColor: fade(theme.palette.primary.main, 0.5),
+        backgroundColor: fade(theme.palette.primary.light, 0.8),
         transitions: theme.transitions.create('background-color'),
         '&:hover': {
             backgroundColor: theme.palette.primary.main,

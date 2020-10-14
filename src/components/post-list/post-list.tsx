@@ -8,11 +8,17 @@ import ServerWakingNotification from "./server-waking-notification";
 import Pagination from "../pagination/pagination";
 import Paper from "@material-ui/core/Paper";
 import useQuery from "../../utils/use-query";
+import ActiveTagChip from "../main-page/active-tag-chip";
 
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%'
-    }
+    },
+    tags: {
+        padding: theme.spacing(2, 2),
+        margin: theme.spacing(1, 0),
+        width: "100%",
+    },
 }));
 
 interface PostListProps {
@@ -46,6 +52,12 @@ const PostList: React.FC<PostListProps> = ({isLogin, tag, page}) => {
     } else if (data) {
         content = (
           <>
+              {
+                  tag &&
+                  <Paper className={classes.tags} elevation={0}>
+                      <ActiveTagChip text={tag}/>
+                  </Paper>
+              }
               { data.posts.map((_, i) =>  <Post key={i} isLogin={isLogin} data={_}/> ) }
               <Pagination count={data?.total_pages || 1} page={data?.current_page || 1}/>
           </>
