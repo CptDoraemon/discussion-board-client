@@ -5,7 +5,6 @@ import useProtectedGet from "./common/use-protected-get";
 export interface PostListPost {
     id: string
     title: string,
-    content: string,
     likes: number,
     dislikes: number,
     created: string,
