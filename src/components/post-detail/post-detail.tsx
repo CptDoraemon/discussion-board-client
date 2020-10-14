@@ -16,6 +16,7 @@ import TagChip from "../commons/tag-chip/tag-chip";
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
+        margin: theme.spacing(1, 0, 0, 0)
     },
     paper: {
         width: '100%',

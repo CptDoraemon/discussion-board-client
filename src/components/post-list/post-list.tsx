@@ -12,10 +12,6 @@ import useQuery from "../../utils/use-query";
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%'
-    },
-    pagination: {
-        width: '100%',
-        padding: theme.spacing(2, 0)
     }
 }));
 
@@ -51,9 +47,7 @@ const PostList: React.FC<PostListProps> = ({isLogin, tag, page}) => {
         content = (
           <>
               { data.posts.map((_, i) =>  <Post key={i} isLogin={isLogin} data={_}/> ) }
-              <Paper className={classes.pagination} elevation={0}>
-                  <Pagination count={data?.total_pages || 1} page={data?.current_page || 1}/>
-              </Paper>
+              <Pagination count={data?.total_pages || 1} page={data?.current_page || 1}/>
           </>
         )
     }

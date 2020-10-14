@@ -16,7 +16,8 @@ export interface PostListPost {
         avatar_url: string
     },
     tag: string,
-    "is_liked"?: 0 | 1 | -1
+    "is_liked"?: 0 | 1 | -1,
+    view_count: number
 }
 
 export interface PostListData {

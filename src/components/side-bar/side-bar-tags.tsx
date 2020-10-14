@@ -1,8 +1,9 @@
 import React, {useMemo} from "react";
 import {makeStyles} from "@material-ui/core/styles";
-import SideBarSection from "./side-bar-section";
+import SideBarSection from "./common/side-bar-section";
 import useGetTagList from "../../requests/use-get-tag-list";
-import TagChipSideBar from "../commons/tag-chip/tag-chip-sidebar";
+import SideBarListView from "./common/side-bar-list-view";
+import routes from "../../routes";
 
 const useStyles = makeStyles((theme) => ({
 
@@ -20,10 +21,18 @@ const SideBarTags: React.FC<SideBarTagsProps> = () => {
     data
   ] = useGetTagList();
 
+  const items = useMemo(() => {
+    return data?.map(obj => ({
+      text: obj.tag.toLowerCase(),
+      to: routes.getPostList({tag: obj.tag}),
+      number: obj.count
+    }))
+  }, [data]);
+
   return (
     <SideBarSection isLoading={loading} title={'tags'} error={error}>
       {
-        data && data.map(obj => <TagChipSideBar text={obj.tag.toLowerCase()} to={`/?tag=${obj.tag}`} key={obj.tag}/>)
+        items && <SideBarListView items={items}/>
       }
     </SideBarSection>
   )

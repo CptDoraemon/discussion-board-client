@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'flex-start'
     },
     widthWrapper: {
-        margin: theme.spacing(5, 0, 0, 0),
+        margin: theme.spacing(3, 0, 0, 0),
         width: '1000px',
         display: 'flex',
         flexDirection: 'column',

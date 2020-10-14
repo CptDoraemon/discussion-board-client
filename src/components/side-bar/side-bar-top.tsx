@@ -1,7 +1,7 @@
 import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import {GenericLinkButton} from "../commons/generic-button";
-import SideBarSection from "./side-bar-section";
+import SideBarSection from "./common/side-bar-section";
 
 interface SideBarTopProps {
   isLogin: boolean
