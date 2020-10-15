@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     },
     loading: {
         width: '100%',
-        height: '500px'
+        height: '500px',
     },
     center: {
         width: '100%',
@@ -54,8 +54,7 @@ const PostDetail: React.FC<PostDetailProps> = ({isLogin}) => {
     if (loading) {
         content = (
             <div className={classes.loading}>
-                <Skeleton variant="rect" width={'100%'} height={60} />
-                { (new Array(10)).fill(0).map((_, i) => <Skeleton variant="text" width={'100%'} key={i}/>)}
+                <Skeleton variant="rect" width={'100%'} height={'100%'}/>
             </div>
         )
     } else if (error) {
