@@ -1,6 +1,5 @@
 import React from "react";
 import Chip from "@material-ui/core/Chip";
-import {Box} from "@material-ui/core";
 import {Link} from "react-router-dom";
 
 interface TagChipCommonProps {
@@ -15,7 +14,7 @@ interface TagChipCommonProps {
 
 const TagChipCommon: React.FC<TagChipCommonProps> = ({text, to, classes}) => {
   return (
-    <Box className={classes.root}>
+    <div className={classes.root}>
       <Chip
         label={text}
         component={Link}
@@ -26,7 +25,7 @@ const TagChipCommon: React.FC<TagChipCommonProps> = ({text, to, classes}) => {
           label: classes.chipLabel
         }}
       />
-    </Box>
+    </div>
   )
 };
 
