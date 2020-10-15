@@ -10,14 +10,14 @@ const useStyles = makeStyles((theme) => ({
             'sans-serif',
         ].join(','),
         fontWeight: 700,
-        fontSize: '1.5rem',
-        [theme.breakpoints.up('md')]: {
-            fontSize: '1.75rem',
-        },
+        fontSize: '1.75rem',
         fontStyle: "normal",
-        color: "#fff",
+        color: theme.palette.primary.contrastText,
         whiteSpace: 'nowrap',
-        width: 'fit-content'
+        width: 'fit-content',
+        [theme.breakpoints.down('sm')]: {
+            fontSize: '1.25rem',
+        },
     }
 }));
 

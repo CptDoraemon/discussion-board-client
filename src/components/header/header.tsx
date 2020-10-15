@@ -1,6 +1,5 @@
 import React from 'react';
 import {makeStyles} from "@material-ui/core/styles";
-import {Grid} from "@material-ui/core";
 import LoggedInUserPanel from "./logged-in-user-panel";
 import AnonymousUserPanel from "./anonymous-user-panel";
 import Logo from "../commons/logo";
@@ -82,7 +81,5 @@ const Header: React.FC<HeaderProps> = ({isLogin, username}) => {
         </header>
     )
 };
-
-
 
 export default Header;
