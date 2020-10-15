@@ -37,6 +37,7 @@ const useStyles = (barWidth: string) => makeStyles((theme) => ({
   label: {
     width: '100%',
     fontSize: theme.typography.caption.fontSize,
+    fontWeight: 700,
     textTransform: 'capitalize',
     padding: '2px',
     display: 'flex',
@@ -64,13 +65,13 @@ const useStyles = (barWidth: string) => makeStyles((theme) => ({
     flexDirection: 'row',
     alignItems: 'flex-end',
     justifyContent: 'flex-start',
-    borderRadius: '5px',
+    borderRadius: theme.shape.borderRadius
   },
   barItem: {
     backgroundColor: fade(theme.palette.secondary.light, 0.5),
     height: '50%',
     width: barWidth,
-    borderRadius: '5px',
+    borderRadius: theme.shape.borderRadius,
     transition: theme.transitions.create(['height', 'width'])
   }
 }));

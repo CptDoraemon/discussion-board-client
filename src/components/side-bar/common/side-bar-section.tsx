@@ -44,13 +44,8 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     backgroundColor: theme.palette.primary.light,
     color: theme.palette.primary.contrastText,
-    width: '100%'
-  },
-  titleBulletin: {
-    width: 5,
-    height: 5,
-    borderRadius: '50%',
-    backgroundColor: theme.palette.primary.light,
+    width: '100%',
+    borderRadius: theme.shape.borderRadius
   },
   titleText: {
     padding: theme.spacing(0, 1),
