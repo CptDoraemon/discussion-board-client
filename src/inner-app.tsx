@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     },
     widthWrapper: {
         margin: theme.spacing(3, 0, 0, 0),
-        width: '1000px',
+        width: theme.breakpoints.values['md'],
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',

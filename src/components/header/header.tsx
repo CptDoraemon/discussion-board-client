@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
         left: 0,
         top: 0,
         color: theme.palette.primary.contrastText,
-        padding: theme.spacing(0, 1),
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
@@ -33,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
         position: 'relative',
     },
     widthWrapper: {
-        width: '1000px',
+        width: theme.breakpoints.values['md'],
         height: '100%',
         display: 'flex',
         flexDirection: 'row',
@@ -41,8 +40,7 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         padding: theme.spacing(0, 1),
         [theme.breakpoints.down('sm')]: {
-            width: 'calc(100% - 16px)',
-            margin: theme.spacing(0, 1),
+            width: '100%',
         },
     },
     logo: {
