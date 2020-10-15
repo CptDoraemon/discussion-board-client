@@ -28,11 +28,6 @@ const useStyles = (barWidth: string) => makeStyles((theme) => ({
       width: '100%',
       transition: theme.transitions.create(['height', 'width']),
     },
-    '&:focus $barItem': {
-      height: '100%',
-      width: '100%',
-      transition: theme.transitions.create(['height', 'width'])
-    },
   },
   label: {
     width: '100%',

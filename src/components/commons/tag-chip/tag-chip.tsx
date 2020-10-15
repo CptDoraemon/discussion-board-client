@@ -17,11 +17,11 @@ const useStyles = makeStyles((theme) => ({
         height: 'auto',
         backgroundColor: fade(theme.palette.primary.light, 0.8),
         transitions: theme.transitions.create('background-color'),
-        '&:hover': {
+        '&:hover, &:focus': {
             backgroundColor: theme.palette.primary.main,
         },
-        '&:focus': {
-            backgroundColor: theme.palette.primary.main,
+        '&:active': {
+            backgroundColor: fade(theme.palette.primary.light, 0.8),
         }
     },
     chipLabelSmall: {
