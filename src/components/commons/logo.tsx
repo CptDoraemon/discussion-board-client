@@ -16,7 +16,8 @@ const useStyles = makeStyles((theme) => ({
         },
         fontStyle: "normal",
         color: "#fff",
-        whiteSpace: 'nowrap'
+        whiteSpace: 'nowrap',
+        width: 'fit-content'
     }
 }));
 
