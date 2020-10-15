@@ -1,5 +1,8 @@
-import {useEffect, useState} from "react";
 import GENERIC_ERROR_MESSAGE from "./generic-error-message";
+import useCallbackDidMount from "../../utils/use-callback-did-mount";
+import useRequestState from "./helpers/use-request-states";
+import axios from 'axios';
+import useCancelRequestBeforeUnmount from "./helpers/use-cancel-request-before-unmount";
 
 /**
  * Generic hook to fetch data with get method, with no authentications
@@ -7,52 +10,48 @@ import GENERIC_ERROR_MESSAGE from "./generic-error-message";
  * @param {boolean} fetchWhenComponentDidMount If true, will fetch automatically when componentDidMount
  */
 const useUnprotectedGet = <FetchedDataType,>(
-    url: RequestInfo,
+    url: string,
     fetchWhenComponentDidMount: boolean
 ) => {
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
-    const [data, setData] = useState<FetchedDataType | null>(null);
+    const {
+        loading,
+        setLoading,
+        errorMessage,
+        setErrorMessage,
+        data,
+        setData,
+        error,
+        resetError
+    } = useRequestState();
+    useCallbackDidMount(doGet, fetchWhenComponentDidMount);
+    const getAxiosToken = useCancelRequestBeforeUnmount();
 
-    useEffect(() => {
-        if (fetchWhenComponentDidMount) {
-            doGet()
-        }
-    }, []);
-
-    const doGet = async (
-    ) => {
+    async function doGet () {
         try {
             if (loading) return;
             // reset states
-            setError(false);
-            setErrorMessage('');
+            resetError();
 
             // start fetching
             setLoading(true);
-            const res = await fetch(url);
-            const json = await res.json();
+            const res = await axios.get(url, {cancelToken: getAxiosToken()});
+            const json = await res.data;
 
             // server responded
-            setLoading(false);
             if (json.status === 'success') {
                 setData(json.data)
             } else if (json.status === 'error') {
-                setError(true);
                 setErrorMessage(json.message || GENERIC_ERROR_MESSAGE)
             }
             else {
-                console.log(json);
-                setError(true);
+                setErrorMessage(GENERIC_ERROR_MESSAGE)
             }
         } catch (e) {
-            console.log(e);
-            setLoading(false);
-            setError(true);
             setErrorMessage(GENERIC_ERROR_MESSAGE)
+        } finally {
+            setLoading(false);
         }
-    };
+    }
 
     return {
         loading,
