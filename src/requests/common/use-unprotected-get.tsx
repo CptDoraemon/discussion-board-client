@@ -22,7 +22,7 @@ const useUnprotectedGet = <FetchedDataType,>(
         setData,
         error,
         resetError
-    } = useRequestState();
+    } = useRequestState<FetchedDataType>();
     useCallbackDidMount(doGet, fetchWhenComponentDidMount);
     const getAxiosToken = useCancelRequestBeforeUnmount();
 
