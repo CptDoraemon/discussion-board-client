@@ -7,7 +7,6 @@ import Post from "./post";
 import ServerWakingNotification from "./server-waking-notification";
 import Pagination from "../pagination/pagination";
 import Paper from "@material-ui/core/Paper";
-import useQuery from "../../utils/use-query";
 import ActiveTagChip from "../main-page/active-tag-chip";
 
 const useStyles = makeStyles((theme) => ({

@@ -1,4 +1,5 @@
-import React, {useEffect, useRef} from "react";
+import React, {useRef} from "react";
+import {useMount} from 'react-use';
 import {makeStyles} from "@material-ui/core/styles";
 import {Paper} from "@material-ui/core";
 import { useParams } from "react-router-dom";
@@ -46,9 +47,9 @@ const PostDetail: React.FC<PostDetailProps> = ({isLogin}) => {
 
     const { postID } = useParams();
     const [loading, error, data, fetchPostDetail] = useGetPostDetail();
-    useEffect(() => {
+    useMount(() => {
         fetchPostDetail(parseInt(postID || '1'))
-    }, []);
+    });
 
     let content;
     if (loading) {

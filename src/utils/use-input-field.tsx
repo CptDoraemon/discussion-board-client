@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useEffect, useState} from "react";
+import {ChangeEvent, useState} from "react";
 import {Validator} from "./validators";
 
 type ChangeHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void

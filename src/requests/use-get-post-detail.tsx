@@ -34,13 +34,9 @@ const useGetPostDetail = () => {
 
     useSetTitle(data?.title);
 
-    const fetchPostDetail = useMemo(() => {
-        return (
-          postID: number
-        ) => {
-            doGet(urls.getPostDetail(postID), false);
-        };
-    }, []);
+    const fetchPostDetail = (postID: number) => {
+        doGet(urls.getPostDetail(postID), false);
+    };
 
     return [loading, error, data, fetchPostDetail] as [typeof loading, typeof error, typeof data, typeof fetchPostDetail]
 
