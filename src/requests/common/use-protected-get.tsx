@@ -1,6 +1,7 @@
-import {useEffect, useState} from "react";
 import GENERIC_ERROR_MESSAGE from "./generic-error-message";
 import useFetchWithTokenVerification from "./use-fetch-with-token-verification";
+import useRequestState from "./helpers/use-request-states";
+import useCallbackDidMount from "./helpers/use-callback-did-mount";
 
 /**
  * Generic hook to fetch data with get method, with authentications
@@ -13,29 +14,28 @@ const useProtectedGet = <FetchedDataType,>(
     fetchWhenComponentDidMount: boolean,
     redirectInvalidToken: boolean
 ) => {
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
-    const [data, setData] = useState<FetchedDataType | null>(null);
-
+    const {
+        loading,
+        setLoading,
+        errorMessage,
+        setErrorMessage,
+        data,
+        setData,
+        error,
+        resetError
+    } = useRequestState<FetchedDataType>();
+    useCallbackDidMount(() => doGet(url, redirectInvalidToken), fetchWhenComponentDidMount);
     const fetchWithTokenVerification = useFetchWithTokenVerification();
 
-    useEffect(() => {
-        if (fetchWhenComponentDidMount) {
-            doGet(url, redirectInvalidToken)
-        }
-    }, []);
-
-    const doGet = async (
-        url: RequestInfo,
-        redirectInvalidToken: boolean
-    ) => {
+    async function doGet (
+      url: RequestInfo,
+      redirectInvalidToken: boolean
+    ) {
         try {
             if (loading) return;
 
             // reset states
-            setError(false);
-            setErrorMessage('');
+            resetError();
 
             // start fetching
             setLoading(true);
@@ -43,24 +43,21 @@ const useProtectedGet = <FetchedDataType,>(
             const json = await res.json();
 
             // server responded
-            setLoading(false);
             if (json.status === 'success') {
                 setData(json.data)
             } else if (json.status === 'error') {
-                setError(true);
                 setErrorMessage(json.message || GENERIC_ERROR_MESSAGE)
             }
             else {
-                console.log(json);
-                setError(true);
+                setErrorMessage(GENERIC_ERROR_MESSAGE)
             }
         } catch (e) {
             console.log(e);
-            setLoading(false);
-            setError(true);
             setErrorMessage(GENERIC_ERROR_MESSAGE)
+        } finally {
+            setLoading(false);
         }
-    };
+    }
 
     return {
         loading,
@@ -69,7 +66,6 @@ const useProtectedGet = <FetchedDataType,>(
         data,
         doGet
     }
-
 };
 
 export default useProtectedGet

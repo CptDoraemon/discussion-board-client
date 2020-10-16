@@ -1,5 +1,5 @@
 import GENERIC_ERROR_MESSAGE from "./generic-error-message";
-import useCallbackDidMount from "../../utils/use-callback-did-mount";
+import useCallbackDidMount from "./helpers/use-callback-did-mount";
 import useRequestState from "./helpers/use-request-states";
 import axios from 'axios';
 import useCancelRequestBeforeUnmount from "./helpers/use-cancel-request-before-unmount";
