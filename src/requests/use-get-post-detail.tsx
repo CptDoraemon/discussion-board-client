@@ -30,7 +30,7 @@ const useGetPostDetail = () => {
         error,
         data,
         doGet,
-    } = useProtectedGet<PostDetailData>('', false, false);
+    } = useProtectedGet<PostDetailData>('', false);
 
     useSetTitle(data?.title);
 

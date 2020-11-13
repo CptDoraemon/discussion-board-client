@@ -6,12 +6,10 @@ import useCallbackDidMount from "./helpers/use-callback-did-mount";
 /**
  * Generic hook to fetch data with get method, with authentications
  * @param {string} url The link to fetch
- * @param {boolean} fetchWhenComponentDidMount If true, will fetch automatically when componentDidMount
  * @param {boolean} redirectInvalidToken Redirect to login page if true
  */
 const useProtectedGet = <FetchedDataType,>(
     url: RequestInfo,
-    fetchWhenComponentDidMount: boolean,
     redirectInvalidToken: boolean
 ) => {
     const {
@@ -24,7 +22,6 @@ const useProtectedGet = <FetchedDataType,>(
         error,
         resetError
     } = useRequestState<FetchedDataType>();
-    useCallbackDidMount(() => doGet(url, redirectInvalidToken), fetchWhenComponentDidMount);
     const fetchWithTokenVerification = useFetchWithTokenVerification();
 
     async function doGet (

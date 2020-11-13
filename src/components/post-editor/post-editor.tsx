@@ -14,6 +14,7 @@ import Box from "@material-ui/core/Box";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import useGetTagList, {TagList} from "../../requests/use-get-tag-list";
 import TagSelector from "./tag-selector";
+import {useMount} from "react-use/esm";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -37,14 +38,13 @@ const PostEditor: React.FC = () => {
     const [postDetailLoading, postDetailError, postDetailData, fetchPostDetail] = useGetPostDetail();
     const [tagListLoading, tagListError, tagList] = useGetTagList();
 
-    useEffect(() => {
+    useMount(() => {
         if (postID === undefined) {
             setNeedData(false)
         } else {
             fetchPostDetail(parseInt(postID))
         }
-    }, [postID, fetchPostDetail]);
-
+    });
     const showEditor = (!needData || postDetailData !== null) && tagList !== null;
 
     return (

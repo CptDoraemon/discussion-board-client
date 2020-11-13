@@ -35,7 +35,7 @@ const useGetPostList = ({tag, page}: {tag: string | null, page: string}) => {
         error,
         data,
         doGet
-    } = useProtectedGet<PostListData>(url, false, false);
+    } = useProtectedGet<PostListData>(url, false);
 
     const prevTag = usePrevious(tag);
     const prevPage = usePrevious(page);
