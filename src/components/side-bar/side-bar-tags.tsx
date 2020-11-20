@@ -22,11 +22,13 @@ const SideBarTags: React.FC<SideBarTagsProps> = () => {
   ] = useGetTagList();
 
   const items = useMemo(() => {
-    return data?.map(obj => ({
-      text: obj.tag.toLowerCase(),
-      to: routes.getPostList({tag: obj.tag}),
-      number: obj.count
-    }))
+    return data
+      ?.map(obj => ({
+          text: obj.tag.toLowerCase(),
+          to: routes.getPostList({tag: obj.tag}),
+          number: obj.count
+        }))
+      .sort((a, b) => -a.number + b.number)
   }, [data]);
 
   return (
