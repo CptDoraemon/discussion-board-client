@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useMemo} from "react";
 import {Grid, Paper} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import Logo from "../commons/logo";
@@ -48,6 +48,10 @@ const userStyles = makeStyles((theme) => ({
 const Footer: React.FC = () => {
     const classes = userStyles();
 
+    const copyrightString = useMemo(() => {
+        return ` © 2020-${new Date().getFullYear()} XiaoxiHome.com`
+    }, []);
+
     return (
         <footer className={classes.root}>
             <Paper className={classes.paper}>
@@ -61,7 +65,7 @@ const Footer: React.FC = () => {
                 </Grid>
                 <div className={classes.copyright}>
                     <div>
-                        © 2020 XiaoxiHome.com
+                        {copyrightString}
                     </div>
                 </div>
             </Paper>
