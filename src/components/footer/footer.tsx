@@ -61,7 +61,7 @@ const Footer: React.FC = () => {
                 </Grid>
                 <div className={classes.copyright}>
                     <div>
-                        © XiaoxiHome
+                        © XiaoxiHome.com
                     </div>
                     <div>
                         Since 2020
