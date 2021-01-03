@@ -18,6 +18,11 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('sm')]: {
             fontSize: '1.25rem',
         },
+    },
+    link: {
+        '&:hover': {
+            color: theme.palette.secondary.light,
+        }
     }
 }));
 
@@ -27,7 +32,7 @@ const Logo: React.FC = () => {
     return (
         <Typography variant={'h1'} component={'h1'} className={classes.root}>
             <Box fontWeight={700} textAlign={"center"}>
-                <Link to={'/'}>
+                <Link to={'/'} className={classes.link}>
                     Blog | XiaoxiHome
                 </Link>
             </Box>

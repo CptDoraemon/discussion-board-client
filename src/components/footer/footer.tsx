@@ -38,7 +38,7 @@ const userStyles = makeStyles((theme) => ({
         width: '100%',
         margin: theme.spacing(5, 0, 0, 0),
         display: 'flex',
-        flexDirection: 'row',
+        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
         fontSize: '0.8rem'
@@ -47,10 +47,6 @@ const userStyles = makeStyles((theme) => ({
 
 const Footer: React.FC = () => {
     const classes = userStyles();
-
-    const copyrightString = useMemo(() => {
-        return ` © 2020-${new Date().getFullYear()} XiaoxiHome.com`
-    }, []);
 
     return (
         <footer className={classes.root}>
@@ -65,7 +61,10 @@ const Footer: React.FC = () => {
                 </Grid>
                 <div className={classes.copyright}>
                     <div>
-                        {copyrightString}
+                        © XiaoxiHome
+                    </div>
+                    <div>
+                        Since 2020
                     </div>
                 </div>
             </Paper>
