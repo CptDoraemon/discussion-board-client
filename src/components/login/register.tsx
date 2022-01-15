@@ -14,6 +14,7 @@ import {
 } from "../../utils/validators";
 import ErrorMessage from "../commons/error-message";
 import useRegister from "../../requests/use-register";
+import {Alert} from "@material-ui/lab";
 
 const useStyles = makeStyles((theme) => ({
     textField: {
@@ -61,7 +62,7 @@ const Register: React.FC<RegisterProps> = () => {
 
     return (
         <LoginCommon imageUrl={'/images/register_bg.jpg'}>
-            <form onSubmit={submitHandler} id={formID}>
+            <form onSubmit={() => false} id={formID}>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <Typography variant={'h5'} component={'h1'} color={"textPrimary"}>
@@ -133,8 +134,13 @@ const Register: React.FC<RegisterProps> = () => {
                         </Grid>
                     </Grid>
                     <Grid item xs={12}>
+                        <Box mb={2}>
+                            <Alert severity={'info'}>
+                                Signing up is disabled at the moment
+                            </Alert>
+                        </Box>
                         <Grid container justify={'center'}>
-                            <FormButton text={'I\'m in!'} form={formID} disabled={false}/>
+                            <FormButton text={'I\'m in!'} form={formID} disabled={true}/>
                         </Grid>
                     </Grid>
 
