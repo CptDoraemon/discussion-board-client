@@ -16,10 +16,10 @@ import PrivateRoute from "./utils/protected-router";
 import PostEditor from "./components/post-editor/post-editor";
 import {State} from "./redux/state";
 import PostDetail from "./components/post-detail/post-detail";
-import RouterScrollRestoration from "./utils/router-scroll-restoration";
 import AccountSettingContainer from "./containers/account-setting-container";
 import ConfettiWrapper from "./components/confetti/confetti-wrapper";
 import routes from "./routes";
+import useRouterScrollRestoration from "./utils/router-scroll-restoration";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -61,11 +61,11 @@ interface InnerAppProps {
 
 const InnerApp: React.FC<InnerAppProps> = ({isLogin, confetti}) => {
     const classes = useStyles();
+    useRouterScrollRestoration();
 
     return (
         <div className={classes.root}>
             <Router basename={process.env.PUBLIC_URL}>
-                <RouterScrollRestoration />
                 <HeaderContainer />
                 <div className={classes.widthWrapper}>
                     <Switch>

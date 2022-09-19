@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import {usePrevious} from "react-use";
 
-export default function RouterScrollRestoration() {
+export default function useRouterScrollRestoration() {
     const { pathname, search } = useLocation();
     const previousPathname = usePrevious(pathname);
     const previousSearch = usePrevious(search);
