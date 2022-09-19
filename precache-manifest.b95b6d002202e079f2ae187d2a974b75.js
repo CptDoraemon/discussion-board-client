@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "63b25b4ab2bb7acc5ca672f53ee84635",
+    "revision": "9c7299730066df1ac722542bfc210b5c",
     "url": "/discussion-board-client/index.html"
   },
   {
-    "revision": "cc2934d1c83674367bac",
+    "revision": "1d66badcc85c90e48acd",
     "url": "/discussion-board-client/static/css/2.6d1032fe.chunk.css"
   },
   {
-    "revision": "7e23aa58df3721e61d79",
+    "revision": "1b684e31388df608e230",
     "url": "/discussion-board-client/static/css/main.5e30cc33.chunk.css"
   },
   {
-    "revision": "cc2934d1c83674367bac",
-    "url": "/discussion-board-client/static/js/2.666bb34d.chunk.js"
+    "revision": "1d66badcc85c90e48acd",
+    "url": "/discussion-board-client/static/js/2.1de6ba01.chunk.js"
   },
   {
     "revision": "2ef428f39d34db82f69e2dde504832a3",
-    "url": "/discussion-board-client/static/js/2.666bb34d.chunk.js.LICENSE.txt"
+    "url": "/discussion-board-client/static/js/2.1de6ba01.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "7e23aa58df3721e61d79",
-    "url": "/discussion-board-client/static/js/main.48510f78.chunk.js"
+    "revision": "1b684e31388df608e230",
+    "url": "/discussion-board-client/static/js/main.153b64f6.chunk.js"
   },
   {
     "revision": "1e9cda47556fda47d71f",
