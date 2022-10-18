@@ -1,5 +1,5 @@
-// const base = 'https://django-api-xiaoxihome.herokuapp.com/api/discussion_board/';
-const base = 'http://127.0.0.1:8000/api/discussion_board/';
+const base = 'https://django-api-xiaoxihome.herokuapp.com/api/discussion_board/';
+// const base = 'http://127.0.0.1:8000/api/discussion_board/';
 
 const accountBase = base + 'account/';
 const login = accountBase + 'login/';
