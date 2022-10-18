@@ -27,13 +27,11 @@ const PinnedPosts: React.FC<PostListProps> = ({isLogin}) => {
 
   let content;
   if (loading || !isLoaded) {
-    content = (new Array(10)).fill(0).map((_, i) => {
-      return (
-        <Box width='100%' my={1} borderRadius={'5px'} key={i} overflow={'hidden'}>
-          <Skeleton variant="rect" animation="wave" width={'100%'} height={150}/>
-        </Box>
-      )
-    })
+    content = (
+      <Box width='100%' my={1} borderRadius={'5px'} overflow={'hidden'}>
+        <Skeleton variant="rect" animation="wave" width={'100%'} height={150}/>
+      </Box>
+    )
   } else if (data) {
     content = (
       <>

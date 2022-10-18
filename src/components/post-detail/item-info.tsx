@@ -8,7 +8,7 @@ import {Grid, Tooltip, Typography} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        color: theme.palette.grey[600],
+        color: theme.palette.grey[500],
         fontWeight: 700,
     },
     avatar: {
@@ -98,7 +98,7 @@ const ItemInfo: React.FC<ItemInfoProps> = ({type, isLogin, username, avatarUrl, 
                     </Grid>
 
                     {
-                      created !== edited && edited !== undefined &&
+                      edited !== undefined && getTimeString(created) !== getTimeString(edited) &&
                       <Grid item xs={12}>
                           Edited: { getTimeString(edited) }
                       </Grid>
