@@ -18,6 +18,7 @@ export interface PostDetailData {
     title: string,
     content: string,
     created: string,
+    edited: string,
     tag: string,
     is_liked: 0 | 1 | -1 | undefined,
     is_owner?: boolean,
@@ -39,7 +40,6 @@ const useGetPostDetail = () => {
     };
 
     return [loading, error, data, fetchPostDetail] as [typeof loading, typeof error, typeof data, typeof fetchPostDetail]
-
 };
 
 export default useGetPostDetail

@@ -83,6 +83,7 @@ const PostDetail: React.FC<PostDetailProps> = ({isLogin}) => {
                         dislikes={data.dislikes}
                         isLiked={data.is_liked}
                         viewCount={data.view_count}
+                        edited={data.edited}
                     />
                     <Box className={classes.center} my={2}>
                         {

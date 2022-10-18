@@ -18,8 +18,15 @@ import {useMount} from "react-use/esm";
 
 const useStyles = makeStyles((theme) => ({
     root: {
+        position: 'relative',
         width: '100%',
-        padding: theme.spacing(2)
+        padding: theme.spacing(2),
+        '& .ql-toolbar': {
+            position: 'sticky',
+            top: 88,
+            backgroundColor: '#fff',
+            zIndex: 1
+        }
     },
     editor: {
         width: '100%',

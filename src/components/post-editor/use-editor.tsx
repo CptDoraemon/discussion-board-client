@@ -36,7 +36,8 @@ const useEditor = (ID: string) => {
                 }
             },
             placeholder: 'Compose an epic...',
-            theme: 'snow'  // or 'bubble'
+            theme: 'snow',  // or 'bubble'
+            scrollingContainer: 'html'
         });
         quillInstance.getModule('toolbar').addHandler('image', () => imageUploadHandler(quillInstance, objectURLs.current));
         setQuill(quillInstance);

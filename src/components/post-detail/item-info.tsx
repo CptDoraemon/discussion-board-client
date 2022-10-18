@@ -4,22 +4,12 @@ import LikeButtons from "../commons/like-buttons";
 import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import ChromeReaderModeIcon from '@material-ui/icons/ChromeReaderMode';
-import {Tooltip} from "@material-ui/core";
+import {Grid, Tooltip, Typography} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-    postInfo: {
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-        color: theme.palette.grey[500],
+    root: {
+        color: theme.palette.grey[600],
         fontWeight: 700,
-        [theme.breakpoints.down('md')]: {
-            flexDirection: 'column',
-            alignItems: 'flex-start',
-            justifyContent: 'center',
-        }
     },
     avatar: {
         backgroundColor: theme.palette.primary.main
@@ -31,12 +21,6 @@ const useStyles = makeStyles((theme) => ({
     },
     username: {
         color: theme.palette.text.primary
-    },
-    postInfoItem: {
-        margin: theme.spacing(0, 2),
-        [theme.breakpoints.down('md')]: {
-            margin: '4px 0',
-        }
     },
     iconTextItem: {
         display: 'flex',
@@ -57,6 +41,7 @@ interface ItemInfoProps {
     username: string,
     avatarUrl: string
     created: string,
+    edited?: string,
     id: string,
     likes: number,
     dislikes: number,
@@ -65,42 +50,62 @@ interface ItemInfoProps {
     small?: boolean
 }
 
-const ItemInfo: React.FC<ItemInfoProps> = ({type, isLogin, username, avatarUrl, created, id, likes, dislikes, isLiked, small, viewCount}) => {
+const ItemInfo: React.FC<ItemInfoProps> = ({type, isLogin, username, avatarUrl, created, edited, id, likes, dislikes, isLiked, small, viewCount}) => {
     const classes = useStyles();
     const _isLiked = isLogin ? isLiked : undefined;
 
     return (
-        <div className={classes.postInfo}>
-            <div className={classes.postInfoItem}>
-                <Avatar
-                    variant="rounded"
-                    className={small ? `${classes.avatar} ${classes.avatarSmall}` : classes.avatar}
-                    src={avatarUrl}
-                >
-                    { username.charAt(0) }
-                </Avatar>
-            </div>
-            <div className={`${classes.postInfoItem} ${classes.username}`}>
-                { username }
-            </div>
-            <div className={classes.postInfoItem}>
-                { getTimeString(created) }
-            </div>
-            <div className={classes.postInfoItem}>
-                <LikeButtons type={type} id={id} likes={likes} dislikes={dislikes} isLiked={_isLiked}/>
-            </div>
-            {
-                viewCount !== undefined &&
-                <div className={classes.postInfoItem}>
+      <Grid container spacing={4} className={classes.root} alignItems={'center'}>
+          <Grid item>
+
+              <Grid container alignItems={'center'} spacing={2}>
+                  <Grid item>
+                      <Avatar
+                        variant="rounded"
+                        className={small ? `${classes.avatar} ${classes.avatarSmall}` : classes.avatar}
+                        src={avatarUrl}
+                      >
+                          { username.charAt(0) }
+                      </Avatar>
+                  </Grid>
+                  <Grid item>
+                      <span className={classes.username}>{ username }</span>
+                  </Grid>
+              </Grid>
+
+          </Grid>
+
+          <Grid item>
+              <LikeButtons type={type} id={id} likes={likes} dislikes={dislikes} isLiked={_isLiked}/>
+          </Grid>
+
+          {
+              viewCount !== undefined &&
+                <Grid item>
                     <Tooltip title="Page View" aria-label="Page View">
                         <div className={classes.iconTextItem}>
                             <ChromeReaderModeIcon/>
                             <p>{viewCount}</p>
                         </div>
                     </Tooltip>
-                </div>
-            }
-        </div>
+                </Grid>
+          }
+
+            <Grid item xs={12}>
+                <Grid container spacing={2} alignItems={'center'} className={classes.root}>
+                    <Grid item xs={12}>
+                        Created: { getTimeString(created) }
+                    </Grid>
+
+                    {
+                      created !== edited && edited !== undefined &&
+                      <Grid item xs={12}>
+                          Edited: { getTimeString(edited) }
+                      </Grid>
+                    }
+                </Grid>
+            </Grid>
+      </Grid>
     )
 };
 
