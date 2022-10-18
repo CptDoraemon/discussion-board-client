@@ -12,6 +12,7 @@ import useInsertedHTMLStyle from "./inserted-html-style";
 import DeleteButton from "../commons/delete-button";
 import EditButton from "../commons/edit-button";
 import TagChip from "../commons/tag-chip/tag-chip";
+import PinButton from "../commons/pin-button";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -91,6 +92,10 @@ const PostDetail: React.FC<PostDetailProps> = ({isLogin}) => {
                                 <>
                                     <DeleteButton id={parseInt(data.id)}/>
                                     <EditButton id={parseInt(data.id)}/>
+                                    {
+                                        data.is_pinned !== undefined &&
+                                        <PinButton id={parseInt(data.id)} isPinned={data.is_pinned} />
+                                    }
                                 </>
                         }
                     </Box>

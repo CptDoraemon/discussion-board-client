@@ -1,5 +1,5 @@
-const base = 'https://django-api-xiaoxihome.herokuapp.com/api/discussion_board/';
-// const base = 'http://127.0.0.1:8000/api/discussion_board/';
+// const base = 'https://django-api-xiaoxihome.herokuapp.com/api/discussion_board/';
+const base = 'http://127.0.0.1:8000/api/discussion_board/';
 
 const accountBase = base + 'account/';
 const login = accountBase + 'login/';
@@ -22,6 +22,8 @@ const createPost = postBase + 'create/';
 const editPost = (id: number) => `${postBase}edit/${id}/`;
 const deletePost = (id: number) => `${postBase}delete/${id}/`;
 const tagList = postBase + 'tag-list/';
+const pinPost = postBase + 'pin/';
+const allPinnedPosts = postBase + 'pinned-posts/';
 
 const commentBase = base + 'comment/';
 const createComment = commentBase + 'create/';
@@ -43,7 +45,9 @@ const urls = {
     deletePost,
     tagList,
     createComment,
-    like
+    like,
+    pinPost,
+    allPinnedPosts
 };
 
 export default urls

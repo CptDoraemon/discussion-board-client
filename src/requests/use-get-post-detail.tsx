@@ -22,7 +22,8 @@ export interface PostDetailData {
     tag: string,
     is_liked: 0 | 1 | -1 | undefined,
     is_owner?: boolean,
-    view_count: number
+    view_count: number,
+    is_pinned: boolean | undefined
 }
 
 const useGetPostDetail = () => {

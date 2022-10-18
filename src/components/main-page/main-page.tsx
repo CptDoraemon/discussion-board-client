@@ -3,10 +3,12 @@ import {makeStyles} from "@material-ui/core/styles";
 import PostListContainer from "../../containers/post-list-container";
 import SideBarContainer from "../../containers/side-bar-container";
 import useQuery from "../../utils/use-query";
+import {Paper, Typography} from "@material-ui/core";
+import PinnedPostsContainer from "../../containers/pinned-posts-container";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        margin: theme.spacing(2, 0),
+        margin: theme.spacing(0),
         width: '100%',
         display: 'flex',
         flexDirection: 'row',
@@ -29,6 +31,14 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('md')]: {
             width: "100%",
         }
+    },
+    sectionTitlePaper: {
+        padding: theme.spacing(1, 2),
+        margin: theme.spacing(1, 0),
+        width: "100%",
+    },
+    sectionTitle: {
+        fontWeight: 700
     }
 }));
 
@@ -45,6 +55,17 @@ const MainPage: React.FC<MainPageProps> = () => {
     return (
         <div className={classes.root}>
             <div className={classes.left}>
+                <Paper className={classes.sectionTitlePaper} elevation={0}>
+                    <Typography className={classes.sectionTitle} variant={'caption'}>
+                        PINNED
+                    </Typography>
+                </Paper>
+                <PinnedPostsContainer/>
+                <Paper className={classes.sectionTitlePaper} elevation={0}>
+                    <Typography className={classes.sectionTitle} variant={'caption'}>
+                        POSTS
+                    </Typography>
+                </Paper>
                 <PostListContainer tag={tag} page={page} key={`tag=${tag}&page=${page}`}/>
             </div>
             <div className={classes.right}>
